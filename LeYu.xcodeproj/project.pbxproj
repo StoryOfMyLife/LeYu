@@ -1,0 +1,431 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		52635A841BA8718000703DBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635A831BA8718000703DBE /* main.m */; };
+		52635A871BA8718000703DBE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635A861BA8718000703DBE /* AppDelegate.m */; };
+		52635A8A1BA8718000703DBE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635A891BA8718000703DBE /* ViewController.m */; };
+		52635A8D1BA8718000703DBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52635A8B1BA8718000703DBE /* Main.storyboard */; };
+		52635A8F1BA8718000703DBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52635A8E1BA8718000703DBE /* Images.xcassets */; };
+		52635A921BA8718000703DBE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52635A901BA8718000703DBE /* LaunchScreen.xib */; };
+		52635A9E1BA8718000703DBE /* LeYuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635A9D1BA8718000703DBE /* LeYuTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		52635A981BA8718000703DBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52635A761BA8717F00703DBE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52635A7D1BA8718000703DBE;
+			remoteInfo = LeYu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		52635A7E1BA8718000703DBE /* LeYu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeYu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52635A821BA8718000703DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52635A831BA8718000703DBE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		52635A851BA8718000703DBE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		52635A861BA8718000703DBE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		52635A881BA8718000703DBE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		52635A891BA8718000703DBE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		52635A8C1BA8718000703DBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		52635A8E1BA8718000703DBE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		52635A911BA8718000703DBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		52635A971BA8718000703DBE /* LeYuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeYuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		52635A9C1BA8718000703DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52635A9D1BA8718000703DBE /* LeYuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeYuTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		52635A7B1BA8718000703DBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52635A941BA8718000703DBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		52635A751BA8717F00703DBE = {
+			isa = PBXGroup;
+			children = (
+				52635A801BA8718000703DBE /* LeYu */,
+				52635A9A1BA8718000703DBE /* LeYuTests */,
+				52635A7F1BA8718000703DBE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		52635A7F1BA8718000703DBE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				52635A7E1BA8718000703DBE /* LeYu.app */,
+				52635A971BA8718000703DBE /* LeYuTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		52635A801BA8718000703DBE /* LeYu */ = {
+			isa = PBXGroup;
+			children = (
+				52635A851BA8718000703DBE /* AppDelegate.h */,
+				52635A861BA8718000703DBE /* AppDelegate.m */,
+				52635A881BA8718000703DBE /* ViewController.h */,
+				52635A891BA8718000703DBE /* ViewController.m */,
+				52635A8B1BA8718000703DBE /* Main.storyboard */,
+				52635A8E1BA8718000703DBE /* Images.xcassets */,
+				52635A901BA8718000703DBE /* LaunchScreen.xib */,
+				52635A811BA8718000703DBE /* Supporting Files */,
+			);
+			path = LeYu;
+			sourceTree = "<group>";
+		};
+		52635A811BA8718000703DBE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				52635A821BA8718000703DBE /* Info.plist */,
+				52635A831BA8718000703DBE /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		52635A9A1BA8718000703DBE /* LeYuTests */ = {
+			isa = PBXGroup;
+			children = (
+				52635A9D1BA8718000703DBE /* LeYuTests.m */,
+				52635A9B1BA8718000703DBE /* Supporting Files */,
+			);
+			path = LeYuTests;
+			sourceTree = "<group>";
+		};
+		52635A9B1BA8718000703DBE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				52635A9C1BA8718000703DBE /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		52635A7D1BA8718000703DBE /* LeYu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52635AA11BA8718000703DBE /* Build configuration list for PBXNativeTarget "LeYu" */;
+			buildPhases = (
+				52635A7A1BA8718000703DBE /* Sources */,
+				52635A7B1BA8718000703DBE /* Frameworks */,
+				52635A7C1BA8718000703DBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LeYu;
+			productName = LeYu;
+			productReference = 52635A7E1BA8718000703DBE /* LeYu.app */;
+			productType = "com.apple.product-type.application";
+		};
+		52635A961BA8718000703DBE /* LeYuTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52635AA41BA8718000703DBE /* Build configuration list for PBXNativeTarget "LeYuTests" */;
+			buildPhases = (
+				52635A931BA8718000703DBE /* Sources */,
+				52635A941BA8718000703DBE /* Frameworks */,
+				52635A951BA8718000703DBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52635A991BA8718000703DBE /* PBXTargetDependency */,
+			);
+			name = LeYuTests;
+			productName = LeYuTests;
+			productReference = 52635A971BA8718000703DBE /* LeYuTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		52635A761BA8717F00703DBE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = liuty;
+				TargetAttributes = {
+					52635A7D1BA8718000703DBE = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					52635A961BA8718000703DBE = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 52635A7D1BA8718000703DBE;
+					};
+				};
+			};
+			buildConfigurationList = 52635A791BA8717F00703DBE /* Build configuration list for PBXProject "LeYu" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 52635A751BA8717F00703DBE;
+			productRefGroup = 52635A7F1BA8718000703DBE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				52635A7D1BA8718000703DBE /* LeYu */,
+				52635A961BA8718000703DBE /* LeYuTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		52635A7C1BA8718000703DBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52635A8D1BA8718000703DBE /* Main.storyboard in Resources */,
+				52635A921BA8718000703DBE /* LaunchScreen.xib in Resources */,
+				52635A8F1BA8718000703DBE /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52635A951BA8718000703DBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		52635A7A1BA8718000703DBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52635A8A1BA8718000703DBE /* ViewController.m in Sources */,
+				52635A871BA8718000703DBE /* AppDelegate.m in Sources */,
+				52635A841BA8718000703DBE /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52635A931BA8718000703DBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52635A9E1BA8718000703DBE /* LeYuTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		52635A991BA8718000703DBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52635A7D1BA8718000703DBE /* LeYu */;
+			targetProxy = 52635A981BA8718000703DBE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		52635A8B1BA8718000703DBE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52635A8C1BA8718000703DBE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		52635A901BA8718000703DBE /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52635A911BA8718000703DBE /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		52635A9F1BA8718000703DBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		52635AA01BA8718000703DBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		52635AA21BA8718000703DBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LeYu/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		52635AA31BA8718000703DBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LeYu/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		52635AA51BA8718000703DBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LeYuTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeYu.app/LeYu";
+			};
+			name = Debug;
+		};
+		52635AA61BA8718000703DBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LeYuTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeYu.app/LeYu";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		52635A791BA8717F00703DBE /* Build configuration list for PBXProject "LeYu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52635A9F1BA8718000703DBE /* Debug */,
+				52635AA01BA8718000703DBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52635AA11BA8718000703DBE /* Build configuration list for PBXNativeTarget "LeYu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52635AA21BA8718000703DBE /* Debug */,
+				52635AA31BA8718000703DBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		52635AA41BA8718000703DBE /* Build configuration list for PBXNativeTarget "LeYuTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52635AA51BA8718000703DBE /* Debug */,
+				52635AA61BA8718000703DBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 52635A761BA8717F00703DBE /* Project object */;
+}
