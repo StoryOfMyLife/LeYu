@@ -32,10 +32,9 @@
 
 -(BOOL) textContentNotEmpty;
 
-
+@property (nonatomic,strong) UITextField *textField;
 
 @property (nonatomic,assign) BOOL flagError;
-
 
 @property (nonatomic,strong) void(^didBeginTextEditingHandler)(UITextField *textField);
 

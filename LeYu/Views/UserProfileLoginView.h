@@ -10,12 +10,12 @@
 
 @protocol UserProfileLoginDelegate <NSObject>
 
--(void)navigateToLoginPage;
+- (void)navigateToLoginPage;
 
 @end
 
 @interface UserProfileLoginView : UIView
 
-@property (nonatomic,weak) id<UserProfileLoginDelegate> delegate;
+@property (nonatomic, weak) id<UserProfileLoginDelegate> delegate;
 
 @end

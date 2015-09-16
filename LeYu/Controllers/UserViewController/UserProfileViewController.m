@@ -19,22 +19,36 @@
 
 @interface UserProfileViewController () <UserLoginControllerDelegate,UserProfileLoginDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,strong) UserProfileLoginView *loginView;
+@property (nonatomic, strong) UserProfileLoginView *loginView;
 
-@property (nonatomic,strong) UIView* userInfoFooterView;
+@property (nonatomic, strong) UIView *userInfoFooterView;
 
-@property (nonatomic,assign) CGFloat userInfoHeight;;
-
+@property (nonatomic, assign) CGFloat userInfoHeight;;
 
 @end
 
-
 @implementation UserProfileViewController
 
+- (UIView *)tableHeaderView
+{
+    UIView *headerView = [[UIView alloc] init];
+    return headerView;
+}
 
+- (void)showLoginView
+{
+    self.tableView.hidden = YES;
+    [self.view addSubview:self.loginView];
+    WeakSelf weakself =self;
+    [self.loginView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(weakself.view);
+    }];
+}
 
--(void)loadView {
-    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.loginView = [[UserProfileLoginView alloc] init];
     self.loginView.delegate =self;
@@ -47,51 +61,26 @@
     self.tableView.tableFooterView= [[UIView alloc]init];
     
     [self.view addSubview:self.tableView];
-
-    LYUser *currentUser = [LYUser currentUser];
-    if (!currentUser) {
-        [self showLoginView];
-        [self navigateToLoginPage];
-    }
-  
-}
-
--(UIView *)tableHeaderView {
-    UIView *headerView = [[UIView alloc] init];
-    return headerView;
-}
-
--(void)showLoginView{
-    self.tableView.hidden = YES;
-    [self.view addSubview:self.loginView];
-    WeakSelf weakself =self;
-    [self.loginView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(weakself.view);
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
     }];
-}
-
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+    
     [self registerTableCells];
-    [self setUpTitle];
-  
+    
+    self.title = @"个人";
 }
 
--(void)setUpTitle {
-  self.title = @"用户详情";
-}
-
--(void)registerTableCells {
+- (void)registerTableCells
+{
     [self.tableView registerClass:UserProfileInfoCell.class forCellReuseIdentifier:NSStringFromClass(UserProfileInfoCell.class)];
     [self.tableView registerClass:UserLikeAndSettingCell.class forCellReuseIdentifier:NSStringFromClass(UserLikeAndSettingCell.class)];
 }
 
-
-
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
+    
     LYUser *currentUser = [LYUser currentUser];
     if (!currentUser) {
         [self showLoginView];
@@ -102,10 +91,6 @@
          [self.loginView removeFromSuperview];
     }
     
-    WeakSelf weakself =self;
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(weakself.view);
-    }];
     UserProfileInfoCell * dummyCell = [[UserProfileInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"dummyCell"];
     [dummyCell configureUser:currentUser];
     self.userInfoHeight = [dummyCell.userInfoWrapperView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize].height;
@@ -113,23 +98,29 @@
 
 }
 
-
--(void)navigateToLoginPage {
+- (void)navigateToLoginPage
+{
     LoginAndSignUpViewController *loginViewController = [[LoginAndSignUpViewController alloc] init];
     loginViewController.delegate =  self;
     UINavigationController *loginViewNavigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    loginViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentViewController:loginViewNavigationController animated:YES completion:nil];
 }
 
+#pragma mark -
+#pragma mark UserLoginControllerDelegate
 
--(void)exitLoginProcess {
+- (void)exitLoginProcess
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)loginCallback {
+- (void)loginCallback
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark -
+#pragma mark tableview delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (section) {

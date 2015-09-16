@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "LYUITextField.h"
+#import <UICountingLabel.h>
 
 @protocol PhoneVerifiedDelegate <NSObject>
 
--(void)resentCode;
+- (void)resentCode;
 
 @end
 
@@ -21,6 +22,8 @@
 
 @property (nonatomic,strong) LYUITextField *verifiedCodeField;
 
--(void)setTimeOut;
+@property (nonatomic,strong) UICountingLabel *countingLabel;
+
+- (void)setTimeOut;
 
 @end

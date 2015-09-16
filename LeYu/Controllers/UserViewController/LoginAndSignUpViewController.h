@@ -7,21 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LViewController.h"
 
 @protocol UserLoginControllerDelegate <NSObject>
 
--(void)exitLoginProcess;
+- (void)exitLoginProcess;
 
 @optional
 
--(void)loginCallback;
+- (void)loginCallback;
 
 @end
 
-@interface LoginAndSignUpViewController : UIViewController
+@interface LoginAndSignUpViewController : LViewController
 
-
-@property (nonatomic,weak) id<UserLoginControllerDelegate> delegate;
-
+@property (nonatomic, weak) id<UserLoginControllerDelegate> delegate;
 
 @end

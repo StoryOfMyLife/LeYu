@@ -17,20 +17,20 @@
 
 @end
 
-
-
 @implementation NewNotificationsViewController
 
-
--(instancetype) init {
+- (instancetype)init
+{
     if (self = [super init]) {
         self.notifications = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
--(void)setUpTitle {
-    self.title=@"消息";
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.title = @"消息";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -69,11 +69,13 @@
 
 }
 
--(void)registerTableCells {
+- (void)registerTableCells
+{
    [self.tableView registerClass:NotificationMessageCell.class forCellReuseIdentifier:NSStringFromClass(NotificationMessageCell.class)];
 }
 
--(UIView *)tableHeaderView {
+- (UIView *)tableHeaderView
+{
     UIView *newWrapperView = [[UIView alloc] initWithFrame:CGRectMake(0,0 ,self.view.bounds.size.width, 70.0f)];
     newWrapperView.backgroundColor = [ColorFactory dyLightGray];
     UIView *buttonView = [[UIView alloc] init];
@@ -127,13 +129,7 @@
         make.right.equalTo(buttonView.mas_right).with.offset(-10.0f);
         
     }];
-    
-    
     return newWrapperView;
-    
-    
 }
-
-
 
 @end

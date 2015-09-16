@@ -8,21 +8,16 @@
 
 #import "PhoneVerifiedLabel.h"
 
-#import  <UICountingLabel.h>
-
 @interface PhoneVerifiedLabel()
 
 @property (nonatomic,strong) UILabel *prefixEmpytLabel;
-
-
-@property (nonatomic,strong) UICountingLabel *countingLabel;
 
 @end
 
 @implementation PhoneVerifiedLabel
 
-
--(instancetype) init {
+- (instancetype)init
+{
     if (self = [super init]) {
         self.prefixEmpytLabel = [[UILabel alloc] init];
         [self addSubview:self.prefixEmpytLabel];
@@ -31,8 +26,11 @@
         [self addSubview:self.verifiedCodeField];
         
         self.countingLabel = [[UICountingLabel alloc] init];
+        self.countingLabel.alpha = 0;
         [[self.countingLabel layer] setBorderColor:UIColorFromRGB(0xC4A24A).CGColor];
         [[self.countingLabel layer] setBorderWidth:1.0f];
+        self.countingLabel.layer.cornerRadius = 20;
+        self.countingLabel.textColor = DefaultYellowColor;
         self.countingLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.countingLabel];
         self.countingLabel.format = @"%d";
@@ -47,39 +45,28 @@
     return self;
 }
 
-
--(void)setUpConstraint{
-    WeakSelf weakSelf =self;
-    [self.prefixEmpytLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.mas_left).with.offset(10.0f);
-        make.bottom.equalTo(weakSelf.mas_bottom);
-        make.top.equalTo(weakSelf.mas_top);
-        make.width.equalTo(weakSelf.mas_width).dividedBy(3);
-    }];
-    
+- (void)setUpConstraint
+{
     [self.verifiedCodeField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.prefixEmpytLabel.mas_right);
-        make.bottom.equalTo(weakSelf.mas_bottom);
-        make.top.equalTo(weakSelf.mas_top);
-        make.width.equalTo(weakSelf.mas_width).dividedBy(3);
+        make.left.equalTo(self).offset(50);
+        make.top.bottom.equalTo(self);
     }];
     
     [self.countingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.verifiedCodeField.mas_right);
-        make.top.equalTo(weakSelf.mas_top).with.offset(5.0f);
-        make.bottom.equalTo(weakSelf.mas_bottom).with.offset(-5.0f);
+        make.right.equalTo(self).offset(-10);
+        make.centerY.equalTo(self);
         make.width.equalTo(@(80.0f));
+        make.height.equalTo(@(40));
     }];
-
 }
 
-
--(void)setTimeOut {
+- (void)setTimeOut
+{
     [self.countingLabel countFrom:300 to:0 withDuration:300];
-
 }
 
--(void)resentCode {
+- (void)resentCode
+{
    self.countingLabel.text = @"重发中...";
     if (self.delegate) {
         [self.delegate resentCode];

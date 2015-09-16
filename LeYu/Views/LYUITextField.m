@@ -12,8 +12,6 @@
 
 @interface LYUITextField() <UITextFieldDelegate>
 
-@property (nonatomic,strong) UITextField *textField;
-
 @property (nonatomic,strong) UIColor *color;
 
 @property (nonatomic,assign) UIEdgeInsets textEdgeInsets;
@@ -35,6 +33,7 @@
         self.textField.placeholder = placeholder;
         self.textField.delegate = self;
         self.textField.textColor = [UIColor grayColor];
+        self.textField.tintColor = DefaultYellowColor;
         self.color = [UIColor grayColor];
         self.isPasswordType =  NO;
         self.flagError = NO;
@@ -42,8 +41,6 @@
         [self addSubview:self.textField];
         self.viewShaker = [[AFViewShaker alloc] initWithView:self.textField];
         [self setUpConstraints];
-        
-        
     }
     return self;
 }
@@ -144,7 +141,7 @@
 -(void)setError {
     [self.viewShaker shake];
     self.flagError = YES;
-    self.textField.textColor = [UIColor redColor];
+    self.textField.textColor = RGBCOLOR(251, 71, 71);
     [self.textField setNeedsDisplay];
 }
 
@@ -159,34 +156,40 @@
     }
 }
 
--(void)setKeyboardType:(UIKeyboardType) keyboardType {
+- (void)setKeyboardType:(UIKeyboardType) keyboardType
+{
     self.textField.keyboardType = keyboardType;
 }
 
--(NSString *)getText{
+- (NSString *)getText
+{
     return self.textField.text;
 }
 
--(void)resignResponder {
+- (void)resignResponder
+{
     [self.textField resignFirstResponder];
 }
 
--(void)becomeResponder {
+- (void)becomeResponder
+{
     [self.textField becomeFirstResponder];
 }
 
--(void)typeAsPassword {
+- (void)typeAsPassword
+{
     self.isPasswordType = YES;
     self.textField.secureTextEntry = YES;
 }
 
--(BOOL)isResponder {
+- (BOOL)isResponder
+{
     return [self.textField isFirstResponder];
 }
 
-
-
--(BOOL) textContentNotEmpty {
+- (BOOL)textContentNotEmpty
+{
+    [self resignResponder];
     if ([StringFactory isEmptyString:self.textField.text]) {
         self.textField.text = @"不能为空";
         if (self.isPasswordType) {
@@ -197,8 +200,6 @@
         return NO;
     }
     return YES;
-
 }
-
 
 @end
