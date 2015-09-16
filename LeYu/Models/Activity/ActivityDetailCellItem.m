@@ -1,0 +1,217 @@
+//
+//  ActivityDetailCellItem.m
+//  LifeO2O
+//
+//  Created by 刘廷勇 on 15/7/29.
+//  Copyright (c) 2015年 Arsenal. All rights reserved.
+//
+
+#import "ActivityDetailCellItem.h"
+
+@implementation ActivityDetailCellItem
+
+- (Class)cellClass
+{
+    return [ActivityDetailCell class];
+}
+
+@end
+
+@implementation ActivityDetailCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIView *verticalLine = [[UIView alloc] init];
+        verticalLine.backgroundColor = DefaultYellowColor;
+        [self.contentView addSubview:verticalLine];
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.font = SystemFontWithSize(16);
+        label.textColor = DefaultYellowColor;
+        label.text = @"活动内容";
+        [self.contentView addSubview:label];
+        
+        self.activityDescLabel = [[UILabel alloc] init];
+        self.activityDescLabel.font = SystemFontWithSize(12);
+        self.activityDescLabel.textColor = RGBCOLOR_HEX(0x828282);
+        [self.contentView addSubview:self.activityDescLabel];
+        
+        UIView *verticalLine1 = [[UIView alloc] init];
+        verticalLine1.backgroundColor = DefaultYellowColor;
+        [self.contentView addSubview:verticalLine1];
+        
+        UILabel *label1 = [[UILabel alloc] init];
+        label1.font = SystemFontWithSize(16);
+        label1.textColor = DefaultYellowColor;
+        label1.text = @"活动时间";
+        [self.contentView addSubview:label1];
+        
+        self.activityDateLabel = [[UILabel alloc] init];
+        self.activityDateLabel.font = self.activityDescLabel.font;
+        self.activityDateLabel.textColor = self.activityDescLabel.textColor;
+        [self.contentView addSubview:self.activityDateLabel];
+        
+        self.likeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.likeButton.tintColor = DefaultYellowColor;
+        self.likeButton.titleLabel.font = SystemFontWithSize(10);
+        self.likeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.likeButton setImage:[UIImage imageNamed:@"Praise"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.likeButton];
+        
+//        UIView *buttonContainer = [[UIView alloc] init];
+//        buttonContainer.backgroundColor = [UIColor clearColor];
+//        buttonContainer.layer.borderColor = DefaultYellowColor.CGColor;
+//        buttonContainer.layer.borderWidth = 1;
+//        buttonContainer.layer.cornerRadius = 2;
+//        [self.contentView addSubview:buttonContainer];
+//        
+//        self.acceptButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//        [self.acceptButton addTarget:self action:@selector(pressedAcceptButton:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.acceptButton setTitle:@"接受" forState:UIControlStateNormal];
+//        self.acceptButton.titleLabel.font = SystemFontWithSize(16);
+//        self.acceptButton.tintColor = DefaultYellowColor;
+//        [buttonContainer addSubview:self.acceptButton];
+//        
+//        UIView *verticalLine2 = [[UIView alloc] init];
+//        verticalLine2.backgroundColor = DefaultYellowColor;
+//        [buttonContainer addSubview:verticalLine2];
+//        
+//        UIImageView *giftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Package"]];
+//        [buttonContainer addSubview:giftView];
+//        
+//        self.giftLabel = [[UILabel alloc] init];
+//        self.giftLabel.textAlignment = NSTextAlignmentRight;
+//        self.giftLabel.font = SystemFontWithSize(14);
+//        self.giftLabel.textColor = DefaultYellowColor;
+//        [buttonContainer addSubview:self.giftLabel];
+        
+        [verticalLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(label);
+            make.width.equalTo(@1);
+            make.left.equalTo(self.contentView).offset(20);
+            make.top.equalTo(self.contentView).offset(30);
+        }];
+        
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(verticalLine);
+            make.left.equalTo(verticalLine.mas_right).offset(10);
+        }];
+        
+        [self.activityDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(verticalLine);
+            make.right.equalTo(self.contentView).offset(-20);
+            make.top.equalTo(verticalLine.mas_bottom).offset(13);
+        }];
+        
+        [verticalLine1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(label1);
+            make.width.equalTo(@1);
+            make.left.equalTo(verticalLine);
+            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(35);
+        }];
+        
+        [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(verticalLine1);
+            make.left.equalTo(label);
+        }];
+        
+        [self.activityDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.activityDescLabel);
+            make.right.equalTo(self.activityDescLabel);
+            make.top.equalTo(verticalLine1.mas_bottom).offset(13);
+        }];
+        
+        [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self);
+            make.top.equalTo(self.activityDateLabel.mas_bottom).offset(37);
+            make.bottom.equalTo(self.contentView).offset(-25);
+        }];
+        
+//        [buttonContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.likeButton);
+//            make.width.equalTo(@115);
+//            make.height.equalTo(@34);
+//            make.right.equalTo(self.contentView).offset(-10);
+//        }];
+//        
+//        [self.acceptButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerX.equalTo(buttonContainer).multipliedBy(0.5);
+//            make.centerY.equalTo(buttonContainer);
+//        }];
+//        
+//        [verticalLine2 mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.center.equalTo(buttonContainer);
+//            make.height.equalTo(buttonContainer.mas_height).multipliedBy(0.5);
+//            make.width.equalTo(@1);
+//        }];
+//        
+//        [giftView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(verticalLine2).offset(12);
+//            make.centerY.equalTo(verticalLine2);
+//        }];
+//        [self.giftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.acceptButton);
+//            make.right.equalTo(buttonContainer).offset(-12);
+//        }];
+    }
+    return self;
+}
+
+- (void)setCellItem:(ActivityDetailCellItem *)cellItem
+{
+    [super setCellItem:cellItem];
+    
+    ShopActivities *activity = cellItem.activity;
+    
+    self.activityDescLabel.text = activity.activitiesDescription;
+    self.giftLabel.text = [activity.gifts stringValue] ?: @"0";
+    [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
+    [self layoutButton:self.likeButton];
+    
+    NSDate *now = cellItem.activity.activityDate ?: [NSDate date];
+    NSDate *weekFromNow = [now dateByAddingTimeInterval:aWeek];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"YYYY.MM.dd";
+    NSString *nowString = [formatter stringFromDate:now];
+    NSString *weekFromNowString = [formatter stringFromDate:weekFromNow];
+    self.activityDateLabel.text = [NSString stringWithFormat:@"%@ - %@", nowString, weekFromNowString];
+    
+    weakSelf();
+    [[self.likeButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        weakSelf.likeButton.userInteractionEnabled = NO;
+        [weakSelf.likeButton setImage:[UIImage imageNamed:@"Praise_highlighted"] forState:UIControlStateNormal];
+        activity.fetchWhenSave = YES;
+        [activity incrementKey:@"likes"];
+        [activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [weakSelf.likeButton setTitle:[activity.likes stringValue] forState:UIControlStateNormal];
+            [weakSelf layoutButton:weakSelf.likeButton];
+        }];
+    }];
+}
+
+//此方法引起constraints冲突警告，没影响，暂时不用管
+- (void)layoutButton:(UIButton *)button
+{
+    CGSize imageSize = button.imageView.image.size;
+    CGSize titleSize = button.titleLabel.size;
+    button.titleEdgeInsets = UIEdgeInsetsMake(0.0,
+                                              - (imageSize.width + titleSize.width),
+                                              - (imageSize.height / 2),
+                                              0.0);
+}
+
+#pragma mark -
+#pragma mark accept button delegate
+
+- (void)pressedAcceptButton:(UIButton *)button
+{
+    if (self.cellItem.handleBlock) {
+        self.cellItem.handleBlock(@{@"sender" : button, @"description" : @"Accept button pressed."});
+    }
+}
+
+@end

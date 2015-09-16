@@ -1,9 +1,9 @@
 //
 //  AppDelegate.h
-//  LeYu
+//  LifeO2O
 //
-//  Created by 刘廷勇 on 15/9/15.
-//  Copyright (c) 2015年 liuty. All rights reserved.
+//  Created by jiecongwang on 5/28/15.
+//  Copyright (c) 2015 Arsenal. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

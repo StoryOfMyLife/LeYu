@@ -1,14 +1,33 @@
 //
 //  AppDelegate.m
-//  LeYu
+//  LifeO2O
 //
-//  Created by 刘廷勇 on 15/9/15.
-//  Copyright (c) 2015年 liuty. All rights reserved.
+//  Created by jiecongwang on 5/28/15.
+//  Copyright (c) 2015 Arsenal. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "HomeViewController.h"
+#import "UserProfileViewController.h"
+#import "ActivityDetailViewController.h"
+#import "DesignManager.h"
+#import "ImageFactory.h"
+#import "ShopActivities.h"
+#import "Shop.h"
+#import "User.h"
+#import "ShopInfoDescription.h"
+
+#import "ActivityViewController.h"
+#import "HFCreateAvtivityViewController.h"
+#import "LYUser.h"
+#import "ShopFollower.h"
+#import "NewNotificationsViewController.h"
+#import "UITabBarController+AddButton.h"
 
 @interface AppDelegate ()
+{
+    UITabBarController *tabBarController;
+}
 
 @end
 
@@ -16,30 +35,95 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [self registerAVOSClasses];
+    
+    [AVOSCloud setApplicationId:@"w0uv3n92wrpmlhquonz9uyk6u7l8b3mplr5bv8f431bll4dx" clientKey:@"sx2r8o6eduw84oj0e9yf690p56xoqycfv63s9zywo9rbpgfp"];
+    
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    tabBarController = [[UITabBarController alloc] init];
+    UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:[[HomeViewController alloc] init]];
+    
+    homeNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"主页" image:[ImageFactory homeTabBarIcon] selectedImage:[ImageFactory homeTabBarIconSelected]];
+    
+    
+    UINavigationController *userProfileNavigationController = [[UINavigationController alloc] initWithRootViewController:[[UserProfileViewController alloc] init]];
+    
+    
+    userProfileNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"个人" image:[ImageFactory userProfilesTabBarIcon] selectedImage:[ImageFactory userProfilesTabBarIconSelected]];
+    
+    UINavigationController *activitiesViewController = [[UINavigationController alloc] initWithRootViewController:[[ActivityViewController alloc] init]];
+    
+    activitiesViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"活动" image:[ImageFactory activityTabBarIcon] selectedImage:[ImageFactory activityTabBarIconSelected]];
+    
+    UINavigationController *notificationViewController = [[UINavigationController alloc] initWithRootViewController:
+                                                          [[NewNotificationsViewController alloc] init]];
+    
+    notificationViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息" image:[ImageFactory messageTabbarIcon] selectedImage:[ImageFactory messageTabbarIconSelected]];
+    
+    NSArray *tabbars = [NSArray arrayWithObjects:homeNavigationController,activitiesViewController,notificationViewController,userProfileNavigationController, nil];
+    
+    [tabBarController setViewControllers:tabbars];
+    
+    self.window.rootViewController = tabBarController;
+    self.window.backgroundColor = [UIColor whiteColor];
+    [DesignManager applyDesign];
+    [self.window makeKeyAndVisible];
+    [self registerNotification:application];
+    
+//    LYUser *currentUser = [LYUser currentUser];
+//    if (currentUser.shop) {
+        [tabBarController showAddButton];
+//    }else {
+//        [tabBarController hideAddButton];
+//    }
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+-(void)registerNotification:(UIApplication *)application {
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert
+                                            | UIUserNotificationTypeBadge
+                                            | UIUserNotificationTypeSound
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
+    
+    [self customUI];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+- (void)customUI
+{
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor grayColor]}
+                                             forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : DefaultYellowColor}
+                                             forState:UIControlStateSelected];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+-(void)registerAVOSClasses {
+    [ShopActivities registerSubclass];
+    [Shop registerSubclass];
+    [User registerSubclass];
+    
+    [ShopInfoDescription registerSubclass];
+    [LYUser registerSubclass];
+    [ShopFollower registerSubclass];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    // to-do
 }
 
 @end
