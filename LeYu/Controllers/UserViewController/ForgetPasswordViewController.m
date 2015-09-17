@@ -1,20 +1,20 @@
 //
-//  SignUpViewController.m
+//  ForgetPasswordViewController.m
 //  LeYu
 //
 //  Created by 刘廷勇 on 15/9/18.
 //  Copyright (c) 2015年 liuty. All rights reserved.
 //
 
-#import "SignUpViewController.h"
+#import "ForgetPasswordViewController.h"
 
-@interface SignUpViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *phone;
+@interface ForgetPasswordViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *smsCode;
-
+@property (weak, nonatomic) IBOutlet UITextField *password;
+@property (weak, nonatomic) IBOutlet UITextField *phone;
 @end
 
-@implementation SignUpViewController
+@implementation ForgetPasswordViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,6 +24,11 @@
 - (IBAction)sendSMSCode:(id)sender
 {
     
+}
+
+- (IBAction)confirm:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

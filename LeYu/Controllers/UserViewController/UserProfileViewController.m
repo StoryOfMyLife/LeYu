@@ -17,6 +17,8 @@
 #import "UserFavoriteShopsViewController.h"
 #import "UserSettingsViewController.h"
 
+#import "LoginViewController.h"
+
 @interface UserProfileViewController () <UserLoginControllerDelegate,UserProfileLoginDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UserProfileLoginView *loginView;
@@ -100,8 +102,12 @@
 
 - (void)navigateToLoginPage
 {
-    LoginAndSignUpViewController *loginViewController = [[LoginAndSignUpViewController alloc] init];
-    loginViewController.delegate =  self;
+//    LoginAndSignUpViewController *loginViewController = [[LoginAndSignUpViewController alloc] init];
+//    loginViewController.delegate =  self;
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    
     UINavigationController *loginViewNavigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     [self presentViewController:loginViewNavigationController animated:YES completion:nil];
 }

@@ -26,6 +26,7 @@
 
 @dynamic shop;
 
+@dynamic level;
 
 
 + (NSString *)parseClassName {

@@ -1,30 +1,31 @@
 //
-//  SignUpViewController.m
+//  SignUpMoreViewController.m
 //  LeYu
 //
 //  Created by 刘廷勇 on 15/9/18.
 //  Copyright (c) 2015年 liuty. All rights reserved.
 //
 
-#import "SignUpViewController.h"
+#import "SignUpMoreViewController.h"
 
-@interface SignUpViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *phone;
-@property (weak, nonatomic) IBOutlet UITextField *smsCode;
+@interface SignUpMoreViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *name;
+@property (weak, nonatomic) IBOutlet UITextField *password;
 
 @end
 
-@implementation SignUpViewController
+@implementation SignUpMoreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (IBAction)sendSMSCode:(id)sender
+- (IBAction)signUp:(id)sender
 {
     
 }
+
 
 /*
 #pragma mark - Navigation

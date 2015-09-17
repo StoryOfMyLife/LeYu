@@ -8,7 +8,7 @@
 
 #import "LoginAndSignUpViewController.h"
 #import "ColorFactory.h"
-#import "SignUpViewController.h"
+#import "SignUpViewController_old.h"
 #import "ImageFactory.h"
 #import "LYUITextField.h"
 #import <NBPhoneNumberUtil.h>
@@ -81,13 +81,13 @@
     
     self.prefix = [[UILabel alloc] init];
     self.prefix.numberOfLines =1;
-    self.prefix.text = @"+86";
+    self.prefix.text = @"手机号";
     self.prefix.textAlignment = NSTextAlignmentLeft;
     self.prefix.textColor = [UIColor grayColor];
     
     [self.loginWrapperView addSubview:self.prefix];
     
-    self.phoneNumberTextField = [[LYUITextField alloc] initWithPlaceholder:@"电话号码"];
+    self.phoneNumberTextField = [[LYUITextField alloc] initWithPlaceholder:@"请输入手机号"];
     [self.phoneNumberTextField setKeyboardType:UIKeyboardTypeNumberPad];
 
     [self.loginWrapperView addSubview:self.phoneNumberTextField];
@@ -235,7 +235,7 @@
                 //TODO:
             }
             if (!user.hasBeenUpdate) {
-                SignUpViewController *signUpViewController = [[SignUpViewController alloc] initWithUser:user];
+                SignUpViewController_old *signUpViewController = [[SignUpViewController_old alloc] initWithUser:user];
                 signUpViewController.delegate = self;
                 [self.navigationController pushViewController:signUpViewController animated:YES];
             } else {
