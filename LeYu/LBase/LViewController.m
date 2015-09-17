@@ -19,7 +19,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
 }
 
 - (void)setNavigationBackgroundClear:(BOOL)clear
@@ -32,7 +31,7 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     UITabBarController *tabBarController = (UITabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
     if (![tabBarController showingAddButton]) {
@@ -40,12 +39,10 @@
         if (currentUser.shop) {
             [tabBarController showAddButton];
             
-        }else {
+        } else {
             [tabBarController hideAddButton];
         }
-       
     }
-
 }
 
 @end

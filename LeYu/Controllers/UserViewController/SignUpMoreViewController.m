@@ -12,29 +12,52 @@
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 
+@property (nonatomic, strong) NSDictionary *userInfo;
+
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @end
 
 @implementation SignUpMoreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    RAC(self.signUpButton, enabled) = [RACSignal combineLatest:@[self.name.rac_textSignal, self.password.rac_textSignal] reduce:(id)^(NSString *username, NSString *password){
+        return @(username.length > 0 && password.length >= 6);
+    }];
 }
 
 - (IBAction)signUp:(id)sender
 {
+    AVUser *user = [AVUser user];
+    user.username = self.name.text;
+    user.password = self.password.text;
+    user.mobilePhoneNumber = self.userInfo[@"phone"];
     
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            //注册成功，登录
+            [AVUser logInWithMobilePhoneNumberInBackground:self.userInfo[@"phone"] password:self.password.text block:^(AVUser *user, NSError *error) {
+                if (user) {
+                    [self dismiss];
+                }
+            }];
+        } else {
+            Log(@"注册失败");
+        }
+    }];
 }
 
+- (void)dismiss
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    self.userInfo = sender;
 }
-*/
+
 
 @end

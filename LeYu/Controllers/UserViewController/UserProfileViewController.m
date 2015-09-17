@@ -83,7 +83,7 @@
 {
     [super viewWillAppear:animated];
     
-    LYUser *currentUser = [LYUser currentUser];
+    LYUser *currentUser = (LYUser *)[LYUser currentUser];
     if (!currentUser) {
         [self showLoginView];
     }
