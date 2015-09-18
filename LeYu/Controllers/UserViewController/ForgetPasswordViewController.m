@@ -35,6 +35,8 @@
     self.smsCodeSended = NO;
     self.verified = NO;
     
+    self.confirmButton.tintColor = [UIColor whiteColor];
+    
     self.countingLabel.textColor = DefaultYellowColor;
     self.countingLabel.textAlignment = NSTextAlignmentCenter;
     self.countingLabel.format = @"%d";
@@ -62,7 +64,7 @@
     if (!error) {
         BOOL isValid = [self.phoneNumberUtil isValidNumber:phoneNumber];
         if (isValid) {
-            [AVUser requestPasswordResetWithPhoneNumber:self.phone.text block:^(BOOL succeeded, NSError *error) {
+            [LYUser requestPasswordResetWithPhoneNumber:self.phone.text block:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     self.smsCodeSended = YES;
                     [self.countingLabel countFrom:59 to:0 withDuration:60];
@@ -78,7 +80,7 @@
 
 - (IBAction)confirm:(id)sender
 {
-    [AVUser resetPasswordWithSmsCode:self.smsCode.text newPassword:self.password.text block:^(BOOL succeeded, NSError *error) {
+    [LYUser resetPasswordWithSmsCode:self.smsCode.text newPassword:self.password.text block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             Log(@"密码重置成功");
             [self.navigationController popViewControllerAnimated:YES];

@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) Shop *shop;
 
+@property (nonatomic, strong) NSString *title;
+
 @property (nonatomic, strong) NSDate *activityDate;
 
 @property (nonatomic, copy) NSString *activitiesDescription;
@@ -30,8 +32,6 @@
 @property (nonatomic) BOOL accepted;
 
 @property (nonatomic) BOOL otherActivity;
-
-@property (nonatomic, copy) void (^shopSelectedBlock)(Shop *shop);
 
 - (void)getActivityThumbNail:(AVImageResultBlock)block;
 

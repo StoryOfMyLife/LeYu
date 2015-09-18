@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HomeViewController.h"
-#import "UserProfileViewController.h"
+#import "UserContainerViewController.h"
 #import "ActivityDetailViewController.h"
 #import "DesignManager.h"
 #import "ImageFactory.h"
@@ -48,9 +48,7 @@
     
     homeNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"主页" image:[ImageFactory homeTabBarIcon] selectedImage:[ImageFactory homeTabBarIconSelected]];
     
-    
-    UINavigationController *userProfileNavigationController = [[UINavigationController alloc] initWithRootViewController:[[UserProfileViewController alloc] init]];
-    
+    UINavigationController *userProfileNavigationController = [[UINavigationController alloc] initWithRootViewController:[[UserContainerViewController alloc] init]];
     
     userProfileNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"个人" image:[ImageFactory userProfilesTabBarIcon] selectedImage:[ImageFactory userProfilesTabBarIconSelected]];
     
@@ -73,16 +71,24 @@
     [self.window makeKeyAndVisible];
     [self registerNotification:application];
     
-//    LYUser *currentUser = [LYUser currentUser];
-//    if (currentUser.shop) {
-        [tabBarController showAddButton];
-//    }else {
-//        [tabBarController hideAddButton];
-//    }
+    [self checkAddButton];
+    
+//    [AVUser logOut];
+    
     return YES;
 }
 
--(void)registerNotification:(UIApplication *)application {
+- (void)checkAddButton
+{
+    LYUser *currentUser = [LYUser currentUser];
+    if (currentUser.level == UserLevelShop) {
+        [tabBarController showAddButton];
+    } else {
+        [tabBarController hideAddButton];
+    }
+}
+
+- (void)registerNotification:(UIApplication *)application {
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert
                                             | UIUserNotificationTypeBadge
                                             | UIUserNotificationTypeSound
@@ -110,6 +116,10 @@
                                              forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : DefaultYellowColor}
                                              forState:UIControlStateSelected];
+    
+    [[UITextField appearance] setTintColor:DefaultYellowColor];
+    
+    [[UIButton appearance] setTintColor:DefaultYellowColor];
 }
 
 -(void)registerAVOSClasses {

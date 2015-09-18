@@ -10,10 +10,10 @@
 
 @interface UITabBarController (AddButton)
 
--(void)showAddButton;
+- (void)showAddButton;
 
--(void)hideAddButton;
+- (void)hideAddButton;
 
--(BOOL)showingAddButton;
+- (BOOL)showingAddButton;
 
 @end

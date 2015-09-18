@@ -54,6 +54,8 @@
 		523978651BAB1E2500CB9B9E /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978641BAB1E2500CB9B9E /* ForgetPasswordViewController.m */; };
 		523978681BAB233200CB9B9E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978671BAB233200CB9B9E /* SignUpViewController.m */; };
 		5239786B1BAB23A800CB9B9E /* SignUpMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239786A1BAB23A800CB9B9E /* SignUpMoreViewController.m */; };
+		5239786E1BAC6CE400CB9B9E /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239786D1BAC6CE400CB9B9E /* UserViewController.m */; };
+		523978711BAC75BD00CB9B9E /* UserContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978701BAC75BD00CB9B9E /* UserContainerViewController.m */; };
 		52635A841BA8718000703DBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635A831BA8718000703DBE /* main.m */; };
 		52635A9E1BA8718000703DBE /* LeYuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635A9D1BA8718000703DBE /* LeYuTests.m */; };
 		52635AAC1BA871E400703DBE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635AAB1BA871E400703DBE /* AppDelegate.m */; };
@@ -219,6 +221,10 @@
 		523978671BAB233200CB9B9E /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		523978691BAB23A800CB9B9E /* SignUpMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpMoreViewController.h; sourceTree = "<group>"; };
 		5239786A1BAB23A800CB9B9E /* SignUpMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpMoreViewController.m; sourceTree = "<group>"; };
+		5239786C1BAC6CE400CB9B9E /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		5239786D1BAC6CE400CB9B9E /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		5239786F1BAC75BD00CB9B9E /* UserContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserContainerViewController.h; sourceTree = "<group>"; };
+		523978701BAC75BD00CB9B9E /* UserContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserContainerViewController.m; sourceTree = "<group>"; };
 		52635A7E1BA8718000703DBE /* LeYu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeYu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52635A821BA8718000703DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52635A831BA8718000703DBE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -477,6 +483,10 @@
 				523978671BAB233200CB9B9E /* SignUpViewController.m */,
 				523978691BAB23A800CB9B9E /* SignUpMoreViewController.h */,
 				5239786A1BAB23A800CB9B9E /* SignUpMoreViewController.m */,
+				5239786C1BAC6CE400CB9B9E /* UserViewController.h */,
+				5239786D1BAC6CE400CB9B9E /* UserViewController.m */,
+				5239786F1BAC75BD00CB9B9E /* UserContainerViewController.h */,
+				523978701BAC75BD00CB9B9E /* UserContainerViewController.m */,
 			);
 			path = UserViewController;
 			sourceTree = "<group>";
@@ -1004,6 +1014,7 @@
 				5239783E1BA9A25A00CB9B9E /* ActivityDetailCellItem.m in Sources */,
 				52635C081BA8728200703DBE /* YDExpandInAnimator.m in Sources */,
 				52635C071BA8728200703DBE /* YDDismissFadeOutAnimator.m in Sources */,
+				523978711BAC75BD00CB9B9E /* UserContainerViewController.m in Sources */,
 				52635BB81BA8728200703DBE /* ALAssetsGroup+isEqual.m in Sources */,
 				5239783C1BA9A25A00CB9B9E /* ActivityAcceptCellItem.m in Sources */,
 				5239781F1BA99B5C00CB9B9E /* UserInfoDetailEditViewController.m in Sources */,
@@ -1021,6 +1032,7 @@
 				523978651BAB1E2500CB9B9E /* ForgetPasswordViewController.m in Sources */,
 				5239781E1BA99B5C00CB9B9E /* UserFavoriteShopsViewController.m in Sources */,
 				52635C0A1BA8728200703DBE /* YDPresentFadeInAnimator.m in Sources */,
+				5239786E1BAC6CE400CB9B9E /* UserViewController.m in Sources */,
 				523977F51BA99ACB00CB9B9E /* HFActivityEditViewController.m in Sources */,
 				523978241BA99B5C00CB9B9E /* UserSettingsViewController.m in Sources */,
 				523978041BA99B2F00CB9B9E /* ShopMapViewController.m in Sources */,

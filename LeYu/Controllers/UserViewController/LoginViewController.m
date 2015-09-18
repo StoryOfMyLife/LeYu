@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
+@property (nonatomic, assign) BOOL shopLogin;
+
 @end
 
 @implementation LoginViewController
@@ -23,8 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.phone.tintColor = DefaultYellowColor;
-    self.password.tintColor = DefaultYellowColor;
+    
+    self.loginButton.tintColor = [UIColor whiteColor];
     
     RAC(self.loginButton, enabled) = [RACSignal combineLatest:@[self.phone.rac_textSignal, self.password.rac_textSignal] reduce:(id)^(NSString *username, NSString *password){
         return @(username.length == 11 && password.length >= 6);
@@ -33,11 +35,25 @@
 
 - (IBAction)login:(id)sender
 {
-    [AVUser logInWithMobilePhoneNumberInBackground:self.phone.text password:self.password.text block:^(AVUser *user, NSError *error) {
+    [LYUser logInWithMobilePhoneNumberInBackground:self.phone.text password:self.password.text block:^(AVUser *user, NSError *error) {
         if (user) {
+            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            [appdelegate checkAddButton];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
+}
+
+- (IBAction)shopLogin:(id)sender
+{
+    [self performSegueWithIdentifier:@"shopLogin" sender:@"shopLogin"];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"shopLogin"]) {
+        self.shopLogin = YES;
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

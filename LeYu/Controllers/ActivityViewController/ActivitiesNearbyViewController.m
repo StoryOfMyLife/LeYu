@@ -12,12 +12,10 @@
 #import "ShopActivities.h"
 #import "Shop.h"
 #import "LYUser.h"
-#import "User.h"
 #import "LoginAndSignUpViewController.h"
 
 @interface ActivitiesNearbyViewController () <UserLoginControllerDelegate>
 
-@property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSMutableArray *activitiesNearby;
 @property (nonatomic, strong) NSMutableArray *myActivities;
 
@@ -33,12 +31,6 @@
     [super viewDidLoad];
     
     self.title = @"活动";
-    
-    LYUser *currentUser = (LYUser *)[AVUser currentUser];
-    
-    self.user = [[User alloc] init];
-    self.user.name = currentUser.username;
-    self.user.signature = currentUser.signature;
     
     self.tableView.backgroundColor = UIColorFromRGB(0xF0F0F0);
     self.tableView.tableFooterView = [[UIView alloc] init];

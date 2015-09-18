@@ -8,7 +8,7 @@
 
 #import "LYUser.h"
 
-@interface LYUser() <AVSubclassing>
+@interface LYUser()
 
 @end
 

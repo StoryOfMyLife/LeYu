@@ -128,7 +128,7 @@ static const CGFloat kContentInset = 20;
     [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.shopIcon.mas_bottom).with.offset(titleVerticalGap);
         make.left.equalTo(self.shopIcon);
-        make.right.equalTo(superview).with.offset(-kContentInset);
+        make.right.equalTo(self.locationView.mas_left).with.offset(-kContentInset);
         make.bottom.equalTo(superview).with.offset(-titleVerticalGap);
     }];
     
@@ -172,7 +172,7 @@ static const CGFloat kContentInset = 20;
 
 - (void)configureCellWithActivity:(ShopActivities *)activity
 {
-    self.titleLabel.text = activity.activitiesDescription;
+    self.titleLabel.text = activity.title;
     self.giftNumberLabel.text = activity.gifts.stringValue ?: @"0";
     [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
         [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
@@ -202,8 +202,9 @@ static const CGFloat kContentInset = 20;
             self.shopIcon.image = image;
         }];
         
+        weakSelf();
         [self.shopIcon bk_whenTapped:^{
-            [self navigateToShopPage:shop];
+            [weakSelf navigateToShopPage:shop];
         }];
     });
     self.shopNameLabel.text = shop.shopname;

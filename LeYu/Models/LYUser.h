@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, UserLevel) {
     UserLevelShop = 2
 };
 
-@interface LYUser : AVUser
+@interface LYUser : AVUser <AVSubclassing>
 
 @property (nonatomic, assign) BOOL hasBeenUpdate ;
 

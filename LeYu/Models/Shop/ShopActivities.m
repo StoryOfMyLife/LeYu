@@ -17,6 +17,8 @@
 
 @implementation ShopActivities
 
+@dynamic title;
+
 @dynamic gifts;
 
 @dynamic likes;

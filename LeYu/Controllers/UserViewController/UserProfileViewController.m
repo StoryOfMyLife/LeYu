@@ -83,7 +83,7 @@
 {
     [super viewWillAppear:animated];
     
-    LYUser *currentUser = (LYUser *)[LYUser currentUser];
+    LYUser *currentUser = [LYUser currentUser];
     if (!currentUser) {
         [self showLoginView];
     }
@@ -110,19 +110,6 @@
     
     UINavigationController *loginViewNavigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     [self presentViewController:loginViewNavigationController animated:YES completion:nil];
-}
-
-#pragma mark -
-#pragma mark UserLoginControllerDelegate
-
-- (void)exitLoginProcess
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)loginCallback
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -

@@ -19,5 +19,7 @@
 #import "UIView+Sizes.h"
 #import "MacroHelper.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import "LYUser.h"
+#import "AppDelegate.h"
 
 #endif

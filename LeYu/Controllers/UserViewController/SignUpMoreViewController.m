@@ -29,7 +29,7 @@
 
 - (IBAction)signUp:(id)sender
 {
-    AVUser *user = [AVUser user];
+    LYUser *user = [LYUser user];
     user.username = self.name.text;
     user.password = self.password.text;
     user.mobilePhoneNumber = self.userInfo[@"phone"];
@@ -58,6 +58,5 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.userInfo = sender;
 }
-
 
 @end

@@ -41,6 +41,8 @@
     self.countingLabel.format = @"%d";
     self.countingLabel.method = UILabelCountingMethodLinear;
     
+    self.nextButton.tintColor = [UIColor whiteColor];
+    
     weakSelf();
     self.countingLabel.completionBlock = ^{
         weakSelf.smsCodeSended = NO;

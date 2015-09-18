@@ -42,7 +42,7 @@
     [super viewDidLoad];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = UIColorFromRGB(0xF0F0F0);
+    self.tableView.backgroundColor = DefaultBackgroundColor;
     
     self.couldShowShop = YES;
     
@@ -98,12 +98,13 @@
                         };
                         
                         if (self.couldShowShop) {
+                            __weak ShopActivities *shopActivity = activity;
                             activity.handleBlock = ^(NSDictionary *info){
                                 UIView *sender = info[@"sender"];
                                 CGRect rect = [self.view convertRect:sender.frame fromView:sender.superview];
                                 rect.origin.y += self.navigationController.navigationBar.height + 20;
                                 
-                                Shop *shop = info[@"shop"];
+                                Shop *shop = shopActivity.shop;
                                 
                                 ShopViewController *s = [[ShopViewController alloc] initWithShop:shop];
                                 s.presentedRect = rect;
