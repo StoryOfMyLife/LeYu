@@ -59,7 +59,7 @@
     [super viewWillDisappear:animated];
     [[LYUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            
+            [self.userVC updateAvatar];
         } else {
             Log(@"%@", error);
         }

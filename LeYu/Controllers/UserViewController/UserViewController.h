@@ -10,4 +10,6 @@
 
 @property (nonatomic, assign, getter=isShopUser) BOOL shopUser;
 
+- (void)updateAvatar;
+
 @end

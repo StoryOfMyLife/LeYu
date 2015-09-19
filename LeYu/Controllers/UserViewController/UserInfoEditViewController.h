@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserViewController.h"
 
 @interface UserInfoEditViewController : UITableViewController
 
 @property (nonatomic, assign, getter=isShopUser) BOOL shopUser;
+
+@property (nonatomic, weak) UserViewController *userVC;
 
 @end

@@ -162,9 +162,9 @@
             if (succeeded) {
                 [hud hide:YES];
                 
-                if (self.delegate && [self.delegate respondsToSelector:@selector(loginCallback)]) {
-                    [self.delegate loginCallback];
-                }
+//                if (self.delegate && [self.delegate respondsToSelector:@selector(loginCallback)]) {
+//                    [self.delegate loginCallback];
+//                }
             }
             if (error) {
                 [hud hide:YES];

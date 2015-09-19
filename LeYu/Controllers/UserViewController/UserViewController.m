@@ -8,6 +8,7 @@
 
 #import "UserViewController.h"
 #import "UserInfoEditViewController.h"
+#import "SettingViewController.h"
 #import <FXBlurView.h>
 
 @interface UserViewController ()
@@ -45,6 +46,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -57,23 +59,36 @@
 
 - (void)updateAvatar
 {
-    [[LYUser currentUser].thumbnail getThumbnail:YES width:120 height:120 withBlock:^(UIImage *image, NSError *error) {
-        if (!error) {
-            UIImage *blurredImage = [image blurredImageWithRadius:5 iterations:5 tintColor:nil];
-            [UIView transitionWithView:self.tableView.tableHeaderView duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                self.backImage.image = blurredImage;
-                self.avatar.image = image;
-            } completion:nil];
-        }
-    }];
+    if ([LYUser currentUser]) {
+        [[LYUser currentUser].thumbnail getThumbnail:YES width:120 height:120 withBlock:^(UIImage *image, NSError *error) {
+            if (!error) {
+                UIImage *blurredImage = [image blurredImageWithRadius:5 iterations:5 tintColor:nil];
+                [UIView transitionWithView:self.tableView.tableHeaderView duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                    self.backImage.image = blurredImage;
+                    self.avatar.image = image;
+                } completion:nil];
+            }
+        }];
+    } else {
+        [UIView transitionWithView:self.tableView.tableHeaderView duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.backImage.image = [UIImage imageNamed:@"背景"];
+            self.avatar.image = [UIImage imageNamed:@"DefaultAvatar"];
+        } completion:nil];
+    }
 }
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UserInfoEditViewController *destVC = segue.destinationViewController;
-    destVC.shopUser = self.isShopUser;
+    if ([segue.destinationViewController isKindOfClass:[UserInfoEditViewController class]]) {
+        UserInfoEditViewController *destVC = segue.destinationViewController;
+        destVC.shopUser = self.isShopUser;
+        destVC.userVC = self;
+    } else if ([segue.destinationViewController isKindOfClass:[SettingViewController class]]) {
+        SettingViewController *setVC = segue.destinationViewController;
+        setVC.userVC = self;
+    }
 }
 
 #pragma mark -

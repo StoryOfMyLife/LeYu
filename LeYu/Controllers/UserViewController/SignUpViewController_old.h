@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoginAndSignUpViewController.h"
-#import "LYUser.h"
 
 @interface SignUpViewController_old : UIViewController
 
-@property (nonatomic,weak) id<UserLoginControllerDelegate> delegate;
+@property (nonatomic,weak) id delegate;
 
 -(instancetype) initWithUser : (LYUser *)user;
 

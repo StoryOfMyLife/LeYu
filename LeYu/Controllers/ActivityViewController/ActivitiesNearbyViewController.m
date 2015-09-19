@@ -12,9 +12,9 @@
 #import "ShopActivities.h"
 #import "Shop.h"
 #import "LYUser.h"
-#import "LoginAndSignUpViewController.h"
+#import "LoginViewController.h"
 
-@interface ActivitiesNearbyViewController () <UserLoginControllerDelegate>
+@interface ActivitiesNearbyViewController ()
 
 @property (nonatomic, strong) NSMutableArray *activitiesNearby;
 @property (nonatomic, strong) NSMutableArray *myActivities;
@@ -57,24 +57,18 @@
 }
 
 -(void)navigateToLoginPage {
-    LoginAndSignUpViewController *loginViewController = [[LoginAndSignUpViewController alloc] init];
-    loginViewController.delegate =  self;
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
     UINavigationController *loginViewNavigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    loginViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentViewController:loginViewNavigationController animated:YES completion:nil];
 }
 
-
-
--(void)exitLoginProcess {
+- (void)exitLoginProcess {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)loginCallback {
+- (void)loginCallback {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
