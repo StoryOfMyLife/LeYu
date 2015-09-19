@@ -43,7 +43,7 @@
     if (!currentUser) {
         [self showLoginView:YES];
     } else {
-        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
         [self showLoginView:NO];
         if (currentUser.level == UserLevelShop) {
             self.showShopUser = YES;
@@ -82,8 +82,10 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if (showShopUser) {
         self.userVC = [sb instantiateViewControllerWithIdentifier:@"ShopUserViewController"];
+        self.userVC.shopUser = YES;
     } else {
         self.userVC = [sb instantiateViewControllerWithIdentifier:@"NormalUserViewController"];
+        self.userVC.shopUser = NO;
     }
     [self addChildViewController:self.userVC];
     [self.view addSubview:self.userVC.view];

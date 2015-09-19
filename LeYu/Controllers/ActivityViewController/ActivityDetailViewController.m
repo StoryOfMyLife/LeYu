@@ -70,6 +70,8 @@
     self.items = @[@[self.activityDetailItem]];
     
     [self convertFilesToImages:self.imageFileIds];
+    
+    self.refreshEnable = NO;
     self.updateBlock = ^{
         [weakSelf loadData];
     };

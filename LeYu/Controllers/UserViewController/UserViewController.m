@@ -7,8 +7,17 @@
 //
 
 #import "UserViewController.h"
+#import "UserInfoEditViewController.h"
+#import <FXBlurView.h>
 
 @interface UserViewController ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *avatar;
+@property (weak, nonatomic) IBOutlet UIImageView *backImage;
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+
+@property (nonatomic, strong) UIMotionEffectGroup *motionEffect;
 
 @end
 
@@ -19,7 +28,18 @@
 
     self.tableView.tableFooterView = [UIView new];
     self.tableView.backgroundColor = DefaultBackgroundColor;
-    self.tableView.delegate = self;
+
+    self.avatar.layer.cornerRadius = 30;
+    self.avatar.layer.borderWidth = 1;
+    self.avatar.layer.borderColor = RGBACOLOR(238, 238, 238, 0.7).CGColor;
+    
+    self.name.text = [LYUser currentUser].username;
+    
+    [self updateAvatar];
+    
+    [self.avatar addMotionEffect:self.motionEffect];
+    [self.name addMotionEffect:self.motionEffect];
+    [self.editButton addMotionEffect:self.motionEffect];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -32,14 +52,49 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-/*
+#pragma mark -
+#pragma mark methods
+
+- (void)updateAvatar
+{
+    [[LYUser currentUser].thumbnail getThumbnail:YES width:120 height:120 withBlock:^(UIImage *image, NSError *error) {
+        if (!error) {
+            UIImage *blurredImage = [image blurredImageWithRadius:5 iterations:5 tintColor:nil];
+            [UIView transitionWithView:self.tableView.tableHeaderView duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.backImage.image = blurredImage;
+                self.avatar.image = image;
+            } completion:nil];
+        }
+    }];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UserInfoEditViewController *destVC = segue.destinationViewController;
+    destVC.shopUser = self.isShopUser;
 }
-*/
+
+#pragma mark -
+#pragma mark accessors
+
+- (UIMotionEffectGroup *)motionEffect
+{
+    if (!_motionEffect) {
+        _motionEffect = [[UIMotionEffectGroup alloc] init];
+        
+        UIInterpolatingMotionEffect *motionX = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+        motionX.minimumRelativeValue = @(-20);
+        motionX.maximumRelativeValue = @(20);
+        
+        UIInterpolatingMotionEffect *motionY = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+        motionY.minimumRelativeValue = @(-15);
+        motionY.maximumRelativeValue = @(10);
+        
+        _motionEffect.motionEffects = @[motionX, motionY];
+    }
+    return _motionEffect;
+}
 
 @end

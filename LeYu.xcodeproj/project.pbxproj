@@ -23,16 +23,10 @@
 		523978031BA99B2F00CB9B9E /* ShopDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523977FD1BA99B2F00CB9B9E /* ShopDescViewController.m */; };
 		523978041BA99B2F00CB9B9E /* ShopMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523977FF1BA99B2F00CB9B9E /* ShopMapViewController.m */; };
 		523978051BA99B2F00CB9B9E /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978011BA99B2F00CB9B9E /* ShopViewController.m */; };
-		5239781B1BA99B5C00CB9B9E /* GenderSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978081BA99B5C00CB9B9E /* GenderSelectViewController.m */; };
 		5239781C1BA99B5C00CB9B9E /* LoginAndSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239780A1BA99B5C00CB9B9E /* LoginAndSignUpViewController.m */; };
 		5239781D1BA99B5C00CB9B9E /* SignUpViewController_old.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239780C1BA99B5C00CB9B9E /* SignUpViewController_old.m */; };
 		5239781E1BA99B5C00CB9B9E /* UserFavoriteShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239780E1BA99B5C00CB9B9E /* UserFavoriteShopsViewController.m */; };
-		5239781F1BA99B5C00CB9B9E /* UserInfoDetailEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978101BA99B5C00CB9B9E /* UserInfoDetailEditViewController.m */; };
 		523978201BA99B5C00CB9B9E /* UserInfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978121BA99B5C00CB9B9E /* UserInfoDetailViewController.m */; };
-		523978211BA99B5C00CB9B9E /* UserNickNameEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978141BA99B5C00CB9B9E /* UserNickNameEditViewController.m */; };
-		523978221BA99B5C00CB9B9E /* UserPersonalizedDiscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978161BA99B5C00CB9B9E /* UserPersonalizedDiscriptionViewController.m */; };
-		523978231BA99B5C00CB9B9E /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978181BA99B5C00CB9B9E /* UserProfileViewController.m */; };
-		523978241BA99B5C00CB9B9E /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239781A1BA99B5C00CB9B9E /* UserSettingsViewController.m */; };
 		5239782B1BA99B8900CB9B9E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978271BA99B8900CB9B9E /* HomeViewController.m */; };
 		5239782C1BA99B8900CB9B9E /* NewNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239782A1BA99B8900CB9B9E /* NewNotificationsViewController.m */; };
 		5239782F1BA9A21600CB9B9E /* UITabBarController+AddButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239782E1BA9A21600CB9B9E /* UITabBarController+AddButton.m */; };
@@ -56,6 +50,7 @@
 		5239786B1BAB23A800CB9B9E /* SignUpMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239786A1BAB23A800CB9B9E /* SignUpMoreViewController.m */; };
 		5239786E1BAC6CE400CB9B9E /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239786D1BAC6CE400CB9B9E /* UserViewController.m */; };
 		523978711BAC75BD00CB9B9E /* UserContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978701BAC75BD00CB9B9E /* UserContainerViewController.m */; };
+		523978741BADA61400CB9B9E /* UserInfoEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523978731BADA61400CB9B9E /* UserInfoEditViewController.m */; };
 		52635A841BA8718000703DBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635A831BA8718000703DBE /* main.m */; };
 		52635A9E1BA8718000703DBE /* LeYuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635A9D1BA8718000703DBE /* LeYuTests.m */; };
 		52635AAC1BA871E400703DBE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635AAB1BA871E400703DBE /* AppDelegate.m */; };
@@ -160,26 +155,14 @@
 		523977FF1BA99B2F00CB9B9E /* ShopMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMapViewController.m; sourceTree = "<group>"; };
 		523978001BA99B2F00CB9B9E /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
 		523978011BA99B2F00CB9B9E /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
-		523978071BA99B5C00CB9B9E /* GenderSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenderSelectViewController.h; sourceTree = "<group>"; };
-		523978081BA99B5C00CB9B9E /* GenderSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenderSelectViewController.m; sourceTree = "<group>"; };
 		523978091BA99B5C00CB9B9E /* LoginAndSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndSignUpViewController.h; sourceTree = "<group>"; };
 		5239780A1BA99B5C00CB9B9E /* LoginAndSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndSignUpViewController.m; sourceTree = "<group>"; };
 		5239780B1BA99B5C00CB9B9E /* SignUpViewController_old.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController_old.h; sourceTree = "<group>"; };
 		5239780C1BA99B5C00CB9B9E /* SignUpViewController_old.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController_old.m; sourceTree = "<group>"; };
 		5239780D1BA99B5C00CB9B9E /* UserFavoriteShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFavoriteShopsViewController.h; sourceTree = "<group>"; };
 		5239780E1BA99B5C00CB9B9E /* UserFavoriteShopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFavoriteShopsViewController.m; sourceTree = "<group>"; };
-		5239780F1BA99B5C00CB9B9E /* UserInfoDetailEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoDetailEditViewController.h; sourceTree = "<group>"; };
-		523978101BA99B5C00CB9B9E /* UserInfoDetailEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDetailEditViewController.m; sourceTree = "<group>"; };
 		523978111BA99B5C00CB9B9E /* UserInfoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoDetailViewController.h; sourceTree = "<group>"; };
 		523978121BA99B5C00CB9B9E /* UserInfoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDetailViewController.m; sourceTree = "<group>"; };
-		523978131BA99B5C00CB9B9E /* UserNickNameEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNickNameEditViewController.h; sourceTree = "<group>"; };
-		523978141BA99B5C00CB9B9E /* UserNickNameEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNickNameEditViewController.m; sourceTree = "<group>"; };
-		523978151BA99B5C00CB9B9E /* UserPersonalizedDiscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPersonalizedDiscriptionViewController.h; sourceTree = "<group>"; };
-		523978161BA99B5C00CB9B9E /* UserPersonalizedDiscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPersonalizedDiscriptionViewController.m; sourceTree = "<group>"; };
-		523978171BA99B5C00CB9B9E /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
-		523978181BA99B5C00CB9B9E /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
-		523978191BA99B5C00CB9B9E /* UserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsViewController.h; sourceTree = "<group>"; };
-		5239781A1BA99B5C00CB9B9E /* UserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewController.m; sourceTree = "<group>"; };
 		523978261BA99B8900CB9B9E /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		523978271BA99B8900CB9B9E /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		523978291BA99B8900CB9B9E /* NewNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewNotificationsViewController.h; sourceTree = "<group>"; };
@@ -225,6 +208,8 @@
 		5239786D1BAC6CE400CB9B9E /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		5239786F1BAC75BD00CB9B9E /* UserContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserContainerViewController.h; sourceTree = "<group>"; };
 		523978701BAC75BD00CB9B9E /* UserContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserContainerViewController.m; sourceTree = "<group>"; };
+		523978721BADA61400CB9B9E /* UserInfoEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoEditViewController.h; sourceTree = "<group>"; };
+		523978731BADA61400CB9B9E /* UserInfoEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoEditViewController.m; sourceTree = "<group>"; };
 		52635A7E1BA8718000703DBE /* LeYu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeYu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52635A821BA8718000703DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52635A831BA8718000703DBE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -455,26 +440,14 @@
 		523978061BA99B5C00CB9B9E /* UserViewController */ = {
 			isa = PBXGroup;
 			children = (
-				523978071BA99B5C00CB9B9E /* GenderSelectViewController.h */,
-				523978081BA99B5C00CB9B9E /* GenderSelectViewController.m */,
 				523978091BA99B5C00CB9B9E /* LoginAndSignUpViewController.h */,
 				5239780A1BA99B5C00CB9B9E /* LoginAndSignUpViewController.m */,
 				5239780B1BA99B5C00CB9B9E /* SignUpViewController_old.h */,
 				5239780C1BA99B5C00CB9B9E /* SignUpViewController_old.m */,
 				5239780D1BA99B5C00CB9B9E /* UserFavoriteShopsViewController.h */,
 				5239780E1BA99B5C00CB9B9E /* UserFavoriteShopsViewController.m */,
-				5239780F1BA99B5C00CB9B9E /* UserInfoDetailEditViewController.h */,
-				523978101BA99B5C00CB9B9E /* UserInfoDetailEditViewController.m */,
 				523978111BA99B5C00CB9B9E /* UserInfoDetailViewController.h */,
 				523978121BA99B5C00CB9B9E /* UserInfoDetailViewController.m */,
-				523978131BA99B5C00CB9B9E /* UserNickNameEditViewController.h */,
-				523978141BA99B5C00CB9B9E /* UserNickNameEditViewController.m */,
-				523978151BA99B5C00CB9B9E /* UserPersonalizedDiscriptionViewController.h */,
-				523978161BA99B5C00CB9B9E /* UserPersonalizedDiscriptionViewController.m */,
-				523978171BA99B5C00CB9B9E /* UserProfileViewController.h */,
-				523978181BA99B5C00CB9B9E /* UserProfileViewController.m */,
-				523978191BA99B5C00CB9B9E /* UserSettingsViewController.h */,
-				5239781A1BA99B5C00CB9B9E /* UserSettingsViewController.m */,
 				523978601BAB158C00CB9B9E /* LoginViewController.h */,
 				523978611BAB158C00CB9B9E /* LoginViewController.m */,
 				523978631BAB1E2500CB9B9E /* ForgetPasswordViewController.h */,
@@ -487,6 +460,8 @@
 				5239786D1BAC6CE400CB9B9E /* UserViewController.m */,
 				5239786F1BAC75BD00CB9B9E /* UserContainerViewController.h */,
 				523978701BAC75BD00CB9B9E /* UserContainerViewController.m */,
+				523978721BADA61400CB9B9E /* UserInfoEditViewController.h */,
+				523978731BADA61400CB9B9E /* UserInfoEditViewController.m */,
 			);
 			path = UserViewController;
 			sourceTree = "<group>";
@@ -990,7 +965,6 @@
 				52635C0E1BA8728200703DBE /* ColorFactory.m in Sources */,
 				52635BC01BA8728200703DBE /* CTAssetsSupplementaryView.m in Sources */,
 				52635C0F1BA8728200703DBE /* DesignManager.m in Sources */,
-				523978231BA99B5C00CB9B9E /* UserProfileViewController.m in Sources */,
 				52635AAC1BA871E400703DBE /* AppDelegate.m in Sources */,
 				52635BB51BA8728200703DBE /* ALAsset+accessibilityLabel.m in Sources */,
 				5239783D1BA9A25A00CB9B9E /* ActivityCreatorItems.m in Sources */,
@@ -1017,16 +991,15 @@
 				523978711BAC75BD00CB9B9E /* UserContainerViewController.m in Sources */,
 				52635BB81BA8728200703DBE /* ALAssetsGroup+isEqual.m in Sources */,
 				5239783C1BA9A25A00CB9B9E /* ActivityAcceptCellItem.m in Sources */,
-				5239781F1BA99B5C00CB9B9E /* UserInfoDetailEditViewController.m in Sources */,
 				523977E61BA99A6600CB9B9E /* ActivityAcceptViewController.m in Sources */,
 				52635BBF1BA8728200703DBE /* CTAssetsPickerController.m in Sources */,
 				523977D71BA997D600CB9B9E /* LineDashView.m in Sources */,
+				523978741BADA61400CB9B9E /* UserInfoEditViewController.m in Sources */,
 				5239782C1BA99B8900CB9B9E /* NewNotificationsViewController.m in Sources */,
 				523978051BA99B2F00CB9B9E /* ShopViewController.m in Sources */,
 				523978521BA9A2A200CB9B9E /* ShopInfoDescription.m in Sources */,
 				52635C091BA8728200703DBE /* YDExpandOutAnimator.m in Sources */,
 				52635BF31BA8728200703DBE /* LTableViewController.m in Sources */,
-				5239781B1BA99B5C00CB9B9E /* GenderSelectViewController.m in Sources */,
 				52635BB61BA8728200703DBE /* ALAsset+assetType.m in Sources */,
 				5239782B1BA99B8900CB9B9E /* HomeViewController.m in Sources */,
 				523978651BAB1E2500CB9B9E /* ForgetPasswordViewController.m in Sources */,
@@ -1034,7 +1007,6 @@
 				52635C0A1BA8728200703DBE /* YDPresentFadeInAnimator.m in Sources */,
 				5239786E1BAC6CE400CB9B9E /* UserViewController.m in Sources */,
 				523977F51BA99ACB00CB9B9E /* HFActivityEditViewController.m in Sources */,
-				523978241BA99B5C00CB9B9E /* UserSettingsViewController.m in Sources */,
 				523978041BA99B2F00CB9B9E /* ShopMapViewController.m in Sources */,
 				523978201BA99B5C00CB9B9E /* UserInfoDetailViewController.m in Sources */,
 				52635C121BA8728200703DBE /* StringFactory.m in Sources */,
@@ -1052,7 +1024,6 @@
 				52635C0C1BA8728200703DBE /* TTCollectionPageViewController.m in Sources */,
 				5239781C1BA99B5C00CB9B9E /* LoginAndSignUpViewController.m in Sources */,
 				52635BAF1BA8728200703DBE /* UIButton+Center.m in Sources */,
-				523978221BA99B5C00CB9B9E /* UserPersonalizedDiscriptionViewController.m in Sources */,
 				52635BC21BA8728200703DBE /* CTAssetsViewController.m in Sources */,
 				523977F61BA99ACB00CB9B9E /* HFCreateAvtivityViewController.m in Sources */,
 				523977E71BA99A6600CB9B9E /* ActivityDetailViewController.m in Sources */,
@@ -1061,7 +1032,6 @@
 				52635C0D1BA8728200703DBE /* TTHorizontalCategoryBar.m in Sources */,
 				52635BF41BA8728200703DBE /* LViewController.m in Sources */,
 				52635BF21BA8728200703DBE /* LTableViewCellItem.m in Sources */,
-				523978211BA99B5C00CB9B9E /* UserNickNameEditViewController.m in Sources */,
 				52635BF11BA8728200703DBE /* LTableViewCell.m in Sources */,
 				523978681BAB233200CB9B9E /* SignUpViewController.m in Sources */,
 				52635BAE1BA8728200703DBE /* UIButton+Badge.m in Sources */,

@@ -9,10 +9,6 @@
 #import "UserInfoDetailViewController.h"
 #import "ColorFactory.h"
 #import "UserInfoDetailCell.h"
-#import "UserNickNameEditViewController.h"
-#import "UserInfoDetailEditViewController.h"
-#import "UserPersonalizedDiscriptionViewController.h"
-#import "GenderSelectViewController.h"
 #import <MBProgressHUD.h>
 
 @interface UserInfoDetailViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -152,68 +148,6 @@
     return nil;
 
 }
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserInfoDetailEditViewController *controller;
-    
-    switch (indexPath.section) {
-        case UserInfoBasic: {
-            switch (indexPath.row) {
-                case UserThumbnail: {
-                    [self uploadPhoto];
-                    break;
-                   
-                }
-                case UserNickName: {
-                    controller = [[UserNickNameEditViewController alloc] init];
-                    break;
-                   
-              
-                }
-                case UserSex: {
-                    controller = [[GenderSelectViewController alloc] init];
-                    break;
-              
-                }
-            }
-            
-            break;
-        }
-        case UserPersonalized: {
-            switch (indexPath.row) {
-                case UserPersonalizedExplaination: {
-                    controller = [[UserPersonalizedDiscriptionViewController alloc] init];
-                
-                    
-                }
-                    
-                case UserPersonalizedBackground: {
-                   
-                }
-                    
-                case UserTelephoneNumber: {
-                   
-                }
-            }
-            
-            
-            break;
-            
-        };
-            
-        case UserSignature: {
-            
-            
-        }
-            
-    }
-    
-    if (controller) {
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-
-}
-
 
 -(void) uploadPhoto {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {

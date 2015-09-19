@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserProfileViewController.h"
+#import "LTableViewController.h"
 
-@interface NewNotificationsViewController : UserProfileViewController
+@interface NewNotificationsViewController : LTableViewController
 
 @end
