@@ -22,6 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *desc;
 
+@property (nonatomic, assign) BOOL edited;
+
 @end
 
 @implementation UserInfoEditViewController
@@ -30,6 +32,7 @@
 {
     [super viewDidLoad];
     
+    self.edited = NO;
     self.avatar.layer.cornerRadius = 15;
     
     NSString *sex = [LYUser currentUser].sex;
@@ -54,18 +57,6 @@
     self.desc.delegate = self;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[LYUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [self.userVC updateAvatar];
-        } else {
-            Log(@"%@", error);
-        }
-    }];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -74,6 +65,20 @@
         self.title = @"店家资料";
     } else {
         self.title = @"用户资料";
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (self.edited) {
+        [[LYUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [self.userVC updateAvatar];
+            } else {
+                Log(@"%@", error);
+            }
+        }];
     }
 }
 
@@ -101,6 +106,7 @@
     } else if (textField == self.desc) {
         user.signature = textField.text;
     }
+    self.edited = YES;
 }
 
 #pragma mark -
@@ -124,6 +130,7 @@
         NSData *data = UIImageJPEGRepresentation(image, 0.1);
         [LYUser currentUser].thumbnail = [AVFile fileWithData:data];
         self.avatar.image = image;
+        self.edited = YES;
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -143,6 +150,7 @@
     } else if (sender == self.femaleButton) {
         [self changTofemale];
     }
+    self.edited = YES;
 }
 
 - (void)changTomale
@@ -158,7 +166,6 @@
     self.maleButton.selected = NO;
     self.femaleButton.selected = YES;
 }
-
 
 - (void)changeAvatar
 {

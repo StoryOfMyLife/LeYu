@@ -42,8 +42,7 @@
         self.loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [[self.loginButton layer] setBorderWidth:1.0f];
         [[self.loginButton layer] setBorderColor:DefaultYellowColor.CGColor];
-        self.loginButton.tintColor = DefaultYellowColor;
-        self.loginButton.layer.cornerRadius = 20;
+        self.loginButton.layer.cornerRadius = 40;
         [self.loginButton.titleLabel setFont:SystemFontWithSize(18)];
         [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
         [self.loginButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
@@ -71,8 +70,8 @@
     [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.mas_centerX);
         make.top.equalTo(weakSelf.loginDisplayText.mas_bottom).with.offset(40.0f);
-        make.width.equalTo(@(140.0f));
-        make.height.equalTo(@(40.0f));
+        make.width.equalTo(@(80.0f));
+        make.height.equalTo(@(80.0f));
     }];
 }
 

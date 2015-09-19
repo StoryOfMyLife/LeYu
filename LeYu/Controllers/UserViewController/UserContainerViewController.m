@@ -23,7 +23,8 @@
 
 @implementation UserContainerViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.loginView = [[UserProfileLoginView alloc] init];
@@ -41,6 +42,7 @@
     [super viewWillAppear:animated];
     LYUser *currentUser = [LYUser currentUser];
     if (!currentUser) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
         [self showLoginView:YES];
     } else {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -58,7 +60,13 @@
 
 - (void)showLoginView:(BOOL)show
 {
-    self.loginView.hidden = !show;
+    if (self.loginView.hidden == show) {
+        self.loginView.hidden = !show;
+        self.userVC.view.hidden = show;
+        if (!show) {
+            [self.userVC updateAvatar];
+        }
+    }
 }
 
 #pragma mark -
@@ -78,17 +86,19 @@
 
 - (void)setShowShopUser:(BOOL)showShopUser
 {
-    _showShopUser = showShopUser;
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    if (showShopUser) {
-        self.userVC = [sb instantiateViewControllerWithIdentifier:@"ShopUserViewController"];
-        self.userVC.shopUser = YES;
-    } else {
-        self.userVC = [sb instantiateViewControllerWithIdentifier:@"NormalUserViewController"];
-        self.userVC.shopUser = NO;
+    if (_showShopUser != showShopUser || !self.userVC) {
+        _showShopUser = showShopUser;
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        if (showShopUser) {
+            self.userVC = [sb instantiateViewControllerWithIdentifier:@"ShopUserViewController"];
+            self.userVC.shopUser = YES;
+        } else {
+            self.userVC = [sb instantiateViewControllerWithIdentifier:@"NormalUserViewController"];
+            self.userVC.shopUser = NO;
+        }
+        [self addChildViewController:self.userVC];
+        [self.view addSubview:self.userVC.view];
     }
-    [self addChildViewController:self.userVC];
-    [self.view addSubview:self.userVC.view];
 }
 
 @end

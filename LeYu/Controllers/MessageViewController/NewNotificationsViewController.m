@@ -31,47 +31,11 @@
 {
     [super viewDidLoad];
     self.title = @"消息";
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.notifications count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 90.0f;
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NotificationMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(NotificationMessageCell.class) forIndexPath:indexPath];
-    NotificationMessage *message = [self.notifications objectAtIndex:indexPath.row];
-    NSString *shopName = @"";
-    if (message.shop) {
-        shopName =  message.shop.shopname;
-    }
-    [cell configureNotificationMessage:message.newActivites withShopName:shopName];
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.0f;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return nil;
-
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-}
-
-- (void)registerTableCells
-{
-   [self.tableView registerClass:NotificationMessageCell.class forCellReuseIdentifier:NSStringFromClass(NotificationMessageCell.class)];
+    
+    self.refreshEnable = NO;
+    
+    self.tableView.tableHeaderView = [self tableHeaderView];
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (UIView *)tableHeaderView
