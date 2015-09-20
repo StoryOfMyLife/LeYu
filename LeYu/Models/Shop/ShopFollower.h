@@ -10,10 +10,10 @@
 #import "Shop.h"
 #import "LYUser.h"
 
-@interface ShopFollower : AVObject<AVSubclassing>
+@interface ShopFollower : AVObject <AVSubclassing>
 
-@property (nonatomic,strong) LYUser *user;
+@property (nonatomic, strong) LYUser *user;
 
-@property (nonatomic,strong) Shop *shop;
+@property (nonatomic, strong) Shop *shop;
 
 @end

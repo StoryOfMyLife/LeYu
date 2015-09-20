@@ -9,6 +9,7 @@
 #import "UserViewController.h"
 #import "UserInfoEditViewController.h"
 #import "SettingViewController.h"
+#import "ShopActivityViewController.h"
 #import <FXBlurView.h>
 
 @interface UserViewController ()
@@ -52,6 +53,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            
+        }
+    }
 }
 
 #pragma mark -
@@ -79,7 +85,6 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[UserInfoEditViewController class]]) {
         UserInfoEditViewController *destVC = segue.destinationViewController;

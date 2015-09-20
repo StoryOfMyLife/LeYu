@@ -13,6 +13,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) NSMutableArray *callbacks;
+@property (nonatomic, assign) BOOL isMonitoring;
 
 @end
 
@@ -24,6 +25,7 @@
     static LYLocationManager *manager = nil;
     dispatch_once(&onceToken, ^{
         manager = [[LYLocationManager alloc] init];
+        manager.isMonitoring = NO;
     });
     return manager;
 }
@@ -56,7 +58,9 @@
         completion(YES, self.currentLocation);
     } else {
         [self.callbacks addObject:completion];
-        [self startUpdates];
+        if (!self.isMonitoring) {
+            [self startUpdates];
+        }
     }
 }
 //- (void)getDistanceFromLocation:(CLLocation *)location completion:(DistanceCallback)completion

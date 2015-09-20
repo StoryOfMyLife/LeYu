@@ -14,7 +14,6 @@
 #import "ImageFactory.h"
 #import "ShopActivities.h"
 #import "Shop.h"
-#import "User.h"
 #import "ShopInfoDescription.h"
 
 #import "ActivityViewController.h"
@@ -73,8 +72,6 @@
     
     [self checkAddButton];
     
-//    [AVUser logOut];
-    
     return YES;
 }
 
@@ -122,10 +119,9 @@
     [[UIButton appearance] setTintColor:DefaultYellowColor];
 }
 
--(void)registerAVOSClasses {
+- (void)registerAVOSClasses {
     [ShopActivities registerSubclass];
     [Shop registerSubclass];
-    [User registerSubclass];
     
     [ShopInfoDescription registerSubclass];
     [LYUser registerSubclass];

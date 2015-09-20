@@ -123,7 +123,7 @@
     ImageAssetsManager *manager = [ImageAssetsManager manager];
     ShopActivities *activity = [ShopActivities object];
     activity.activitiesDescription = manager.activityTheme;
-    activity.activityDate = manager.activityDate;
+    activity.BeginDate = manager.activityDate;
 
     //TODO:from user's shop
 //    activity.shopId = @1;

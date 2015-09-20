@@ -19,8 +19,6 @@
 
 @property (nonatomic, strong) NSMutableArray *recentActivities;
 
-@property (nonatomic, strong) NSMutableDictionary *recentShops;
-
 
 @end
 
@@ -32,8 +30,7 @@
 {
     self = [super init];
     if (self) {
-        self.recentActivities = [[NSMutableArray alloc] init];
-        self.recentShops = [[NSMutableDictionary alloc] init];
+        self.recentActivities = [NSMutableArray arrayWithCapacity:0];
     }
     return self;
 }
@@ -43,6 +40,7 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = DefaultBackgroundColor;
+    self.tableView.scrollsToTop = YES;
     
     self.couldShowShop = YES;
     
@@ -72,57 +70,40 @@
 
 - (void)loadActivities:(AVQuery *)query
 {
+    [query includeKey:@"shop"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
         if (!error) {
-            [self.recentActivities removeAllObjects];
-            [self.recentActivities addObjectsFromArray:activities];
-            NSMutableSet *shopIds = [[NSMutableSet alloc] init];
             for (ShopActivities *activity in activities) {
-                [shopIds addObject:activity.shop.objectId];
-            }
-            
-            AVQuery *shops = [Shop query];
-            [shops whereKey:@"objectId" containedIn:[shopIds allObjects]];
-            [shops findObjectsInBackgroundWithBlock:^(NSArray *shops, NSError *error) {
-                if (!error) {
-                    for (Shop *shop in shops) {
-                        [self.recentShops setObject:shop forKey:shop.objectId];
-                    }
-                    for (ShopActivities *activity in self.recentActivities) {
-                        activity.shop = self.recentShops[activity.shop.objectId];
-                        activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
-                            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                            ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.recentActivities[indexPath.row]];
-                            activitiesViewController.hidesBottomBarWhenPushed = YES;
-                            [self.navigationController pushViewController:activitiesViewController animated:YES];
-                        };
+                [self.recentActivities removeAllObjects];
+                [self.recentActivities addObjectsFromArray:activities];
+                activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.recentActivities[indexPath.row]];
+                    activitiesViewController.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:activitiesViewController animated:YES];
+                };
+                
+                if (self.couldShowShop) {
+                    __weak ShopActivities *shopActivity = activity;
+                    activity.handleBlock = ^(NSDictionary *info){
+                        UIView *sender = info[@"sender"];
+                        CGRect rect = [self.view convertRect:sender.frame fromView:sender.superview];
+                        rect.origin.y += self.navigationController.navigationBar.height + 20;
                         
-                        if (self.couldShowShop) {
-                            __weak ShopActivities *shopActivity = activity;
-                            activity.handleBlock = ^(NSDictionary *info){
-                                UIView *sender = info[@"sender"];
-                                CGRect rect = [self.view convertRect:sender.frame fromView:sender.superview];
-                                rect.origin.y += self.navigationController.navigationBar.height + 20;
-                                
-                                Shop *shop = shopActivity.shop;
-                                
-                                ShopViewController *s = [[ShopViewController alloc] initWithShop:shop];
-                                s.presentedRect = rect;
-                                
-                                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:s];
-                                nav.transitioningDelegate = s;
-                                nav.modalPresentationStyle = UIModalPresentationCustom;
-                                [self presentViewController:nav animated:YES completion:nil];
-                            };
-                        }
-                    }
-                    [self updateActivities:self.recentActivities];
+                        Shop *shop = shopActivity.shop;
+                        
+                        ShopViewController *s = [[ShopViewController alloc] initWithShop:shop];
+                        s.presentedRect = rect;
+                        
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:s];
+                        nav.transitioningDelegate = s;
+                        nav.modalPresentationStyle = UIModalPresentationCustom;
+                        [self presentViewController:nav animated:YES completion:nil];
+                    };
                 }
-            }];
-            
-        } else {
-            [self updateActivities:self.recentActivities];
+            }
         }
+        [self updateActivities:activities];
     }];
 }
 

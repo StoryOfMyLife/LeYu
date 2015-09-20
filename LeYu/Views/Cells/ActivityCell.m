@@ -36,7 +36,7 @@ static const CGFloat kContentInset = 20;
 - (void)initSubviews
 {
     self.titleLabel = [[UILabel alloc] init];
-    self.titleLabel.font = SystemFontWithSize(16);
+    self.titleLabel.font = SystemFontWithSize(15);
     self.titleLabel.textColor = [UIColor blackColor];
     
     self.thumbnailImage = [[UIImageView alloc] init];
@@ -128,7 +128,7 @@ static const CGFloat kContentInset = 20;
     [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.shopIcon.mas_bottom).with.offset(titleVerticalGap);
         make.left.equalTo(self.shopIcon);
-        make.right.equalTo(self.locationView.mas_left).with.offset(-kContentInset);
+        make.right.equalTo(self.locationView.mas_left).with.offset(-kContentInset/2);
         make.bottom.equalTo(superview).with.offset(-titleVerticalGap);
     }];
     
@@ -143,7 +143,7 @@ static const CGFloat kContentInset = 20;
 //    }];
     
     [self.distanceLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(superview).with.offset(-kContentInset);
+        make.right.equalTo(superview).with.offset(-kContentInset/2);
         make.centerY.equalTo(self.titleLabel);
     }];
     

@@ -7,6 +7,7 @@
 //
 
 #import "UserInfoEditViewController.h"
+#import <MBProgressHUD.h>
 
 @interface UserInfoEditViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
@@ -24,6 +25,8 @@
 
 @property (nonatomic, assign) BOOL edited;
 
+@property (nonatomic, assign) BOOL avatarEdited;
+
 @end
 
 @implementation UserInfoEditViewController
@@ -33,6 +36,7 @@
     [super viewDidLoad];
     
     self.edited = NO;
+    self.avatarEdited = NO;
     self.avatar.layer.cornerRadius = 15;
     
     NSString *sex = [LYUser currentUser].sex;
@@ -61,25 +65,11 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    if (self.isShopUser) {
-        self.title = @"店家资料";
-    } else {
-        self.title = @"用户资料";
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (self.edited) {
-        [[LYUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                [self.userVC updateAvatar];
-            } else {
-                Log(@"%@", error);
-            }
-        }];
-    }
 }
 
 #pragma mark -
@@ -98,14 +88,6 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    LYUser *user = [LYUser currentUser];
-    if (textField == self.nickname) {
-        user.username = textField.text;
-    } else if (textField == self.phone) {
-        user.mobilePhoneNumber = textField.text;
-    } else if (textField == self.desc) {
-        user.signature = textField.text;
-    }
     self.edited = YES;
 }
 
@@ -127,9 +109,8 @@
 {
     if (info[UIImagePickerControllerEditedImage]) {
         UIImage* image = (UIImage *)info[UIImagePickerControllerEditedImage];
-        NSData *data = UIImageJPEGRepresentation(image, 0.1);
-        [LYUser currentUser].thumbnail = [AVFile fileWithData:data];
         self.avatar.image = image;
+        self.avatarEdited = YES;
         self.edited = YES;
     }
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -143,6 +124,36 @@
 #pragma mark -
 #pragma mark methods
 
+- (IBAction)done:(id)sender
+{
+    if (self.edited) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        LYUser *user = [LYUser currentUser];
+        user.username = self.nickname.text;
+        user.mobilePhoneNumber = self.phone.text;
+        user.signature = self.desc.text;
+        if (self.maleButton.selected) {
+            user.sex = @"男";
+        } else {
+            user.sex = @"女";
+        }
+        if (self.avatarEdited) {
+            user.thumbnail = [AVFile fileWithData:UIImageJPEGRepresentation(self.avatar.image, 0.1)];
+        }
+        
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            if (succeeded) {
+                [self.userVC updateAvatar];
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                Log(@"%@", error);
+            }
+        }];
+    }
+}
+
 - (IBAction)genderSelected:(id)sender
 {
     if (sender == self.maleButton) {
@@ -155,14 +166,12 @@
 
 - (void)changTomale
 {
-    [LYUser currentUser].sex = @"男";
     self.maleButton.selected = YES;
     self.femaleButton.selected = NO;
 }
 
 - (void)changTofemale
 {
-    [LYUser currentUser].sex = @"女";
     self.maleButton.selected = NO;
     self.femaleButton.selected = YES;
 }

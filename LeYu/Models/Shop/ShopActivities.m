@@ -23,7 +23,9 @@
 
 @dynamic likes;
 
-@dynamic activityDate;
+@dynamic BeginDate;
+
+@dynamic EndDate;
 
 @dynamic activitiesDescription;
 

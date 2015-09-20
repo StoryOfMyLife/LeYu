@@ -30,6 +30,8 @@ typedef void(^ImageLoadHandler)(UIImage *image, NSError *error);
 
 @property (nonatomic,copy) NSString* shopdescription;
 
+@property (nonatomic,strong) NSArray *followers;
+
 
 - (void)loadShopIcon:(ImageLoadHandler)block;
 

@@ -36,8 +36,11 @@
         [self.contentView addSubview:label];
         
         self.activityDescLabel = [[UILabel alloc] init];
-        self.activityDescLabel.font = SystemFontWithSize(12);
+        self.activityDescLabel.font = SystemFontWithSize(14);
         self.activityDescLabel.textColor = RGBCOLOR_HEX(0x828282);
+        self.activityDescLabel.numberOfLines = 0;
+        self.activityDescLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.activityDescLabel.preferredMaxLayoutWidth = self.contentView.width - 20 * 2;
         [self.contentView addSubview:self.activityDescLabel];
         
         UIView *verticalLine1 = [[UIView alloc] init];
@@ -172,13 +175,13 @@
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
     [self layoutButton:self.likeButton];
     
-    NSDate *now = cellItem.activity.activityDate ?: [NSDate date];
-    NSDate *weekFromNow = [now dateByAddingTimeInterval:aWeek];
+    NSDate *beginDate = cellItem.activity.BeginDate ?: [NSDate date];
+    NSDate *endDate = cellItem.activity.EndDate;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"YYYY.MM.dd";
-    NSString *nowString = [formatter stringFromDate:now];
-    NSString *weekFromNowString = [formatter stringFromDate:weekFromNow];
-    self.activityDateLabel.text = [NSString stringWithFormat:@"%@ - %@", nowString, weekFromNowString];
+    NSString *beginDateString = [formatter stringFromDate:beginDate];
+    NSString *endDateString = [formatter stringFromDate:endDate];
+    self.activityDateLabel.text = [NSString stringWithFormat:@"%@ - %@", beginDateString, endDateString];
     
     weakSelf();
     [[self.likeButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {

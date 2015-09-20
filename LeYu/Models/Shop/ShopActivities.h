@@ -15,7 +15,9 @@
 
 @property (nonatomic, strong) NSString *title;
 
-@property (nonatomic, strong) NSDate *activityDate;
+@property (nonatomic, strong) NSDate *BeginDate;
+
+@property (nonatomic, strong) NSDate *EndDate;
 
 @property (nonatomic, copy) NSString *activitiesDescription;
 

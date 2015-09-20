@@ -15,6 +15,7 @@
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define DefaultYellowColor RGBCOLOR(193, 153, 61)
+#define DefaultTitleColor RGBCOLOR(60, 60, 60)
 #define DefaultBackgroundColor UIColorFromRGB(0xF0F0F0)
 
 #endif

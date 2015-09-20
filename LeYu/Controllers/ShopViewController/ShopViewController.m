@@ -196,13 +196,13 @@
 
 - (void)clickLikeButton:(UIButton *)sender
 {
-    if (self.heartView.hasLiked) {
-        self.heartView.hasLiked = NO;
-    } else {
+    if (!self.heartView.hasLiked) {
         [self.heartView doAnimationWithAppendAnimation:^{
             //TODO:赞数变化
+            [self.shop addUniqueObject:[LYUser currentUser] forKey:@"followers"];
+            [self.shop saveInBackground];
         } completion:^{
-
+            
         }];
     }
 }
@@ -338,6 +338,20 @@
         
         self.heartView = [[TTHeartView alloc] init];
         [_likeButton addSubview:self.heartView];
+        
+        if ([LYUser currentUser]) {
+            AVQuery *query = [Shop query];
+            [query whereKey:@"followers" equalTo:[LYUser currentUser]];
+            NSInteger count = [query countObjects];
+            if (count > 0) {
+                [self.heartView doAnimationWithAppendAnimation:^{
+                } completion:^{
+                }];
+            }
+        } else {
+            _likeButton.enabled = NO;
+        }
+        
         
         [self.heartView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(_likeButton);

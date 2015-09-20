@@ -34,7 +34,7 @@
     
     self.tableView.backgroundColor = UIColorFromRGB(0xF0F0F0);
     self.tableView.tableFooterView = [[UIView alloc] init];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     
@@ -107,65 +107,49 @@
         }
     }
     
+    [query includeKey:@"shop"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
         if (!error) {
             
-            NSMutableSet *shopIds = [[NSMutableSet alloc] init];
+            if (accepted) {
+                [self.myActivities removeAllObjects];
+                [self.myActivities addObjectsFromArray:activities];
+            } else {
+                [self.activitiesNearby removeAllObjects];
+                [self.activitiesNearby addObjectsFromArray:activities];
+            }
+            
             for (ShopActivities *activity in activities) {
                 if (accepted) {
                     activity.accepted = accepted;
                 } else {
                     activity.otherActivity = YES;
                 }
-                [shopIds addObject:activity.shop.objectId];
+                
+                activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activitiesNearby[indexPath.row]];
+                    activitiesViewController.hidesBottomBarWhenPushed = YES;
+                    [self.parentViewController.navigationController pushViewController:activitiesViewController animated:YES];
+                };
+                
+                activity.handleBlock = ^(NSDictionary *info){
+                    UIView *sender = info[@"sender"];
+                    CGRect rect = [self.view convertRect:sender.frame fromView:sender.superview];
+                    rect.origin.y += 64;
+                    
+                    Shop *shop = info[@"shop"];
+                    ShopViewController *shopViewController =[[ShopViewController alloc] initWithShop:shop];
+                    shopViewController.presentedRect = rect;
+                    
+                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
+                    nav.transitioningDelegate = shopViewController;
+                    nav.modalPresentationStyle = UIModalPresentationCustom;
+                    [self presentViewController:nav animated:YES completion:nil];
+                };
             }
             
-            AVQuery *shopsQuery = [Shop query];
-            [shopsQuery whereKey:@"objectId" containedIn:[shopIds allObjects]];
-            
-            NSMutableDictionary *recentShops = [NSMutableDictionary dictionary];
-            [shopsQuery findObjectsInBackgroundWithBlock:^(NSArray *shops, NSError *error) {
-                if (!error) {
-                    for (Shop *shop in shops) {
-                        [recentShops setObject:shop forKey:shop.objectId];
-                    }
-                    for (ShopActivities *activity in activities) {
-                        activity.shop = recentShops[activity.shop.objectId];
-                        
-                        activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
-                            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                            ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activitiesNearby[indexPath.row]];
-                            activitiesViewController.hidesBottomBarWhenPushed = YES;
-                            [self.parentViewController.navigationController pushViewController:activitiesViewController animated:YES];
-                        };
-                        
-                        activity.handleBlock = ^(NSDictionary *info){
-                            UIView *sender = info[@"sender"];
-                            CGRect rect = [self.view convertRect:sender.frame fromView:sender.superview];
-                            rect.origin.y += 64;
-                            
-                            Shop *shop = info[@"shop"];
-                            ShopViewController *shopViewController =[[ShopViewController alloc] initWithShop:shop];
-                            shopViewController.presentedRect = rect;
-                            
-                            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
-                            nav.transitioningDelegate = shopViewController;
-                            nav.modalPresentationStyle = UIModalPresentationCustom;
-                            [self presentViewController:nav animated:YES completion:nil];
-                        };
-                    }
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self updateActivities:activities];
-                        if (accepted) {
-                            [self.myActivities addObjectsFromArray:activities];
-                        } else {
-                            [self.activitiesNearby addObjectsFromArray:activities];
-                        }
-
-                    });
-                }
-                
-            }];
+            [self updateActivities:activities];
         }
     }];
 }

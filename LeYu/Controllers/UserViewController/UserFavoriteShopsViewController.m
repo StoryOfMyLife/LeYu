@@ -87,7 +87,7 @@
                 }
             }];
             
-        }else {
+        } else {
             [self.indicator stopAnimating];
         }
     }];

@@ -86,9 +86,7 @@
     [self.bottomView addSubview:self.acceptButton];
     
     [self.acceptButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.bottomView);
-        make.width.equalTo(@120);
-        make.height.equalTo(@30);
+        make.edges.equalTo(self.bottomView);
     }];
     
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
@@ -124,6 +122,7 @@
     [query whereKey:@"shop" equalTo:self.activities.shop];
     [query orderByDescending:@"createdAt"];
     
+    [query includeKey:@"shop"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
         if (!error) {
             NSMutableArray *result = [NSMutableArray arrayWithArray:activities];
@@ -139,7 +138,6 @@
             self.otherActivities = tmp;
             
             for (ShopActivities *activity in self.otherActivities) {
-                activity.shop = self.activities.shop;
                 activity.otherActivity = YES;
                 
                 [activity applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
@@ -225,7 +223,8 @@
 - (void)pressedAcceptButton:(UIButton *)button
 {
     ActivityAcceptViewController *vc = [[ActivityAcceptViewController alloc] init];
-    CGRect rect = [self.view convertRect:button.frame fromView:self.bottomView];
+    CGRect frame = CGRectMake(button.centerX - 50, button.top, 100, button.centerX + 50);
+    CGRect rect = [self.view convertRect:frame fromView:self.bottomView];
     rect.origin.y += self.view.top;
     vc.presentedRect = rect;
     vc.transitioningDelegate = vc;
@@ -477,7 +476,7 @@
         [_acceptButton setTitle:@"接受" forState:UIControlStateNormal];
         _acceptButton.titleLabel.font = SystemFontWithSize(16);
         _acceptButton.tintColor = [UIColor whiteColor];
-//        _acceptButton.backgroundColor = RGBCOLOR(180, 160, 80);
+        _acceptButton.backgroundColor = DefaultYellowColor;
         
 //        _acceptButton.layer.borderColor = [UIColor colorWithWhite:1 alpha:.7].CGColor;
 //        _acceptButton.layer.borderWidth = 1;
@@ -496,6 +495,7 @@
         _shopIcon.layer.cornerRadius = 25;
         _shopIcon.layer.borderWidth = 2;
         _shopIcon.layer.borderColor = RGBCOLOR(238, 238, 238).CGColor;
+        _shopIcon.image = [UIImage imageNamed:@"DefaultAvatar"];
         weakSelf();
         [_shopIcon bk_whenTapped:^{
             CGRect rect = [weakSelf.view convertRect:weakSelf.shopIcon.frame fromView:weakSelf.shopIcon.superview];

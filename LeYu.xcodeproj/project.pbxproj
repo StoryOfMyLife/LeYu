@@ -84,7 +84,6 @@
 		52635BFA1BA8728200703DBE /* DetailActivities.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B421BA8728200703DBE /* DetailActivities.m */; };
 		52635BFC1BA8728200703DBE /* LYUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B461BA8728200703DBE /* LYUser.m */; };
 		52635BFE1BA8728200703DBE /* NotificationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B4A1BA8728200703DBE /* NotificationMessage.m */; };
-		52635C061BA8728200703DBE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B5A1BA8728200703DBE /* User.m */; };
 		52635C071BA8728200703DBE /* YDDismissFadeOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B5D1BA8728200703DBE /* YDDismissFadeOutAnimator.m */; };
 		52635C081BA8728200703DBE /* YDExpandInAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B5F1BA8728200703DBE /* YDExpandInAnimator.m */; };
 		52635C091BA8728200703DBE /* YDExpandOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B611BA8728200703DBE /* YDExpandOutAnimator.m */; };
@@ -97,7 +96,6 @@
 		52635C101BA8728200703DBE /* ImageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B731BA8728200703DBE /* ImageFactory.m */; };
 		52635C121BA8728200703DBE /* StringFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B771BA8728200703DBE /* StringFactory.m */; };
 		52635C141BA8728200703DBE /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B7D1BA8728200703DBE /* ActivityCell.m */; };
-		52635C151BA8728200703DBE /* ActivityUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B7F1BA8728200703DBE /* ActivityUserInfoCell.m */; };
 		52635C161BA8728200703DBE /* FavoriteShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B811BA8728200703DBE /* FavoriteShopCell.m */; };
 		52635C181BA8728200703DBE /* MyActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B851BA8728200703DBE /* MyActivityCell.m */; };
 		52635C191BA8728200703DBE /* NotificationMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B871BA8728200703DBE /* NotificationMessageCell.m */; };
@@ -278,8 +276,6 @@
 		52635B461BA8728200703DBE /* LYUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYUser.m; sourceTree = "<group>"; };
 		52635B491BA8728200703DBE /* NotificationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMessage.h; sourceTree = "<group>"; };
 		52635B4A1BA8728200703DBE /* NotificationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationMessage.m; sourceTree = "<group>"; };
-		52635B591BA8728200703DBE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		52635B5A1BA8728200703DBE /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		52635B5C1BA8728200703DBE /* YDDismissFadeOutAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDDismissFadeOutAnimator.h; sourceTree = "<group>"; };
 		52635B5D1BA8728200703DBE /* YDDismissFadeOutAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDDismissFadeOutAnimator.m; sourceTree = "<group>"; };
 		52635B5E1BA8728200703DBE /* YDExpandInAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDExpandInAnimator.h; sourceTree = "<group>"; };
@@ -305,8 +301,6 @@
 		52635B771BA8728200703DBE /* StringFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringFactory.m; sourceTree = "<group>"; };
 		52635B7C1BA8728200703DBE /* ActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityCell.h; sourceTree = "<group>"; };
 		52635B7D1BA8728200703DBE /* ActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityCell.m; sourceTree = "<group>"; };
-		52635B7E1BA8728200703DBE /* ActivityUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityUserInfoCell.h; sourceTree = "<group>"; };
-		52635B7F1BA8728200703DBE /* ActivityUserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityUserInfoCell.m; sourceTree = "<group>"; };
 		52635B801BA8728200703DBE /* FavoriteShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteShopCell.h; sourceTree = "<group>"; };
 		52635B811BA8728200703DBE /* FavoriteShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteShopCell.m; sourceTree = "<group>"; };
 		52635B841BA8728200703DBE /* MyActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyActivityCell.h; sourceTree = "<group>"; };
@@ -697,8 +691,6 @@
 				52635B461BA8728200703DBE /* LYUser.m */,
 				52635B491BA8728200703DBE /* NotificationMessage.h */,
 				52635B4A1BA8728200703DBE /* NotificationMessage.m */,
-				52635B591BA8728200703DBE /* User.h */,
-				52635B5A1BA8728200703DBE /* User.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -780,8 +772,6 @@
 				523978411BA9A29500CB9B9E /* OtherActivityCell.m */,
 				52635B7C1BA8728200703DBE /* ActivityCell.h */,
 				52635B7D1BA8728200703DBE /* ActivityCell.m */,
-				52635B7E1BA8728200703DBE /* ActivityUserInfoCell.h */,
-				52635B7F1BA8728200703DBE /* ActivityUserInfoCell.m */,
 				52635B801BA8728200703DBE /* FavoriteShopCell.h */,
 				52635B811BA8728200703DBE /* FavoriteShopCell.m */,
 				52635B841BA8728200703DBE /* MyActivityCell.h */,
@@ -1015,7 +1005,6 @@
 				5239783F1BA9A25A00CB9B9E /* MyActivities.m in Sources */,
 				523977F71BA99ACB00CB9B9E /* HFImageEditingViewController.m in Sources */,
 				52635C191BA8728200703DBE /* NotificationMessageCell.m in Sources */,
-				52635C061BA8728200703DBE /* User.m in Sources */,
 				52635C0C1BA8728200703DBE /* TTCollectionPageViewController.m in Sources */,
 				52635BAF1BA8728200703DBE /* UIButton+Center.m in Sources */,
 				52635BC21BA8728200703DBE /* CTAssetsViewController.m in Sources */,
@@ -1040,7 +1029,6 @@
 				523978421BA9A29500CB9B9E /* OtherActivityCell.m in Sources */,
 				523977EB1BA99ABE00CB9B9E /* ImagePreviewViewController.m in Sources */,
 				52635BBA1BA8728200703DBE /* CTAssetScrollView.m in Sources */,
-				52635C151BA8728200703DBE /* ActivityUserInfoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

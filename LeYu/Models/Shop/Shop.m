@@ -30,6 +30,8 @@
 
 @dynamic likes;
 
+@dynamic followers;
+
 -(void)loadShopIcon:(AVImageResultBlock)block
 {
     [self.shopIcon getThumbnail:YES width:100 height:100 withBlock:block];
