@@ -8,7 +8,7 @@
 
 #import "UserFavoriteShopsViewController.h"
 #import "FavoriteShopCell.h"
-#import "ShopFollower.h"
+#import "ActivityUserRelation.h"
 #import "ShopViewController.h"
 
 @interface UserFavoriteShopsViewController()<UITableViewDataSource,UITableViewDelegate>;
@@ -40,7 +40,7 @@
      self.title = @"个人信息";
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.tableFooterView = [[UIView alloc] init];
-    self.tableView.backgroundColor = UIColorFromRGB(0xF0F0F0);
+    self.tableView.backgroundColor = DefaultBackgroundColor;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
@@ -67,13 +67,13 @@
     
     [self.tableView registerClass:FavoriteShopCell.class forCellReuseIdentifier:NSStringFromClass(FavoriteShopCell.class)];
     [self.indicator startAnimating];
-    AVQuery *query = [ShopFollower query];
+    AVQuery *query = [ActivityUserRelation query];
     [query whereKey:@"user" equalTo:self.user];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSMutableArray *shopObjectIds = [[NSMutableArray alloc] init];
-            for (ShopFollower* follower in objects) {
-                [shopObjectIds addObject:follower.shop.objectId];
+            for (ActivityUserRelation* follower in objects) {
+//                [shopObjectIds addObject:follower.shop.objectId];
             }
             AVQuery* shopQuery = [Shop query];
             [shopQuery whereKey:@"objectId" containedIn:shopObjectIds];

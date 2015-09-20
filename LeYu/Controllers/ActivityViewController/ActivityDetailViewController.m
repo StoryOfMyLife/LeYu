@@ -223,6 +223,7 @@
 - (void)pressedAcceptButton:(UIButton *)button
 {
     ActivityAcceptViewController *vc = [[ActivityAcceptViewController alloc] init];
+    vc.activity = self.activities;
     CGRect frame = CGRectMake(button.centerX - 50, button.top, 100, button.centerX + 50);
     CGRect rect = [self.view convertRect:frame fromView:self.bottomView];
     rect.origin.y += self.view.top;

@@ -10,6 +10,8 @@
 #import "TTHorizontalCategoryBar.h"
 #import "TTCollectionPageViewController.h"
 #import "ActivitiesNearbyViewController.h"
+#import "ActivityOfFollowedShopViewController.h"
+#import "ShopActivities.h"
 
 @interface ActivityViewController () <TTCollectionPageViewControllerDelegate>
 
@@ -86,16 +88,25 @@
         
         NSMutableArray *models = [NSMutableArray arrayWithCapacity:self.viewControllers.count];
         for (int i = 0; i < self.viewControllers.count; i++) {
-            ActivitiesNearbyViewController *vc = self.viewControllers[i];
-            [_pageViewController addChildViewController:vc];
             if (i == 0) {
-                [vc loadActivities:NO];
+                ActivitiesNearbyViewController *vc = self.viewControllers[i];
+                [vc view];
+                vc.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
+                [_pageViewController addChildViewController:vc];
+                
+                TTCollectionPageCellItem *item = [[TTCollectionPageCellItem alloc] init];
+                item.controller = vc;
+                [models addObject:item];
             } else {
-                [vc loadActivities:NO];
-            }
-            TTCollectionPageCellItem *item = [[TTCollectionPageCellItem alloc] init];
-            item.controller = vc;
-            [models addObject:item];
+                ActivityOfFollowedShopViewController *vc = self.viewControllers[i];
+                [vc view];
+                vc.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
+                [_pageViewController addChildViewController:vc];
+                
+                TTCollectionPageCellItem *item = [[TTCollectionPageCellItem alloc] init];
+                item.controller = vc;
+                [models addObject:item];
+            }            
         }
         _pageViewController.pageItems = models;
     }
@@ -106,7 +117,7 @@
 {
     if (!_viewControllers) {
         _viewControllers = @[[[ActivitiesNearbyViewController alloc] init],
-                             [[ActivitiesNearbyViewController alloc] init]];
+                             [[ActivityOfFollowedShopViewController alloc] init]];
     }
     return _viewControllers;
 }

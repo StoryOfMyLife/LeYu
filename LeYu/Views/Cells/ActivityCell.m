@@ -173,7 +173,6 @@ static const CGFloat kContentInset = 20;
 - (void)configureCellWithActivity:(ShopActivities *)activity
 {
     self.titleLabel.text = activity.title;
-    self.giftNumberLabel.text = activity.gifts.stringValue ?: @"0";
     [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
         [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
             self.thumbnailImage.image = image;

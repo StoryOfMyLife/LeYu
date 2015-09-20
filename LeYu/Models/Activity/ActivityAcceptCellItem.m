@@ -93,12 +93,14 @@ static const CGFloat space = 25.0;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.phone = [[UITextField alloc] init];
-        self.phone.tintColor = DefaultYellowColor;
+//        self.phone.tintColor = DefaultYellowColor;
         self.phone.placeholder = @"联系方式";
         self.phone.keyboardType = UIKeyboardTypeNumberPad;
         self.phone.font = SystemFontWithSize(16);
         self.phone.textColor = RGBCOLOR_HEX(0x646464);
         [self.contentView addSubview:self.phone];
+        
+        self.phone.text = [LYUser currentUser].mobilePhoneNumber;
         
         [self.phone mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(space);

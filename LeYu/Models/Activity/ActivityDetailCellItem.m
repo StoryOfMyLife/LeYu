@@ -171,7 +171,6 @@
     ShopActivities *activity = cellItem.activity;
     
     self.activityDescLabel.text = activity.activitiesDescription;
-    self.giftLabel.text = [activity.gifts stringValue] ?: @"0";
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
     [self layoutButton:self.likeButton];
     

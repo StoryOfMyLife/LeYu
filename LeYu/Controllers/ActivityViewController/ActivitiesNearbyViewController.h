@@ -10,6 +10,4 @@
 
 @interface ActivitiesNearbyViewController : LTableViewController
 
-- (void)loadActivities:(BOOL)accepted;
-
 @end

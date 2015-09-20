@@ -7,13 +7,15 @@
 //
 
 #import "AVObject.h"
-#import "Shop.h"
+#import "ShopActivities.h"
 #import "LYUser.h"
 
-@interface ShopFollower : AVObject <AVSubclassing>
+@interface ActivityUserRelation : AVObject <AVSubclassing>
 
 @property (nonatomic, strong) LYUser *user;
 
-@property (nonatomic, strong) Shop *shop;
+@property (nonatomic, strong) ShopActivities *activity;
+
+@property (nonatomic, strong) NSDate *userArriveDate;
 
 @end

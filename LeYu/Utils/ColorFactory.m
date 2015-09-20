@@ -30,7 +30,7 @@
 }
 
 +(UIColor *)dyLightGray{
-    return UIColorFromRGB(0xF0F0F0);
+    return DefaultBackgroundColor;
 }
 
 

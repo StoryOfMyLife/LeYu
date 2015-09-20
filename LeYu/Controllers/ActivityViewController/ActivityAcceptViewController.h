@@ -7,9 +7,12 @@
 //
 
 #import "LTableViewController.h"
+#import "ShopActivities.h"
 
 @interface ActivityAcceptViewController : LTableViewController <UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, assign) CGRect presentedRect;
+
+@property (nonatomic, strong) ShopActivities *activity;
 
 @end

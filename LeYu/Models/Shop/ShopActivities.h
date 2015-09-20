@@ -11,25 +11,25 @@
 
 @interface ShopActivities : LTableViewCellItem
 
-@property (nonatomic, strong) Shop *shop;
+@property (nonatomic, copy) NSString *activitiesDescription;
 
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSArray *pics;
+
+@property (nonatomic, strong) Shop *shop;
 
 @property (nonatomic, strong) NSDate *BeginDate;
 
 @property (nonatomic, strong) NSDate *EndDate;
 
-@property (nonatomic, copy) NSString *activitiesDescription;
+@property (nonatomic, strong) NSNumber *totalNum;
+
+@property (nonatomic, strong) NSNumber *likes;
+
+@property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, strong) NSNumber *activitiesType;
 
-@property (nonatomic, strong) NSArray *pics;
-
-@property (nonatomic, copy) NSString *userId;
-
-@property (nonatomic, strong) NSNumber *gifts;
-
-@property (nonatomic, strong) NSNumber *likes;
+@property (nonatomic, strong) NSNumber *participantNum;
 
 @property (nonatomic) BOOL accepted;
 

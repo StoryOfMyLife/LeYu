@@ -9,7 +9,9 @@
 #import "UserViewController.h"
 #import "UserInfoEditViewController.h"
 #import "SettingViewController.h"
-#import "ShopActivityViewController.h"
+#import "MyAcceptedActivityViewController.h"
+#import "ShopActivities.h"
+#import "ActivityUserRelation.h"
 #import <FXBlurView.h>
 
 @interface UserViewController ()
@@ -55,7 +57,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
+            if (self.shopUser) {
+                
+            } else {
+                MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
+                vc.title = @"我的活动";
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
     }
 }

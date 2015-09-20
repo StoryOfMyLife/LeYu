@@ -7,7 +7,6 @@
 //
 
 #import "ActivitiesNearbyViewController.h"
-#import "ShopViewController.h"
 #import "ActivityDetailViewController.h"
 #import "ShopActivities.h"
 #import "Shop.h"
@@ -16,68 +15,53 @@
 
 @interface ActivitiesNearbyViewController ()
 
-@property (nonatomic, strong) NSMutableArray *activitiesNearby;
-@property (nonatomic, strong) NSMutableArray *myActivities;
-
-@property (nonatomic, copy) NSArray *assets;
+@property (nonatomic, strong) NSMutableArray *activities;
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicator;
+
+@property (nonatomic, strong) AVQuery *query;
 
 @end
 
 @implementation ActivitiesNearbyViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
-    self.title = @"活动";
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.tableView.backgroundColor = UIColorFromRGB(0xF0F0F0);
+    self.tableView.backgroundColor = DefaultBackgroundColor;
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     
-    self.activitiesNearby = [NSMutableArray array];
-    self.myActivities = [NSMutableArray array];
+    RAC(self.tableView, scrollIndicatorInsets) = RACObserve(self.tableView, contentInset);
+    
+    self.activities = [NSMutableArray array];
     
     self.indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.view addSubview:self.indicator];
-    
     
     [self.indicator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
     }];
     [self.indicator startAnimating];
     
+    [self loadActivities];
     weakSelf();
     self.updateBlock = ^{
-        [weakSelf loadActivities:NO];
+        [weakSelf loadActivities];
     };
-}
-
--(void)navigateToLoginPage {
-    LoginViewController *loginViewController = [[LoginViewController alloc] init];
-    UINavigationController *loginViewNavigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    [self presentViewController:loginViewNavigationController animated:YES completion:nil];
-}
-
-- (void)exitLoginProcess {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)loginCallback {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    LYUser *currentUser = [LYUser currentUser];
-//    if (!currentUser) {
-//        [self navigateToLoginPage];
-//    }
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
+
+#pragma mark -
+#pragma mark methods
 
 - (void)updateActivities:(NSArray *)activities
 {
@@ -86,80 +70,35 @@
     [self.tableView.header endRefreshing];
 }
 
-- (void)loadActivities:(BOOL)accepted
+- (void)loadActivities
 {
-    if (!accepted && self.activitiesNearby.count > 0) {
-        [self updateActivities:self.activitiesNearby];
-        return;
-    } else if (accepted && self.myActivities.count > 0) {
-        [self updateActivities:self.myActivities];
-        return;
-    }
-    
-    AVQuery *query = [ShopActivities query];
-    [query orderByDescending:@"createdAt"];
-    
-    if (accepted) {
-        LYUser *currentUser = [LYUser currentUser];
-        NSString *userId = currentUser.objectId;
-        if (userId.length > 0) {
-            [query whereKey:@"users" containsAllObjectsInArray:@[userId]];
-        }
-    }
-    
-    [query includeKey:@"shop"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
+    AVQuery *activityQuery = [ShopActivities query];
+    //TODO:按距离选择
+    [activityQuery orderByDescending:@"createdAt"];
+    [activityQuery includeKey:@"shop"];
+    [activityQuery findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
         if (!error) {
-            
-            if (accepted) {
-                [self.myActivities removeAllObjects];
-                [self.myActivities addObjectsFromArray:activities];
-            } else {
-                [self.activitiesNearby removeAllObjects];
-                [self.activitiesNearby addObjectsFromArray:activities];
-            }
+
+            [self.activities removeAllObjects];
+            [self.activities addObjectsFromArray:activities];
             
             for (ShopActivities *activity in activities) {
-                if (accepted) {
-                    activity.accepted = accepted;
-                } else {
-                    activity.otherActivity = YES;
-                }
+                activity.otherActivity = YES;
                 
                 activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
                     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                    ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activitiesNearby[indexPath.row]];
+                    ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activities[indexPath.row]];
                     activitiesViewController.hidesBottomBarWhenPushed = YES;
-                    [self.parentViewController.navigationController pushViewController:activitiesViewController animated:YES];
-                };
-                
-                activity.handleBlock = ^(NSDictionary *info){
-                    UIView *sender = info[@"sender"];
-                    CGRect rect = [self.view convertRect:sender.frame fromView:sender.superview];
-                    rect.origin.y += 64;
-                    
-                    Shop *shop = info[@"shop"];
-                    ShopViewController *shopViewController =[[ShopViewController alloc] initWithShop:shop];
-                    shopViewController.presentedRect = rect;
-                    
-                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
-                    nav.transitioningDelegate = shopViewController;
-                    nav.modalPresentationStyle = UIModalPresentationCustom;
-                    [self presentViewController:nav animated:YES completion:nil];
+                    if (self.navigationController) {
+                        [self.navigationController pushViewController:activitiesViewController animated:YES];
+                    } else {
+                        [self.parentViewController.navigationController pushViewController:activitiesViewController animated:YES];
+                    }
                 };
             }
-            
             [self updateActivities:activities];
         }
     }];
 }
-
-#pragma mark -
-#pragma mark tableview delegate
-
-
-#pragma mark -
-#pragma mark - Getters and Setters
-
 
 @end

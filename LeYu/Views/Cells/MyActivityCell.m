@@ -67,7 +67,7 @@ static const CGFloat kContentInset = 10;
 //    self.actionButton.titleLabel.font = SystemFontWithSize(14);
     
     self.bottomView = [[UIView alloc] init];
-    self.bottomView.backgroundColor = UIColorFromRGB(0xF0F0F0);
+    self.bottomView.backgroundColor = DefaultBackgroundColor;
     
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.thumbnailImage];

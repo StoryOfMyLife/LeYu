@@ -8,6 +8,7 @@
 
 #import "ActivityAcceptViewController.h"
 #import "ActivityAcceptCellItem.h"
+#import "ActivityUserRelation.h"
 
 #import "YDExpandInAnimator.h"
 #import "YDShrinkOutAnimator.h"
@@ -18,6 +19,7 @@
 @property (nonatomic, strong) UIImageView *avatar;
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UIButton *closeButton;
+@property (nonatomic, strong) NSDate *arriveDate;
 
 @property (nonatomic, assign) BOOL cancelDismiss;
 
@@ -88,6 +90,7 @@
             UIDatePicker* datePicker = (UIDatePicker *)noti.object;
             return datePicker.date;
         }] subscribeNext:^(NSDate *date) {
+            self.arriveDate = date;
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyy.MM.dd  hh:mm";
             NSString *dateString = [formatter stringFromDate:date];
@@ -112,7 +115,7 @@
         }
     }];
     
-    [[[[NSNotificationCenter  defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil]  takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *kbHeight) {
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil]  takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *kbHeight) {
         [self.tableView setContentOffset:originalOffset animated:YES];
     }];
     
@@ -126,32 +129,46 @@
     view.height = 200;
     
     self.avatar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DefaultAvatar"]];
-    self.avatar.contentMode = UIViewContentModeScaleAspectFit;
+    self.avatar.contentMode = UIViewContentModeScaleAspectFill;
     self.avatar.clipsToBounds = YES;
-    self.avatar.height = 68;
-    self.avatar.width = 68;
-    self.avatar.center = view.center;
-    self.avatar.layer.cornerRadius = self.avatar.width / 2;
+    self.avatar.layer.cornerRadius = 35;
     [view addSubview:self.avatar];
     
+    [self.avatar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(view);
+        make.width.height.mas_equalTo(70);
+    }];
+    
     self.name = [[UILabel alloc] init];
-    self.name.text = @"达人区";
+    self.name.text = @"乐鱼";
     self.name.font = SystemFontWithSize(16);
     self.name.textColor = RGBCOLOR_HEX(0x787878);
-    [self.name sizeToFit];
-    self.name.centerX = self.avatar.centerX;
-    self.name.top = self.avatar.bottom + 11;
     [view addSubview:self.name];
+    
+    [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(view);
+        make.top.equalTo(self.avatar.mas_bottom).offset(10);
+    }];
     
     self.closeButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.closeButton.tintColor = [UIColor blackColor];
     [self.closeButton addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
     [self.closeButton setImage:[UIImage imageNamed:@"Close"] forState:UIControlStateNormal];
-    self.closeButton.width = 80;
-    self.closeButton.height = 80;
-    self.closeButton.top = view.top;
-    self.closeButton.right = view.right;
     [view addSubview:self.closeButton];
+    
+    [self.closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(80);
+        make.top.right.equalTo(view);
+    }];
+    
+    LYUser *user = [LYUser currentUser];
+    self.name.text = user.username;
+    [user.thumbnail getThumbnail:YES width:100 height:100 withBlock:^(UIImage *image, NSError *error) {
+        [UIView transitionWithView:self.avatar duration:.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.avatar.image = image;
+        } completion:^(BOOL finished) {
+        }];
+    }];
     
     return view;
 }
@@ -187,7 +204,18 @@
 
 - (void)confirm:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([LYUser currentUser]) {
+        ActivityUserRelation *relation = [ActivityUserRelation object];
+        relation.user = [LYUser currentUser];
+        relation.activity = self.activity;
+        relation.userArriveDate = self.arriveDate;
+        [relation saveInBackground];
+        
+        [self.activity incrementKey:@"participantNum"];
+        [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 }
 
 @end

@@ -19,7 +19,7 @@
 #import "ActivityViewController.h"
 #import "HFCreateAvtivityViewController.h"
 #import "LYUser.h"
-#import "ShopFollower.h"
+#import "ActivityUserRelation.h"
 #import "NewNotificationsViewController.h"
 #import "UITabBarController+AddButton.h"
 
@@ -125,7 +125,7 @@
     
     [ShopInfoDescription registerSubclass];
     [LYUser registerSubclass];
-    [ShopFollower registerSubclass];
+    [ActivityUserRelation registerSubclass];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {

@@ -6,17 +6,17 @@
 //  Copyright (c) 2015年 Arsenal. All rights reserved.
 //
 
-#import "ShopFollower.h"
+#import "ActivityUserRelation.h"
 
 
-@implementation ShopFollower
+@implementation ActivityUserRelation
 
 + (NSString *)parseClassName {
-    return NSStringFromClass(ShopFollower.class);
+    return NSStringFromClass(ActivityUserRelation.class);
 }
 
 @dynamic user;
-
-@dynamic shop;
+@dynamic activity;
+@dynamic userArriveDate;
 
 @end

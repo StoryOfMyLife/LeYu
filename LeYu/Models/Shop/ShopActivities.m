@@ -17,28 +17,21 @@
 
 @implementation ShopActivities
 
-@dynamic title;
-
-@dynamic gifts;
-
-@dynamic likes;
-
-@dynamic BeginDate;
-
-@dynamic EndDate;
-
 @dynamic activitiesDescription;
-
-@dynamic activitiesType;
-
-@dynamic userId;
-
 @dynamic pics;
+@dynamic shop;
+@dynamic BeginDate;
+@dynamic EndDate;
+@dynamic totalNum;
+@dynamic likes;
+@dynamic title;
+@dynamic activitiesType;
+@dynamic participantNum;
 
 - (Class)cellClass
 {
     if (self.accepted) {
-        return [MyActivityCell class];
+        return [OtherActivityCell class];
     } else {
         if (self.otherActivity) {
             return [OtherActivityCell class];
