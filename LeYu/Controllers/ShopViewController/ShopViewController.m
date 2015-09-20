@@ -198,11 +198,9 @@
 {
     if (!self.heartView.hasLiked) {
         [self.heartView doAnimationWithAppendAnimation:^{
-            //TODO:赞数变化
+        } completion:^{
             [self.shop addUniqueObject:[LYUser currentUser] forKey:@"followers"];
             [self.shop saveInBackground];
-        } completion:^{
-            
         }];
     }
 }
@@ -342,6 +340,7 @@
         if ([LYUser currentUser]) {
             AVQuery *query = [Shop query];
             [query whereKey:@"followers" equalTo:[LYUser currentUser]];
+            [query whereKey:@"objectId" equalTo:self.shop.objectId];
             NSInteger count = [query countObjects];
             if (count > 0) {
                 [self.heartView doAnimationWithAppendAnimation:^{
