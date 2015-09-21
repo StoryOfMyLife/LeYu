@@ -49,7 +49,7 @@ static const NSInteger kTagOffset = 1000;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = DefaultBackgroundColor;
+    self.view.backgroundColor = DefaultDarkBackgroundColor;
     self.navigationItem.titleView = self.topPreviewView;
     self.title = @"";
     

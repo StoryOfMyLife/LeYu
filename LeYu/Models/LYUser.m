@@ -28,11 +28,8 @@
 
 @dynamic level;
 
-
 + (NSString *)parseClassName {
      return @"_User";
 }
-
-
 
 @end

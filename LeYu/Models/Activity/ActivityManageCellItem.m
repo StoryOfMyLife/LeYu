@@ -1,25 +1,29 @@
 //
-//  OtherActivityCellItem.m
-//  LifeO2O
+//  ActivityManageCellItem.m
+//  LeYu
 //
-//  Created by 刘廷勇 on 15/9/7.
-//  Copyright (c) 2015年 Arsenal. All rights reserved.
+//  Created by 刘廷勇 on 15/9/21.
+//  Copyright (c) 2015年 liuty. All rights reserved.
 //
 
-#import "OtherActivityCell.h"
-#import "ShopActivities.h"
+#import "ActivityManageCellItem.h"
+#import "ActivityUserRelation.h"
 
-@implementation OtherActivityCell
+@implementation ActivityManageCellItem
+
+- (Class)cellClass
+{
+    return [ActivityManageCell class];
+}
+
+@end
+
+@implementation ActivityManageCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
-//        self.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
-//        self.layer.shadowOffset = CGSizeMake(0, 0);
-//        self.layer.shadowOpacity = 1;
-//        self.layer.shadowRadius = 3;
         
         self.imageIconView = [[UIImageView alloc] init];
         self.imageIconView.contentMode = UIViewContentModeScaleAspectFill;
@@ -35,6 +39,11 @@
         self.dateLabel.textColor = RGBCOLOR(120, 119, 116);
         self.dateLabel.font = SystemFontWithSize(13);
         [self.contentView addSubview:self.dateLabel];
+        
+        self.acceptedCount = [[UILabel alloc] init];
+        self.acceptedCount.textColor = DefaultYellowColor;
+        self.acceptedCount.font = SystemBoldFontWithSize(13);
+        [self.contentView addSubview:self.acceptedCount];
         
         UIView *seperator = [[UIView alloc] init];
         seperator.backgroundColor = [UIColor lightGrayColor];
@@ -59,6 +68,10 @@
         [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel);
             make.top.equalTo(self.contentView.mas_centerY).offset(inset);
+        }];
+        
+        [self.acceptedCount mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.dateLabel);
             make.right.equalTo(self.contentView).offset(-inset);
         }];
         
@@ -72,15 +85,26 @@
     return self;
 }
 
-- (void)setCellItem:(ShopActivities *)cellItem
+- (void)setCellItem:(ActivityManageCellItem *)cellItem
 {
     [super setCellItem:cellItem];
-    self.titleLabel.text = cellItem.title;
+    
+    ShopActivities *activity = cellItem.activity;
+
+    self.titleLabel.text = activity.title;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"YYYY.MM.dd  hh:mm";
-    NSString *date = [formatter stringFromDate:cellItem.BeginDate];
+    NSString *date = [formatter stringFromDate:activity.BeginDate];
     self.dateLabel.text = date;
-    [AVFile getFileWithObjectId:cellItem.pics[0] withBlock:^(AVFile *file, NSError *error) {
+
+    AVQuery *relationQuery = [ActivityUserRelation query];
+    [relationQuery whereKey:@"activity" equalTo:activity];
+    
+    [relationQuery countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+        self.acceptedCount.text = [NSString stringWithFormat:@"%ld人参与", (long)number];
+    }];
+    
+    [AVFile getFileWithObjectId:activity.pics[0] withBlock:^(AVFile *file, NSError *error) {
         [file getThumbnail:YES width:140 height:(140.0 * 16.0 / 9.0) withBlock:^(UIImage *image, NSError *error) {
             [UIView transitionWithView:self.imageIconView duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                 self.imageIconView.image = image;

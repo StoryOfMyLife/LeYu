@@ -122,11 +122,12 @@
     
     ImageAssetsManager *manager = [ImageAssetsManager manager];
     ShopActivities *activity = [ShopActivities object];
-    activity.activitiesDescription = manager.activityTheme;
+    activity.title = manager.activityTheme;
+    activity.activitiesDescription = manager.activityDesc;
     activity.BeginDate = manager.activityDate;
+    activity.EndDate = [NSDate dateWithTimeInterval:aWeek sinceDate:manager.activityDate];
 
-    //TODO:from user's shop
-//    activity.shopId = @1;
+    activity.shop = [LYUser currentUser].shop;
     
     NSArray *imageAssets = [manager allAssets];
     NSMutableArray *imageIds = [NSMutableArray arrayWithCapacity:0];
@@ -140,10 +141,10 @@
         }
         NSString *imageName = [NSString stringWithFormat:@"%@.png", name];
         AVFile *imageFile = [AVFile fileWithName:imageName data:imageData];
-        [imageFile saveInBackground];
+        [imageFile save];
         
         if (imageInfo.topAsset) {
-            [imageIds insertObject:imageFile atIndex:0];
+            [imageIds insertObject:imageFile.objectId atIndex:0];
         } else {
             [imageIds addObject:imageFile.objectId];
         }

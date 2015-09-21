@@ -1,22 +1,23 @@
 //
-//  MyAcceptedActivityViewController.m
+//  ActivityManageViewController.m
 //  LeYu
 //
 //  Created by 刘廷勇 on 15/9/21.
 //  Copyright (c) 2015年 liuty. All rights reserved.
 //
 
-#import "MyAcceptedActivityViewController.h"
-#import "ActivityUserRelation.h"
-#import "ActivityDetailViewController.h"
+#import "ActivityManageViewController.h"
+#import "ActivityManageDetailViewController.h"
+#import "ShopActivities.h"
+#import "ActivityManageCellItem.h"
 
-@interface MyAcceptedActivityViewController ()
+@interface ActivityManageViewController ()
 
 @property (nonatomic, strong) NSMutableArray *activities;
 
 @end
 
-@implementation MyAcceptedActivityViewController
+@implementation ActivityManageViewController
 
 - (void)viewDidLoad
 {
@@ -26,7 +27,6 @@
     
     self.tableView.backgroundColor = DefaultBackgroundColor;
     self.tableView.tableFooterView = [[UIView alloc] init];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     RAC(self.tableView, scrollIndicatorInsets) = RACObserve(self.tableView, contentInset);
     
@@ -58,28 +58,33 @@
         return;
     }
     
-    AVQuery *relationQuery = [ActivityUserRelation query];
-    [relationQuery whereKey:@"user" equalTo:currentUser];
-
+    AVQuery *shopQuery = [Shop query];
+    [shopQuery whereKey:@"objectId" equalTo:currentUser.shop.objectId];
+    
     AVQuery *query = [ShopActivities query];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"shop"];
-    [query whereKey:@"objectId" matchesKey:@"activity.objectId" inQuery:relationQuery];
+    [query whereKey:@"shop" matchesQuery:shopQuery];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.activities removeAllObjects];
         [self.activities addObjectsFromArray:objects];
+        
+        NSMutableArray *items = [NSMutableArray arrayWithCapacity:0];
         for (ShopActivities *activity in objects) {
-            activity.accepted = YES;
+            ActivityManageCellItem *item = [[ActivityManageCellItem alloc] init];
+            item.activity = activity;
+            [items addObject:item];
             
-            activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+            item.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activities[indexPath.row]];
-                activitiesViewController.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:activitiesViewController animated:YES];
+                ActivityManageDetailViewController *vc = [[ActivityManageDetailViewController alloc] init];
+                vc.activity = activity;
+                [self.navigationController pushViewController:vc animated:YES];
             };
         }
-        [self updateActivities:self.activities];
+        
+        [self updateActivities:items];
     }];
 }
 

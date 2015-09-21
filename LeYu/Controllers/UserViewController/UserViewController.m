@@ -11,6 +11,7 @@
 #import "SettingViewController.h"
 #import "MyAcceptedActivityViewController.h"
 #import "FollowedShopViewController.h"
+#import "ActivityManageViewController.h"
 #import "ShopActivities.h"
 #import "ActivityUserRelation.h"
 #import <FXBlurView.h>
@@ -59,7 +60,10 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             if (self.shopUser) {
-                
+                ActivityManageViewController *vc = [[ActivityManageViewController alloc] init];
+                vc.title = @"活动管理";
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             } else {
                 MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
                 vc.title = @"我的活动";
