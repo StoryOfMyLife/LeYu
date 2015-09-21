@@ -34,10 +34,7 @@
     self.activities = [NSMutableArray array];
     
     [self loadActivities];
-    weakSelf();
-    self.updateBlock = ^{
-        [weakSelf loadActivities];
-    };
+    self.refreshEnable = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,35 +61,26 @@
     
     AVQuery *relationQuery = [ActivityUserRelation query];
     [relationQuery whereKey:@"user" equalTo:currentUser];
+
+    AVQuery *query = [ShopActivities query];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"shop"];
+    [query whereKey:@"objectId" matchesKey:@"activity.objectId" inQuery:relationQuery];
     
-    [relationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        NSMutableArray *activityIds = [NSMutableArray array];
-        
-        for (ActivityUserRelation *relation in objects) {
-            [activityIds addObject:relation.activity.objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.activities removeAllObjects];
+        [self.activities addObjectsFromArray:objects];
+        for (ShopActivities *activity in objects) {
+            activity.accepted = YES;
+            
+            activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activities[indexPath.row]];
+                activitiesViewController.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:activitiesViewController animated:YES];
+            };
         }
-        
-        AVQuery *query = [ShopActivities query];
-        [query orderByDescending:@"createdAt"];
-        [query includeKey:@"shop"];
-        [query whereKey:@"objectId" containedIn:activityIds];
-        
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            [self.activities removeAllObjects];
-            [self.activities addObjectsFromArray:objects];
-            for (ShopActivities *activity in objects) {
-                activity.accepted = YES;
-                
-                activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
-                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                    ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activities[indexPath.row]];
-                    activitiesViewController.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:activitiesViewController animated:YES];
-                };
-            }
-            [self updateActivities:self.activities];
-        }];
-        
+        [self updateActivities:self.activities];
     }];
 }
 

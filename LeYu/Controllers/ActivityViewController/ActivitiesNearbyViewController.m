@@ -12,6 +12,7 @@
 #import "Shop.h"
 #import "LYUser.h"
 #import "LoginViewController.h"
+#import "LYLocationManager.h"
 
 @interface ActivitiesNearbyViewController ()
 
@@ -72,31 +73,39 @@
 
 - (void)loadActivities
 {
-    AVQuery *activityQuery = [ShopActivities query];
-    //TODO:按距离选择
-    [activityQuery orderByDescending:@"createdAt"];
-    [activityQuery includeKey:@"shop"];
-    [activityQuery findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
-        if (!error) {
-
-            [self.activities removeAllObjects];
-            [self.activities addObjectsFromArray:activities];
+    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
+        if (success) {
+            AVGeoPoint *currentGeo = [AVGeoPoint geoPointWithLocation:currentLocation];
+            AVQuery *shopQuery = [Shop query];
+            [shopQuery whereKey:@"geolocation" nearGeoPoint:currentGeo withinKilometers:10];
             
-            for (ShopActivities *activity in activities) {
-                activity.otherActivity = YES;
-                
-                activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
-                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                    ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activities[indexPath.row]];
-                    activitiesViewController.hidesBottomBarWhenPushed = YES;
-                    if (self.navigationController) {
-                        [self.navigationController pushViewController:activitiesViewController animated:YES];
-                    } else {
-                        [self.parentViewController.navigationController pushViewController:activitiesViewController animated:YES];
+            AVQuery *activityQuery = [ShopActivities query];
+            [activityQuery whereKey:@"shop" matchesQuery:shopQuery];
+            [activityQuery includeKey:@"shop"];
+            
+            [activityQuery findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
+                if (!error) {
+                    
+                    [self.activities removeAllObjects];
+                    [self.activities addObjectsFromArray:activities];
+                    
+                    for (ShopActivities *activity in activities) {
+                        activity.otherActivity = YES;
+                        
+                        activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+                            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                            ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activities[indexPath.row]];
+                            activitiesViewController.hidesBottomBarWhenPushed = YES;
+                            if (self.navigationController) {
+                                [self.navigationController pushViewController:activitiesViewController animated:YES];
+                            } else {
+                                [self.parentViewController.navigationController pushViewController:activitiesViewController animated:YES];
+                            }
+                        };
                     }
-                };
-            }
-            [self updateActivities:activities];
+                    [self updateActivities:activities];
+                }
+            }];
         }
     }];
 }
