@@ -191,7 +191,11 @@
 
 - (void)dismiss
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (CGRectIsEmpty(self.presentedRect)) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)clickLikeButton:(UIButton *)sender

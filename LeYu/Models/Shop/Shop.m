@@ -37,5 +37,4 @@
     [self.shopIcon getThumbnail:YES width:100 height:100 withBlock:block];
 }
 
-
 @end

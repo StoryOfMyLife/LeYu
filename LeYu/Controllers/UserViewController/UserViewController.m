@@ -10,6 +10,7 @@
 #import "UserInfoEditViewController.h"
 #import "SettingViewController.h"
 #import "MyAcceptedActivityViewController.h"
+#import "FollowedShopViewController.h"
 #import "ShopActivities.h"
 #import "ActivityUserRelation.h"
 #import <FXBlurView.h>
@@ -65,6 +66,11 @@
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }
+        } else if (indexPath.row == 1) {
+            FollowedShopViewController *vc = [[FollowedShopViewController alloc] init];
+            vc.title = @"收藏的店铺";
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }
