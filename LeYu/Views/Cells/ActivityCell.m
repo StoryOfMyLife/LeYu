@@ -180,14 +180,13 @@ static const CGFloat kContentInset = 20;
     }];
 
     self.shopNameLabel.text = activity.shop.shopname;
-    self.distanceLabel.text = @"3.4km";
+    self.distanceLabel.text = @"--km";
     
     AVGeoPoint *geo = activity.shop.geolocation;
     CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
     [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
         if (success) {
             CLLocationDistance distance = [currentLocation distanceFromLocation:location];
-            self.distanceLabel.hidden = NO;
             double distanceInKM = distance / 1000.0;
             self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
         }

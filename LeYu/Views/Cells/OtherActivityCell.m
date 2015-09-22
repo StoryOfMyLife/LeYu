@@ -8,6 +8,7 @@
 
 #import "OtherActivityCell.h"
 #import "ShopActivities.h"
+#import "LYLocationManager.h"
 
 @implementation OtherActivityCell
 
@@ -31,10 +32,15 @@
         self.titleLabel.font = SystemBoldFontWithSize(16);
         [self.contentView addSubview:self.titleLabel];
         
-        self.dateLabel = [[UILabel alloc] init];
-        self.dateLabel.textColor = RGBCOLOR(120, 119, 116);
-        self.dateLabel.font = SystemFontWithSize(13);
-        [self.contentView addSubview:self.dateLabel];
+        UIImageView *locationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Location"]];
+        locationView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.contentView addSubview:locationView];
+        
+        self.distanceLabel = [[UILabel alloc] init];
+        self.distanceLabel.textAlignment = NSTextAlignmentRight;
+        self.distanceLabel.font = SystemFontWithSize(13);
+        self.distanceLabel.textColor = RGBCOLOR_HEX(0x1f1f1f);
+        [self.contentView addSubview:self.distanceLabel];
         
         UIView *seperator = [[UIView alloc] init];
         seperator.backgroundColor = [UIColor lightGrayColor];
@@ -56,10 +62,15 @@
             make.bottom.equalTo(self.contentView.mas_centerY).offset(-inset);
         }];
         
-        [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [locationView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel);
             make.top.equalTo(self.contentView.mas_centerY).offset(inset);
-            make.right.equalTo(self.contentView).offset(-inset);
+            make.width.and.height.equalTo(@10);
+        }];
+        
+        [self.distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(locationView.mas_right).offset(5);
+            make.centerY.equalTo(locationView);
         }];
         
         [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,10 +87,18 @@
 {
     [super setCellItem:cellItem];
     self.titleLabel.text = cellItem.title;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"YYYY.MM.dd  hh:mm";
-    NSString *date = [formatter stringFromDate:cellItem.beginDate];
-    self.dateLabel.text = date;
+    self.distanceLabel.text = @"--km";
+    
+    AVGeoPoint *geo = cellItem.shop.geolocation;
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
+    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
+        if (success) {
+            CLLocationDistance distance = [currentLocation distanceFromLocation:location];
+            double distanceInKM = distance / 1000.0;
+            self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
+        }
+    }];
+    
     [AVFile getFileWithObjectId:cellItem.pics[0] withBlock:^(AVFile *file, NSError *error) {
         [file getThumbnail:YES width:140 height:(140.0 * 16.0 / 9.0) withBlock:^(UIImage *image, NSError *error) {
             [UIView transitionWithView:self.imageIconView duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{

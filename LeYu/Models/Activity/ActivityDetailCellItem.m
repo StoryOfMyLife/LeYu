@@ -39,6 +39,7 @@
         self.activityDescLabel.font = SystemFontWithSize(14);
         self.activityDescLabel.textColor = RGBCOLOR_HEX(0x828282);
         self.activityDescLabel.numberOfLines = 0;
+        self.activityDescLabel.textAlignment = NSTextAlignmentJustified;
         self.activityDescLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.activityDescLabel.preferredMaxLayoutWidth = self.contentView.width - 20 * 2;
         [self.contentView addSubview:self.activityDescLabel];
@@ -130,9 +131,8 @@
         
         [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
-            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(37);
+            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(25);
             make.bottom.equalTo(self.contentView).offset(-25);
-            make.width.height.equalTo(@100);
         }];
         
 //        [buttonContainer mas_makeConstraints:^(MASConstraintMaker *make) {

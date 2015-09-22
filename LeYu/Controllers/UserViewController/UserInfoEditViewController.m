@@ -23,6 +23,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *desc;
 
+@property (weak, nonatomic) IBOutlet UILabel *shopAddress;
+
 @property (nonatomic, assign) BOOL edited;
 
 @property (nonatomic, assign) BOOL avatarEdited;
@@ -46,7 +48,10 @@
         [self changTofemale];
     }
     
-    [[LYUser currentUser].thumbnail getThumbnail:YES width:80 height:80 withBlock:^(UIImage *image, NSError *error) {
+    LYUser *user = [LYUser currentUser];
+    self.shopAddress.text = user.shop.address;
+    
+    [user.thumbnail getThumbnail:YES width:80 height:80 withBlock:^(UIImage *image, NSError *error) {
         if (!error) {
             self.avatar.image = image;
         }

@@ -77,14 +77,30 @@
         if (success) {
             AVGeoPoint *currentGeo = [AVGeoPoint geoPointWithLocation:currentLocation];
             AVQuery *shopQuery = [Shop query];
-            [shopQuery whereKey:@"geolocation" nearGeoPoint:currentGeo withinKilometers:10];
-            
+            [shopQuery whereKey:@"geolocation" nearGeoPoint:currentGeo withinKilometers:100000];
+        
             AVQuery *activityQuery = [ShopActivities query];
             [activityQuery whereKey:@"shop" matchesQuery:shopQuery];
             [activityQuery includeKey:@"shop"];
             
             [activityQuery findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
                 if (!error) {
+                    activities = [activities sortedArrayUsingComparator:^NSComparisonResult(ShopActivities *obj1, ShopActivities *obj2) {
+                        AVGeoPoint *geo1 = obj1.shop.geolocation;
+                        CLLocation *location1 = [[CLLocation alloc] initWithLatitude:geo1.latitude longitude:geo1.longitude];
+                        CLLocationDistance distance1 = [currentLocation distanceFromLocation:location1];
+                        
+                        AVGeoPoint *geo2 = obj2.shop.geolocation;
+                        CLLocation *location2 = [[CLLocation alloc] initWithLatitude:geo2.latitude longitude:geo2.longitude];
+                        CLLocationDistance distance2 = [currentLocation distanceFromLocation:location2];
+                        if (distance1 < distance2) {
+                            return NSOrderedAscending;
+                        }
+                        if (distance1 > distance2) {
+                            return NSOrderedDescending;
+                        }
+                        return NSOrderedSame;
+                    }];
                     
                     [self.activities removeAllObjects];
                     [self.activities addObjectsFromArray:activities];

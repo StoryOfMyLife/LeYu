@@ -261,7 +261,7 @@
         UILabel *shopLocation = [[UILabel alloc] init];
         shopLocation.font = shopDesc.font;
         shopLocation.textColor = shopDesc.textColor;
-        shopLocation.text = @"3.4km";
+        shopLocation.text = @"--km";
         
         AVGeoPoint *geo = self.shop.geolocation;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];

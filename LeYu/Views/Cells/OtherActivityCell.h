@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) UIImageView *imageIconView;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UILabel *distanceLabel;
 
 @end
