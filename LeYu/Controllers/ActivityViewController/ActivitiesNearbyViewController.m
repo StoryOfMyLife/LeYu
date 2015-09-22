@@ -67,7 +67,7 @@
 - (void)updateActivities:(NSArray *)activities
 {
     if (activities.count == 0) {
-        self showNoData:@"附近没有活动";
+        [self showNoData:@"附近没有活动"];
         return;
     }
     [self hideNoData];
