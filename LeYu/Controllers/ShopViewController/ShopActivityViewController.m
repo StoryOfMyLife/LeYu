@@ -74,6 +74,10 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
         if (!error) {
             [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
+                if (!success) {
+                    [self showNoData:@"定位失败"];
+                    return;
+                }
                 NSArray *activities = [objects sortedArrayUsingComparator:^NSComparisonResult(ShopActivities *obj1, ShopActivities *obj2) {
                     AVGeoPoint *geo1 = obj1.shop.geolocation;
                     CLLocation *location1 = [[CLLocation alloc] initWithLatitude:geo1.latitude longitude:geo1.longitude];
@@ -121,16 +125,21 @@
                 }
                 [self updateActivities:activities];
             }];
+        } else {
+            [self showNoData:@"数据异常"];
         }
     }];
 }
 
 - (void)updateActivities:(NSArray *)activities
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.items = @[activities];
-        [self.tableView.header endRefreshing];
-    });
+    if (activities.count == 0) {
+        [self showNoData:@"没有活动"];
+        return;
+    }
+    [self hideNoData];
+    self.items = @[activities];
+    [self.tableView.header endRefreshing];
 }
 
 @end

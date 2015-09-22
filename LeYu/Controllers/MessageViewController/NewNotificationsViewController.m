@@ -13,7 +13,7 @@
 
 @interface NewNotificationsViewController ()
 
-@property(nonatomic,strong) NSMutableArray *notifications;
+@property (nonatomic, strong) NSMutableArray *notifications;
 
 @end
 
@@ -40,6 +40,11 @@
 
 - (void)updateActivities:(NSArray *)activities
 {
+    if (activities.count == 0) {
+        [self showNoData:@"没有消息"];
+        return;
+    }
+    [self hideNoData];
     self.items = @[activities];
     [self.tableView.header endRefreshing];
 }
@@ -56,6 +61,10 @@
     
     [relationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
+        if (error) {
+            [self showNoData:@"数据异常"];
+            return;
+        }
         NSMutableArray *messages = [NSMutableArray array];
         for (ActivityUserRelation *relation in objects) {
             if ([relation.userArriveDate isSameDay:[NSDate date]]) {

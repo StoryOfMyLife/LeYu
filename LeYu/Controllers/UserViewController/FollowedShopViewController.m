@@ -40,6 +40,11 @@
 
 - (void)updateActivities:(NSArray *)activities
 {
+    if (activities.count == 0) {
+        [self showNoData:@"没有收藏店铺"];
+        return;
+    }
+    [self hideNoData];
     self.items = @[activities];
     [self.tableView.header endRefreshing];
 }
@@ -48,6 +53,7 @@
 {
     LYUser *currentUser = [LYUser currentUser];
     if (!currentUser) {
+        [self showNoData:@"请先登录"];
         return;
     }
     
@@ -55,6 +61,10 @@
     [shopQuery whereKey:@"followers" equalTo:currentUser];
     
     [shopQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            [self showNoData:@"数据异常"];
+            return;
+        }
         NSMutableArray *shopItems = [NSMutableArray arrayWithCapacity:0];
         for (Shop *shop in objects) {
             ShopFollowedCellItem *item = [[ShopFollowedCellItem alloc] init];

@@ -47,6 +47,11 @@
 
 - (void)updateActivities:(NSArray *)activities
 {
+    if (activities.count == 0) {
+        self showNoData:@"没有活动";
+        return;
+    }
+    [self hideNoData];
     self.items = @[activities];
     [self.tableView.header endRefreshing];
 }
@@ -55,6 +60,7 @@
 {
     LYUser *currentUser = [LYUser currentUser];
     if (!currentUser) {
+        [self showNoData:@"请先登录"];
         return;
     }
     
@@ -67,6 +73,10 @@
     [query whereKey:@"shop" matchesQuery:shopQuery];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            [self showNoData:@"数据异常"];
+            return;
+        }
         [self.activities removeAllObjects];
         [self.activities addObjectsFromArray:objects];
         

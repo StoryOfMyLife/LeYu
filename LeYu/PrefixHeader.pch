@@ -21,5 +21,6 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "LYUser.h"
 #import "AppDelegate.h"
+#import "NoDataViewController.h"
 
 #endif

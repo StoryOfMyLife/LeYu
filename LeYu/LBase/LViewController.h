@@ -12,4 +12,8 @@
 
 - (void)setNavigationBackgroundClear:(BOOL)clear;
 
+- (void)showNoData:(NSString *)noDateInfo;
+
+- (void)hideNoData;
+
 @end

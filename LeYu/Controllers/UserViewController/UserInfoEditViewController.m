@@ -61,6 +61,10 @@
     self.phone.text = [LYUser currentUser].mobilePhoneNumber;
     self.desc.text = [LYUser currentUser].signature;
     
+    if ([LYUser currentUser].level == UserLevelShop) {
+        self.desc.text = [LYUser currentUser].shop.shopdescription;
+    }
+    
     self.nickname.delegate = self;
     self.phone.delegate = self;
     self.desc.delegate = self;
@@ -137,7 +141,13 @@
         LYUser *user = [LYUser currentUser];
         user.username = self.nickname.text;
         user.mobilePhoneNumber = self.phone.text;
-        user.signature = self.desc.text;
+    
+        if (user.level == UserLevelShop) {
+            user.shop.shopdescription = self.desc.text;
+            [user.shop save];
+        } else {
+            user.signature = self.desc.text;
+        }
         if (self.maleButton.selected) {
             user.sex = @"男";
         } else {
