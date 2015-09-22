@@ -7,9 +7,9 @@
 //
 
 #import "NewNotificationsViewController.h"
-#import "NotificationMessageCell.h"
-#import "NotificationMessage.h"
-#import "ColorFactory.h"
+#import "MessageCellItem.h"
+#import "ActivityUserRelation.h"
+#import "NSDate+Compare.h"
 
 @interface NewNotificationsViewController ()
 
@@ -19,81 +19,53 @@
 
 @implementation NewNotificationsViewController
 
-- (instancetype)init
-{
-    if (self = [super init]) {
-        self.notifications = [[NSMutableArray alloc] init];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"消息";
     
-    self.refreshEnable = NO;
-    
-    self.tableView.tableHeaderView = [self tableHeaderView];
+    self.tableView.allowsSelection = NO;
+    self.tableView.backgroundColor = DefaultBackgroundColor;
     self.tableView.tableFooterView = [UIView new];
+    
+    [self loadActivities];
+    weakSelf();
+    self.updateBlock = ^{
+        [weakSelf loadActivities];
+    };
 }
 
-- (UIView *)tableHeaderView
+#pragma mark -
+#pragma mark methods
+
+- (void)updateActivities:(NSArray *)activities
 {
-    UIView *newWrapperView = [[UIView alloc] initWithFrame:CGRectMake(0,0 ,self.view.bounds.size.width, 70.0f)];
-    newWrapperView.backgroundColor = [ColorFactory dyLightGray];
-    UIView *buttonView = [[UIView alloc] init];
-    [[buttonView layer] setBorderWidth:2.0f];
-    [[buttonView layer] setBorderColor:UIColorFromRGB(0xC4A24A).CGColor];
-    [newWrapperView addSubview:buttonView];
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.image = [UIImage imageNamed:@"Remind"];
-    imageView.clipsToBounds = YES;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [buttonView addSubview:imageView];
-    UILabel *label = [[UILabel alloc] init];
-    label.numberOfLines = 0;
-    label.textAlignment =  NSTextAlignmentCenter;
-    label.font = [UIFont fontWithName:@"System" size:14.0f];
-    label.textColor = UIColorFromRGB(0xC4A24A);
-    label.text = @"活动通知";
-    [buttonView addSubview:label];
-    UIImageView *arrow = [[UIImageView alloc] init];
-    arrow.image = [UIImage imageNamed:@"next"];
-    arrow.clipsToBounds = YES;
-    arrow.contentMode =  UIViewContentModeScaleAspectFit;
-    [buttonView addSubview:arrow];
+    self.items = @[activities];
+    [self.tableView.header endRefreshing];
+}
+
+- (void)loadActivities
+{
+    LYUser *currentUser = [LYUser currentUser];
     
-    [buttonView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(newWrapperView.mas_top).with.offset(10.0f);
-        make.bottom.equalTo(newWrapperView.mas_bottom).with.offset(-10.0f);
-        make.left.equalTo(newWrapperView.mas_left).with.offset(5.0f);
-        make.right.equalTo(newWrapperView.mas_right).with.offset(-5.0f);
-    }];
+    AVQuery *relationQuery = [ActivityUserRelation query];
+    [relationQuery includeKey:@"activity"];
+    [relationQuery includeKey:@"activity.shop"];
+    [relationQuery whereKey:@"user" equalTo:currentUser];
+    [relationQuery whereKey:@"userArriveDate" greaterThanOrEqualTo:[NSDate date]];
     
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(buttonView.mas_centerY);
-        make.height.equalTo(@(40.0f));
-        make.centerX.equalTo(buttonView.mas_centerX);
-        make.width.equalTo(buttonView.mas_width).dividedBy(3);
+    [relationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
+        NSMutableArray *messages = [NSMutableArray array];
+        for (ActivityUserRelation *relation in objects) {
+            if ([relation.userArriveDate isSameDay:[NSDate date]]) {
+                MessageCellItem *item = [[MessageCellItem alloc] init];
+                item.activity = relation.activity;
+                [messages addObject:item];
+            }
+        }
+        [self updateActivities:messages];
     }];
-    
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(label.mas_centerY);
-        make.height.equalTo(label.mas_height);
-        make.width.equalTo(@(30));
-        make.right.equalTo(label.mas_left).with.offset(5.0f);
-    }];
-    
-    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(label.mas_centerY);
-        make.height.equalTo(@(15.0f));
-        make.width.equalTo(@(15.0f));
-        make.right.equalTo(buttonView.mas_right).with.offset(-10.0f);
-        
-    }];
-    return newWrapperView;
 }
 
 @end

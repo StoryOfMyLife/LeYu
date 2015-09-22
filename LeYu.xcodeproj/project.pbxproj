@@ -108,6 +108,8 @@
 		52635C2A1BA8728200703DBE /* TTHeartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635BAA1BA8728200703DBE /* TTHeartView.m */; };
 		52635C2B1BA8728200703DBE /* UserProfileLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635BAC1BA8728200703DBE /* UserProfileLoginView.m */; };
 		5281B55E1BB19E3000EA382F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5281B55D1BB19E3000EA382F /* Launch Screen.storyboard */; };
+		5281B5621BB1C17000EA382F /* MessageCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5281B5611BB1C17000EA382F /* MessageCellItem.m */; };
+		5281B5651BB1C8F900EA382F /* NSDate+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 5281B5641BB1C8F900EA382F /* NSDate+Compare.m */; };
 		52C334DC1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334DB1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m */; };
 		52C334DF1BAF260D007C833A /* MyAcceptedActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334DE1BAF260D007C833A /* MyAcceptedActivityViewController.m */; };
 		52D602F01BB0496900B9B6D3 /* ShopFollowedCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602EF1BB0496900B9B6D3 /* ShopFollowedCellItem.m */; };
@@ -334,6 +336,10 @@
 		52635BAC1BA8728200703DBE /* UserProfileLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileLoginView.m; sourceTree = "<group>"; };
 		52635C2C1BA8736800703DBE /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		5281B55D1BB19E3000EA382F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		5281B5601BB1C17000EA382F /* MessageCellItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCellItem.h; sourceTree = "<group>"; };
+		5281B5611BB1C17000EA382F /* MessageCellItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCellItem.m; sourceTree = "<group>"; };
+		5281B5631BB1C8F900EA382F /* NSDate+Compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Compare.h"; sourceTree = "<group>"; };
+		5281B5641BB1C8F900EA382F /* NSDate+Compare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Compare.m"; sourceTree = "<group>"; };
 		52C334DA1BAF1E05007C833A /* ActivityOfFollowedShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityOfFollowedShopViewController.h; sourceTree = "<group>"; };
 		52C334DB1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityOfFollowedShopViewController.m; sourceTree = "<group>"; };
 		52C334DD1BAF260D007C833A /* MyAcceptedActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAcceptedActivityViewController.h; sourceTree = "<group>"; };
@@ -629,6 +635,8 @@
 		52635AAD1BA8728100703DBE /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				5281B5631BB1C8F900EA382F /* NSDate+Compare.h */,
+				5281B5641BB1C8F900EA382F /* NSDate+Compare.m */,
 				5239782D1BA9A21600CB9B9E /* UITabBarController+AddButton.h */,
 				5239782E1BA9A21600CB9B9E /* UITabBarController+AddButton.m */,
 				52635AAE1BA8728100703DBE /* UIBarButtonItem+Badge.h */,
@@ -724,6 +732,7 @@
 		52635B381BA8728100703DBE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5281B55F1BB1C15400EA382F /* Message */,
 				52635B5B1BA8728200703DBE /* VCTransitioningAnimators */,
 				523978531BA9A2C300CB9B9E /* AssetsManager */,
 				523978431BA9A2A100CB9B9E /* Shop */,
@@ -840,6 +849,15 @@
 				52635BAA1BA8728200703DBE /* TTHeartView.m */,
 			);
 			path = TTHeartView;
+			sourceTree = "<group>";
+		};
+		5281B55F1BB1C15400EA382F /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				5281B5601BB1C17000EA382F /* MessageCellItem.h */,
+				5281B5611BB1C17000EA382F /* MessageCellItem.m */,
+			);
+			name = Message;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1015,6 +1033,7 @@
 				523977DB1BA9988E00CB9B9E /* LYLocationManager.m in Sources */,
 				52635BB01BA8728200703DBE /* UIImage+Color.m in Sources */,
 				52635C2A1BA8728200703DBE /* TTHeartView.m in Sources */,
+				5281B5651BB1C8F900EA382F /* NSDate+Compare.m in Sources */,
 				52635C2B1BA8728200703DBE /* UserProfileLoginView.m in Sources */,
 				5239786B1BAB23A800CB9B9E /* SignUpMoreViewController.m in Sources */,
 				52635C161BA8728200703DBE /* FavoriteShopCell.m in Sources */,
@@ -1074,6 +1093,7 @@
 				52635BC41BA8728200703DBE /* NSBundle+CTAssetsPickerController.m in Sources */,
 				52635BFE1BA8728200703DBE /* NotificationMessage.m in Sources */,
 				52635BFC1BA8728200703DBE /* LYUser.m in Sources */,
+				5281B5621BB1C17000EA382F /* MessageCellItem.m in Sources */,
 				523977F81BA99ACB00CB9B9E /* HFTopImagePickerViewController.m in Sources */,
 				52635BF51BA8728200703DBE /* UIView+Sizes.m in Sources */,
 				523978031BA99B2F00CB9B9E /* ShopDescViewController.m in Sources */,
