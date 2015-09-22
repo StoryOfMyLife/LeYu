@@ -32,7 +32,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.font = SystemFontWithSize(16);
         label.textColor = DefaultYellowColor;
-        label.text = @"活动内容";
+        label.text = @"活动时间";
         [self.contentView addSubview:label];
         
         self.activityDescLabel = [[UILabel alloc] init];
@@ -50,7 +50,7 @@
         UILabel *label1 = [[UILabel alloc] init];
         label1.font = SystemFontWithSize(16);
         label1.textColor = DefaultYellowColor;
-        label1.text = @"活动时间";
+        label1.text = @"活动内容";
         [self.contentView addSubview:label1];
         
         self.activityDateLabel = [[UILabel alloc] init];
@@ -104,7 +104,7 @@
             make.left.equalTo(verticalLine.mas_right).offset(10);
         }];
         
-        [self.activityDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.activityDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(verticalLine);
             make.right.equalTo(self.contentView).offset(-20);
             make.top.equalTo(verticalLine.mas_bottom).offset(13);
@@ -114,7 +114,7 @@
             make.height.equalTo(label1);
             make.width.equalTo(@1);
             make.left.equalTo(verticalLine);
-            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(35);
+            make.top.equalTo(self.activityDateLabel.mas_bottom).offset(35);
         }];
         
         [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,16 +122,17 @@
             make.left.equalTo(label);
         }];
         
-        [self.activityDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.activityDescLabel);
-            make.right.equalTo(self.activityDescLabel);
+        [self.activityDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.activityDateLabel);
+            make.right.equalTo(self.activityDateLabel);
             make.top.equalTo(verticalLine1.mas_bottom).offset(13);
         }];
         
         [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
-            make.top.equalTo(self.activityDateLabel.mas_bottom).offset(37);
+            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(37);
             make.bottom.equalTo(self.contentView).offset(-25);
+            make.width.height.equalTo(@100);
         }];
         
 //        [buttonContainer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -174,8 +175,8 @@
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
     [self layoutButton:self.likeButton];
     
-    NSDate *beginDate = cellItem.activity.BeginDate ?: [NSDate date];
-    NSDate *endDate = cellItem.activity.EndDate;
+    NSDate *beginDate = cellItem.activity.beginDate ?: [NSDate date];
+    NSDate *endDate = cellItem.activity.endDate;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"YYYY.MM.dd";
     NSString *beginDateString = [formatter stringFromDate:beginDate];

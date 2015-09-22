@@ -30,7 +30,9 @@
     ActivityThemeCellItem *themeItem = [[ActivityThemeCellItem alloc] init];
     ActivityPhotoCellItem *photoItem = [[ActivityPhotoCellItem alloc] init];
     ActivityShopNameCellItem *shopNameItem = [[ActivityShopNameCellItem alloc] init];
-    shopNameItem.shopName = @"Royal Coffee";
+    
+    shopNameItem.shopName = [LYUser currentUser].shop.shopname;
+    
     ActivityDescriptionCellItem *descItem = [[ActivityDescriptionCellItem alloc] init];
     ActivityTimeCellItem *timeItem = [[ActivityTimeCellItem alloc] init];
     ActivityTimeSelectionCellItem *timeSelectionItem = [[ActivityTimeSelectionCellItem alloc] init];
@@ -124,8 +126,8 @@
     ShopActivities *activity = [ShopActivities object];
     activity.title = manager.activityTheme;
     activity.activitiesDescription = manager.activityDesc;
-    activity.BeginDate = manager.activityDate;
-    activity.EndDate = [NSDate dateWithTimeInterval:aWeek sinceDate:manager.activityDate];
+    activity.beginDate = manager.activityDate;
+    activity.endDate = [NSDate dateWithTimeInterval:aWeek sinceDate:manager.activityDate];
 
     activity.shop = [LYUser currentUser].shop;
     

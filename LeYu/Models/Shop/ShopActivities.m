@@ -20,8 +20,8 @@
 @dynamic activitiesDescription;
 @dynamic pics;
 @dynamic shop;
-@dynamic BeginDate;
-@dynamic EndDate;
+@dynamic beginDate;
+@dynamic endDate;
 @dynamic totalNum;
 @dynamic likes;
 @dynamic title;

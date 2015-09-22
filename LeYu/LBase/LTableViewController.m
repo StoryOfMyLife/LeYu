@@ -71,6 +71,7 @@
             }
         }];
         MJRefreshNormalHeader *header = (MJRefreshNormalHeader *)self.tableView.header;
+        header.arrowView.image = nil;
         header.lastUpdatedTimeLabel.hidden = YES;
         //     马上进入刷新状态
         [self.tableView.header beginRefreshing];

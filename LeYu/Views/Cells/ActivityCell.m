@@ -128,7 +128,7 @@ static const CGFloat kContentInset = 20;
     [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.shopIcon.mas_bottom).with.offset(titleVerticalGap);
         make.left.equalTo(self.shopIcon);
-        make.right.equalTo(self.locationView.mas_left).with.offset(-kContentInset/2);
+        make.right.lessThanOrEqualTo(self.locationView.mas_left).offset(-kContentInset/2);
         make.bottom.equalTo(superview).with.offset(-titleVerticalGap);
     }];
     

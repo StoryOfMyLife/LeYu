@@ -74,7 +74,7 @@
     UILabel *date = [[UILabel alloc] init];
     date.font = SystemFontWithSize(15);
     date.textColor = DefaultTitleColor;
-    date.text = @"消费日期";
+    date.text = @"日期";
     [view addSubview:date];
     
     UIImageView *countImage = [[UIImageView alloc] init];
@@ -86,7 +86,7 @@
     UILabel *count = [[UILabel alloc] init];
     count.font = SystemFontWithSize(15);
     count.textColor = DefaultTitleColor;
-    count.text = @"参与人数";
+    count.text = @"人数";
     [view addSubview:count];
     
     [dateImage mas_makeConstraints:^(MASConstraintMaker *make) {

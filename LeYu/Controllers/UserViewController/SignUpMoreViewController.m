@@ -38,7 +38,12 @@
         if (succeeded) {
             //注册成功，登录
             [LYUser logInWithMobilePhoneNumberInBackground:self.userInfo[@"phone"] password:self.password.text block:^(AVUser *user, NSError *error) {
-                if (user) {
+                LYUser *currentUser = [LYUser currentUser];
+                AVQuery *query = [Shop query];
+                [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
+                Shop *shop = (Shop *)[query getFirstObject];
+                currentUser.shop = shop;
+                if (currentUser) {
                     [self dismiss];
                 }
             }];

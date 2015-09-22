@@ -76,6 +76,8 @@
     
     ActivityAcceptPreferenceCellItem *preferenceItem = [[ActivityAcceptPreferenceCellItem alloc] init];
     
+    self.arriveDate = [NSDate date];
+    
     [dateDescItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
         NSArray *indexPaths = @[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
         if ([self.items[0] count] == 3) {

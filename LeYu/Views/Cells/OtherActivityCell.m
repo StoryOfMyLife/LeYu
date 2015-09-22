@@ -78,7 +78,7 @@
     self.titleLabel.text = cellItem.title;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"YYYY.MM.dd  hh:mm";
-    NSString *date = [formatter stringFromDate:cellItem.BeginDate];
+    NSString *date = [formatter stringFromDate:cellItem.beginDate];
     self.dateLabel.text = date;
     [AVFile getFileWithObjectId:cellItem.pics[0] withBlock:^(AVFile *file, NSError *error) {
         [file getThumbnail:YES width:140 height:(140.0 * 16.0 / 9.0) withBlock:^(UIImage *image, NSError *error) {

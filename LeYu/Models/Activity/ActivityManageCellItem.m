@@ -94,7 +94,7 @@
     self.titleLabel.text = activity.title;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"YYYY.MM.dd  hh:mm";
-    NSString *date = [formatter stringFromDate:activity.BeginDate];
+    NSString *date = [formatter stringFromDate:activity.beginDate];
     self.dateLabel.text = date;
 
     AVQuery *relationQuery = [ActivityUserRelation query];

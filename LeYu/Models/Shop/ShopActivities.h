@@ -17,9 +17,9 @@
 
 @property (nonatomic, strong) Shop *shop;
 
-@property (nonatomic, strong) NSDate *BeginDate;
+@property (nonatomic, strong) NSDate *beginDate;
 
-@property (nonatomic, strong) NSDate *EndDate;
+@property (nonatomic, strong) NSDate *endDate;
 
 @property (nonatomic, strong) NSNumber *totalNum;
 

@@ -107,6 +107,7 @@
 		52635C251BA8728200703DBE /* PhoneVerifiedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B9F1BA8728200703DBE /* PhoneVerifiedLabel.m */; };
 		52635C2A1BA8728200703DBE /* TTHeartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635BAA1BA8728200703DBE /* TTHeartView.m */; };
 		52635C2B1BA8728200703DBE /* UserProfileLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635BAC1BA8728200703DBE /* UserProfileLoginView.m */; };
+		5281B55E1BB19E3000EA382F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5281B55D1BB19E3000EA382F /* Launch Screen.storyboard */; };
 		52C334DC1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334DB1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m */; };
 		52C334DF1BAF260D007C833A /* MyAcceptedActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334DE1BAF260D007C833A /* MyAcceptedActivityViewController.m */; };
 		52D602F01BB0496900B9B6D3 /* ShopFollowedCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602EF1BB0496900B9B6D3 /* ShopFollowedCellItem.m */; };
@@ -332,6 +333,7 @@
 		52635BAB1BA8728200703DBE /* UserProfileLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileLoginView.h; sourceTree = "<group>"; };
 		52635BAC1BA8728200703DBE /* UserProfileLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileLoginView.m; sourceTree = "<group>"; };
 		52635C2C1BA8736800703DBE /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		5281B55D1BB19E3000EA382F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		52C334DA1BAF1E05007C833A /* ActivityOfFollowedShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityOfFollowedShopViewController.h; sourceTree = "<group>"; };
 		52C334DB1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityOfFollowedShopViewController.m; sourceTree = "<group>"; };
 		52C334DD1BAF260D007C833A /* MyAcceptedActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAcceptedActivityViewController.h; sourceTree = "<group>"; };
@@ -602,6 +604,7 @@
 				52635A821BA8718000703DBE /* Info.plist */,
 				52635A831BA8718000703DBE /* main.m */,
 				5239785E1BAB0F4C00CB9B9E /* Main.storyboard */,
+				5281B55D1BB19E3000EA382F /* Launch Screen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -923,6 +926,7 @@
 			files = (
 				5239785F1BAB0F4C00CB9B9E /* Main.storyboard in Resources */,
 				52635BBE1BA8728200703DBE /* CTAssetsPickerController.bundle in Resources */,
+				5281B55E1BB19E3000EA382F /* Launch Screen.storyboard in Resources */,
 				52635BF01BA8728200703DBE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
