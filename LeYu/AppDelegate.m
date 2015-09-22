@@ -78,7 +78,7 @@
 - (void)checkAddButton
 {
     LYUser *currentUser = [LYUser currentUser];
-    if (!currentUser.shop.shopname) {
+    if (currentUser && !currentUser.shop.shopname) {
         AVQuery *query = [Shop query];
         [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
         Shop *shop = (Shop *)[query getFirstObject];

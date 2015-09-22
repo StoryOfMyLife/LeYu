@@ -57,7 +57,7 @@
 
 - (void)showAddButton {
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setImage:[UIImage imageNamed:@"Add"] forState:UIControlStateNormal];
+    [addButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
     [addButton sizeToFit];
     [self setAddButton:addButton];
 }

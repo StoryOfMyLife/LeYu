@@ -474,7 +474,7 @@
     if (!_acceptButton) {
         _acceptButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [_acceptButton addTarget:self action:@selector(pressedAcceptButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_acceptButton setTitle:@"接受" forState:UIControlStateNormal];
+        [_acceptButton setTitle:@"要去" forState:UIControlStateNormal];
         _acceptButton.titleLabel.font = SystemFontWithSize(16);
         _acceptButton.tintColor = [UIColor whiteColor];
         _acceptButton.backgroundColor = DefaultYellowColor;
@@ -482,6 +482,9 @@
 //        _acceptButton.layer.borderColor = [UIColor colorWithWhite:1 alpha:.7].CGColor;
 //        _acceptButton.layer.borderWidth = 1;
 //        _acceptButton.layer.cornerRadius = 2;
+    }
+    if (![LYUser currentUser]) {
+        _acceptButton.enabled = NO;
     }
     return _acceptButton;
 }

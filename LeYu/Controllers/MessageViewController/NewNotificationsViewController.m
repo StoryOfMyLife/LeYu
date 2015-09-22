@@ -52,6 +52,10 @@
 - (void)loadActivities
 {
     LYUser *currentUser = [LYUser currentUser];
+    if (!currentUser) {
+        [self showNoData:@"请先登录"];
+        return;
+    }
     
     AVQuery *relationQuery = [ActivityUserRelation query];
     [relationQuery includeKey:@"activity"];
