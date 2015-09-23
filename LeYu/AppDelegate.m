@@ -24,6 +24,9 @@
 #import "UITabBarController+AddButton.h"
 #import <MobClick.h>
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 @interface AppDelegate ()
 {
     UITabBarController *tabBarController;
@@ -41,15 +44,22 @@
     [MobClick setAppVersion:version];
 }
 
+- (void)setCrashlytics
+{
+    [Fabric with:@[[Crashlytics class]]];
+}
+
+- (void)setLeanCloud
+{
+    [AVOSCloud setApplicationId:@"w0uv3n92wrpmlhquonz9uyk6u7l8b3mplr5bv8f431bll4dx" clientKey:@"sx2r8o6eduw84oj0e9yf690p56xoqycfv63s9zywo9rbpgfp"];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [self setCrashlytics];
     [self setUMeng];
-    
+    [self setLeanCloud];
     [self registerAVOSClasses];
-    
-    [AVOSCloud setApplicationId:@"w0uv3n92wrpmlhquonz9uyk6u7l8b3mplr5bv8f431bll4dx" clientKey:@"sx2r8o6eduw84oj0e9yf690p56xoqycfv63s9zywo9rbpgfp"];
-    
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -79,7 +89,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [DesignManager applyDesign];
     [self.window makeKeyAndVisible];
+    
     [self registerNotification:application];
+    
+    [self customUI];
     
     [self checkAddButton];
     
@@ -89,7 +102,7 @@
 - (void)checkAddButton
 {
     LYUser *currentUser = [LYUser currentUser];
-    if (currentUser && !currentUser.shop.shopname) {
+    if (currentUser) {
         AVQuery *query = [Shop query];
         [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
         Shop *shop = (Shop *)[query getFirstObject];
@@ -110,8 +123,6 @@
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
-    
-    [self customUI];
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -137,7 +148,8 @@
     [[UIButton appearance] setTintColor:DefaultYellowColor];
 }
 
-- (void)registerAVOSClasses {
+- (void)registerAVOSClasses
+{
     [ShopActivities registerSubclass];
     [Shop registerSubclass];
     

@@ -15,5 +15,7 @@ pod 'UICountingLabel'
 pod 'MJRefresh'
 pod 'FXBlurView', '~> 1.6.4'
 pod 'UMengAnalytics'
+pod 'Fabric'
+pod 'Crashlytics'
 
 
