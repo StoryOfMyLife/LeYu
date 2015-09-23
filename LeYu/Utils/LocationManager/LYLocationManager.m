@@ -87,4 +87,12 @@
     }];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    [manager stopUpdatingLocation];
+    [self.callbacks enumerateObjectsUsingBlock:^(LocationCallback obj, NSUInteger idx, BOOL *stop) {
+        obj(NO, nil);
+    }];
+}
+
 @end

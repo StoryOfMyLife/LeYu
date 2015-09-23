@@ -32,7 +32,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.font = SystemFontWithSize(16);
         label.textColor = DefaultYellowColor;
-        label.text = @"活动时间";
+        label.text = @"时间";
         [self.contentView addSubview:label];
         
         self.activityDescLabel = [[UILabel alloc] init];
@@ -51,7 +51,7 @@
         UILabel *label1 = [[UILabel alloc] init];
         label1.font = SystemFontWithSize(16);
         label1.textColor = DefaultYellowColor;
-        label1.text = @"活动内容";
+        label1.text = @"说明";
         [self.contentView addSubview:label1];
         
         self.activityDateLabel = [[UILabel alloc] init];

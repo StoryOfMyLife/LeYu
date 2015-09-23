@@ -50,15 +50,6 @@
     };
 }
 
-- (AVQuery *)activityQuery
-{
-    if (!_activityQuery) {
-        _activityQuery = [ShopActivities query];
-        [_activityQuery orderByDescending:@"createdAt"];
-    }
-    return _activityQuery;
-}
-
 - (void)setActivityQuery:(AVQuery *)activityQuery
 {
     if (_activityQuery != activityQuery) {
@@ -70,7 +61,11 @@
 
 - (void)loadActivities:(AVQuery *)query
 {
+    [query cancel];
     [query includeKey:@"shop"];
+    query.cachePolicy = kAVCachePolicyNetworkElseCache;
+    query.maxCacheAge = 24*3600;
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
         if (!error) {
             [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {

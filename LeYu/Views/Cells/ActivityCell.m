@@ -29,8 +29,32 @@ static const CGFloat kContentInset = 20;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self initSubviews];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    [UIView transitionWithView:self.backView duration:.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (highlighted) {
+            self.backView.backgroundColor = RGBCOLOR(212, 212, 212);
+        } else {
+            self.backView.backgroundColor = [UIColor whiteColor];
+        }
+    } completion:nil];
+}
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+    self.alpha = 0;
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.alpha = 1;
+        self.transform = CGAffineTransformIdentity;
+    } completion:nil];
 }
 
 - (void)initSubviews
@@ -52,6 +76,9 @@ static const CGFloat kContentInset = 20;
     self.shopIcon.layer.borderColor = RGBCOLOR(238, 238, 238).CGColor;
     self.shopIcon.layer.cornerRadius = 25;
     self.shopIcon.layer.allowsEdgeAntialiasing = YES;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateToShopPage)];
+    [self.shopIcon addGestureRecognizer:tap];
     
     self.shopNameLabel = [[UILabel alloc] init];
     self.shopNameLabel.font = SystemFontWithSize(15);
@@ -93,10 +120,12 @@ static const CGFloat kContentInset = 20;
     self.backView.layer.shadowOpacity = 1;
     self.backView.layer.shadowRadius = 3;
     
+    [self setupConstraints];
+    
     self.backgroundColor = [UIColor clearColor];
 }
 
-- (void)updateConstraints
+- (void)setupConstraints
 {
     CGFloat titleVerticalGap = 15;
     
@@ -158,8 +187,6 @@ static const CGFloat kContentInset = 20;
         make.top.equalTo(self.backView.mas_bottom);
         make.height.equalTo(@(titleVerticalGap));
     }];
-    
-    [super updateConstraints];
 }
 
 - (void)setCellItem:(ShopActivities *)cellItem
@@ -167,16 +194,15 @@ static const CGFloat kContentInset = 20;
     [super setCellItem:cellItem];
     [self configureCellWithActivity:cellItem];
     [self configureShopWithShop:cellItem.shop];
-    [self setNeedsUpdateConstraints];
 }
 
 - (void)configureCellWithActivity:(ShopActivities *)activity
 {
     self.titleLabel.text = activity.title;
     [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
-        [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+//        [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
             self.thumbnailImage.image = image;
-        } completion:nil];
+//        } completion:nil];
     }];
 
     self.shopNameLabel.text = activity.shop.shopname;
@@ -195,24 +221,17 @@ static const CGFloat kContentInset = 20;
 
 - (void)configureShopWithShop:(Shop *)shop
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [shop loadShopIcon:^(UIImage *image, NSError *error) {
-            self.shopIcon.image = image;
-        }];
-        
-        weakSelf();
-        [self.shopIcon bk_whenTapped:^{
-            [weakSelf navigateToShopPage:shop];
-        }];
-    });
+    [shop loadShopIcon:^(UIImage *image, NSError *error) {
+        self.shopIcon.image = image;
+    }];
+    
     self.shopNameLabel.text = shop.shopname;
 }
 
-- (void)navigateToShopPage:(Shop *)shop
+- (void)navigateToShopPage
 {
     if (self.cellItem.handleBlock) {
         self.cellItem.handleBlock(@{@"sender" : self.shopIcon,
-                                    @"shop" : shop,
                                     @"description" : @"shop Selected"});
     }
 }

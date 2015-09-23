@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LTableViewController.h"
 
-@interface HomeViewController : LTableViewController
+@interface HomeViewController : LViewController
 
 @end

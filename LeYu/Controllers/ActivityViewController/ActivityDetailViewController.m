@@ -500,21 +500,25 @@
         _shopIcon.layer.borderWidth = 2;
         _shopIcon.layer.borderColor = RGBCOLOR(238, 238, 238).CGColor;
         _shopIcon.image = [UIImage imageNamed:@"DefaultAvatar"];
-        weakSelf();
-        [_shopIcon bk_whenTapped:^{
-            CGRect rect = [weakSelf.view convertRect:weakSelf.shopIcon.frame fromView:weakSelf.shopIcon.superview];
-            rect.origin.y += weakSelf.view.top;
-            
-            ShopViewController *shopViewController =[[ShopViewController alloc] initWithShop:weakSelf.activities.shop];
-            shopViewController.presentedRect = rect;
-            
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
-            nav.transitioningDelegate = shopViewController;
-            nav.modalPresentationStyle = UIModalPresentationCustom;
-            [weakSelf presentViewController:nav animated:YES completion:nil];
-        }];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoShop)];
+        [_shopIcon addGestureRecognizer:tap];
     }
     return _shopIcon;
+}
+
+- (void)gotoShop
+{
+    CGRect rect = [self.view convertRect:self.shopIcon.frame fromView:self.shopIcon.superview];
+    rect.origin.y += self.view.top;
+    
+    ShopViewController *shopViewController =[[ShopViewController alloc] initWithShop:self.activities.shop];
+    shopViewController.presentedRect = rect;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
+    nav.transitioningDelegate = shopViewController;
+    nav.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark -

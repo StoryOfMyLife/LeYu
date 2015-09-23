@@ -40,6 +40,7 @@
 {
     if (!_activityVC) {
         _activityVC = [[ShopActivityViewController alloc] init];
+        _activityVC.activityQuery = [ShopActivities query];
     }
     return _activityVC;
 }

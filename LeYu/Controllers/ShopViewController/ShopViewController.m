@@ -524,8 +524,10 @@
         
         [RACObserve(self, contentOffset) subscribeNext:^(NSNumber *contentOffset) {
             activityVC.tableView.contentOffset = [contentOffset CGPointValue];
+        }];
+        
+        [RACObserve(activityVC.tableView, contentOffset) subscribeNext:^(NSNumber *contentOffset) {
             descVC.tableView.contentOffset = [contentOffset CGPointValue];
-//            NSLog(@"%@", NSStringFromCGPoint(activityVC.tableView.contentOffset));
         }];
         
         _viewControllers = @[descVC, activityVC, mapVC];

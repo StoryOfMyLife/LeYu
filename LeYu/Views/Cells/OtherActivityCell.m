@@ -29,7 +29,7 @@
         
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.textColor = DefaultTitleColor;
-        self.titleLabel.font = SystemBoldFontWithSize(16);
+        self.titleLabel.font = SystemFontWithSize(16);
         [self.contentView addSubview:self.titleLabel];
         
         UIImageView *locationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Location"]];
