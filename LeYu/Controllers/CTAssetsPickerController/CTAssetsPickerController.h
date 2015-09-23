@@ -36,7 +36,7 @@
 /**
  *  A controller that allows picking multiple photos and videos from user's photo library.
  */
-@interface CTAssetsPickerController : UIViewController
+@interface CTAssetsPickerController : LViewController
 
 /**
  *  The assets picker’s delegate object.

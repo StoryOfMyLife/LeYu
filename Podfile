@@ -14,5 +14,6 @@ pod 'AFViewShaker', '~> 0.0.2'
 pod 'UICountingLabel'
 pod 'MJRefresh'
 pod 'FXBlurView', '~> 1.6.4'
+pod 'UMengAnalytics'
 
 

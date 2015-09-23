@@ -34,7 +34,7 @@
 
 
 
-@interface CTAssetItemViewController : UIViewController
+@interface CTAssetItemViewController : LViewController
 
 + (CTAssetItemViewController *)assetItemViewControllerForPageIndex:(NSInteger)pageIndex;
 

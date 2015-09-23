@@ -14,6 +14,7 @@
 @interface NewNotificationsViewController ()
 
 @property (nonatomic, strong) NSMutableArray *notifications;
+@property (nonatomic, assign) BOOL isLogined;
 
 @end
 
@@ -35,6 +36,15 @@
     };
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (!self.isLogined) {
+        [self loadActivities];
+    }
+}
+
 #pragma mark -
 #pragma mark methods
 
@@ -54,7 +64,10 @@
     LYUser *currentUser = [LYUser currentUser];
     if (!currentUser) {
         [self showNoData:@"请先登录"];
+        self.isLogined = NO;
         return;
+    } else {
+        self.isLogined = YES;
     }
     
     AVQuery *relationQuery = [ActivityUserRelation query];

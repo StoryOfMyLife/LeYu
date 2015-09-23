@@ -22,6 +22,7 @@
 #import "ActivityUserRelation.h"
 #import "NewNotificationsViewController.h"
 #import "UITabBarController+AddButton.h"
+#import <MobClick.h>
 
 @interface AppDelegate ()
 {
@@ -32,8 +33,18 @@
 
 @implementation AppDelegate
 
+- (void)setUMeng
+{
+    [MobClick startWithAppkey:@"5602aa9167e58e48c9000573" reportPolicy:BATCH channelId:nil];
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self setUMeng];
     
     [self registerAVOSClasses];
     

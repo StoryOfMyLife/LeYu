@@ -16,6 +16,8 @@
 @property (nonatomic, strong) AVQuery *query;
 @property (nonatomic, strong) NSMutableArray *activities;
 
+@property (nonatomic, assign) BOOL isLogined;
+
 @end
 
 @implementation ActivityOfFollowedShopViewController
@@ -45,6 +47,10 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    if (!self.isLogined) {
+        [self loadActivities];
+    }
 }
 
 #pragma mark -
@@ -66,7 +72,10 @@
     LYUser *currentUser = [LYUser currentUser];
     if (!currentUser) {
         [self showNoData:@"请先登录"];
+        self.isLogined = NO;
         return;
+    } else {
+        self.isLogined = YES;
     }
     
     AVQuery *shopQuery = [Shop query];

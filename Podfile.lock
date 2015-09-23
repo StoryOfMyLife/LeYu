@@ -31,6 +31,7 @@ PODS:
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
   - UICountingLabel (1.2.0)
+  - UMengAnalytics (3.5.12)
 
 DEPENDENCIES:
   - AFViewShaker (~> 0.0.2)
@@ -45,6 +46,7 @@ DEPENDENCIES:
   - MJRefresh
   - ReactiveCocoa (~> 2.5)
   - UICountingLabel
+  - UMengAnalytics
 
 SPEC CHECKSUMS:
   AFViewShaker: 7e4bc215ca3e92347b78da436fca74e1730b52e8
@@ -59,5 +61,6 @@ SPEC CHECKSUMS:
   MJRefresh: e52328552ed9cbfce3501e3820b18bf7643c65cc
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
+  UMengAnalytics: 370056af10f202b57b83ff3d0d458ac5183b629f
 
 COCOAPODS: 0.38.2

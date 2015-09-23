@@ -10,7 +10,7 @@
 
 @protocol TTCollectionPageViewControllerDelegate;
 
-@interface TTCollectionPageViewController : UIViewController
+@interface TTCollectionPageViewController : LViewController
 
 /**
  *  Model

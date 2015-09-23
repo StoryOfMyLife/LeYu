@@ -35,16 +35,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    UITabBarController *tabBarController = (UITabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-    if (![tabBarController showingAddButton]) {
-        LYUser *currentUser = [LYUser currentUser];
-        if (currentUser.shop) {
-            [tabBarController showAddButton];
-            
-        } else {
-            [tabBarController hideAddButton];
-        }
-    }
+    [MobClick beginLogPageView:NSStringFromClass([self class])];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:NSStringFromClass([self class])];
 }
 
 - (NoDataViewController *)noDataVC

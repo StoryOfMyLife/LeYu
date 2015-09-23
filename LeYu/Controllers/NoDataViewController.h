@@ -6,6 +6,8 @@
 //  Copyright © 2015年 liuty. All rights reserved.
 //
 
+#import "LViewController.h"
+
 @interface NoDataViewController : UIViewController
 
 @property (nonatomic, copy) NSString *info;
