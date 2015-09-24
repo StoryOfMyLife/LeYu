@@ -63,7 +63,7 @@
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyy.MM.dd";
             NSString *startDate = [formatter stringFromDate:date];
-            NSString *endDate = [formatter stringFromDate:[date dateByAddingTimeInterval:aWeek]];
+            NSString *endDate = [formatter stringFromDate:[date dateByAddingTimeInterval:aWeek * 30]];
             
             __weak ActivityTimeCell *timeCell = (ActivityTimeCell *)timeItem.cell;
             timeCell.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startDate, endDate];

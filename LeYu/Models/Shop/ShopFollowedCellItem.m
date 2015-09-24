@@ -35,13 +35,13 @@
         [self.contentView addSubview:self.shopIcon];
         
         self.shopNameLabel = [[UILabel alloc] init];
-        self.shopNameLabel.font = SystemFontWithSize(15);
+        self.shopNameLabel.font = SystemFontWithSize(13);
         self.shopNameLabel.textColor = [UIColor blackColor];
         
         [self.contentView addSubview:self.shopNameLabel];
         
         self.shopInfo = [[UILabel alloc] init];
-        self.shopInfo.font = SystemFontWithSize(13);
+        self.shopInfo.font = SystemFontWithSize(11);
         self.shopInfo.textColor = RGBCOLOR(168, 168, 168);
         
         [self.contentView addSubview:self.shopInfo];

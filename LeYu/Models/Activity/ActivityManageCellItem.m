@@ -32,7 +32,7 @@
         
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.textColor = DefaultTitleColor;
-        self.titleLabel.font = SystemBoldFontWithSize(16);
+        self.titleLabel.font = SystemBoldFontWithSize(13);
         [self.contentView addSubview:self.titleLabel];
         
         self.dateLabel = [[UILabel alloc] init];
@@ -42,7 +42,7 @@
         
         self.acceptedCount = [[UILabel alloc] init];
         self.acceptedCount.textColor = DefaultYellowColor;
-        self.acceptedCount.font = SystemBoldFontWithSize(13);
+        self.acceptedCount.font = SystemBoldFontWithSize(11);
         [self.contentView addSubview:self.acceptedCount];
         
         UIView *seperator = [[UIView alloc] init];
