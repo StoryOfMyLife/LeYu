@@ -37,10 +37,6 @@
 {
     [LYUser logInWithMobilePhoneNumberInBackground:self.phone.text password:self.password.text block:^(AVUser *user, NSError *error) {
         LYUser *currentUser = [LYUser currentUser];
-        AVQuery *query = [Shop query];
-        [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
-        Shop *shop = (Shop *)[query getFirstObject];
-        currentUser.shop = shop;
         if (currentUser) {
             AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
             [appdelegate checkAddButton];
@@ -52,6 +48,11 @@
 - (IBAction)shopLogin:(id)sender
 {
     [self performSegueWithIdentifier:@"shopLogin" sender:@"shopLogin"];
+}
+
+- (IBAction)dismiss:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

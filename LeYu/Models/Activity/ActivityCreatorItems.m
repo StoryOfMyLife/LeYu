@@ -346,7 +346,7 @@ static const NSInteger countPerLine = 4;
         self.contentView.userInteractionEnabled = YES;
         UILabel *title = [[UILabel alloc] init];
         title.userInteractionEnabled = NO;
-        title.text = @"活动时间";
+        title.text = @"活动截止时间";
         title.font = SystemFontWithSize(15);
         title.textColor = [UIColor blackColor];
         [self.contentView addSubview:title];
@@ -474,7 +474,7 @@ NSString * const kDatePickValueChanged = @"kDatePickValueChanged";
         self.amountLabel.textAlignment = NSTextAlignmentRight;
         self.amountLabel.font = SystemFontWithSize(12);
         self.amountLabel.textColor = RGBCOLOR(130, 130, 130);
-        self.amountLabel.text = @"50";
+        self.amountLabel.text = @"无限制";
         [self.contentView addSubview:self.amountLabel];
         
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -559,14 +559,17 @@ NSString * const kAmountPickValueChanged = @"kAmountPickValueChanged";
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return 10;
+    return 10 + 1;
 }
 
 #pragma mark - delegate
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [NSString stringWithFormat:@"%ld", (long)(row + 1) * 10];
+    if (row == 0) {
+        return @"无限制";
+    }
+    return [NSString stringWithFormat:@"%ld", (long)row * 10];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component

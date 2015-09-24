@@ -15,6 +15,8 @@
 #import "ImagePreviewViewController.h"
 #import "LYLocationManager.h"
 
+#import "LoginViewController.h"
+
 @interface ActivityDetailViewController ()
 
 @property (nonatomic, strong) ShopActivities *activities;
@@ -222,15 +224,24 @@
 
 - (void)pressedAcceptButton:(UIButton *)button
 {
-    ActivityAcceptViewController *vc = [[ActivityAcceptViewController alloc] init];
-    vc.activity = self.activities;
-    CGRect frame = CGRectMake(button.centerX - 50, button.top, 100, button.centerX + 50);
-    CGRect rect = [self.view convertRect:frame fromView:self.bottomView];
-    rect.origin.y += self.view.top;
-    vc.presentedRect = rect;
-    vc.transitioningDelegate = vc;
-    vc.modalPresentationStyle = UIModalPresentationCustom;
-    [self presentViewController:vc animated:YES completion:nil];
+    if (![LYUser currentUser]) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LoginViewController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        
+        UINavigationController *loginViewNavigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+        [self presentViewController:loginViewNavigationController animated:YES completion:nil];
+        return;
+    } else {
+        ActivityAcceptViewController *vc = [[ActivityAcceptViewController alloc] init];
+        vc.activity = self.activities;
+        CGRect frame = CGRectMake(button.centerX - 50, button.top, 100, button.centerX + 50);
+        CGRect rect = [self.view convertRect:frame fromView:self.bottomView];
+        rect.origin.y += self.view.top;
+        vc.presentedRect = rect;
+        vc.transitioningDelegate = vc;
+        vc.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:vc animated:YES completion:nil];
+    }
 }
 
 #pragma mark -
@@ -482,9 +493,6 @@
 //        _acceptButton.layer.borderColor = [UIColor colorWithWhite:1 alpha:.7].CGColor;
 //        _acceptButton.layer.borderWidth = 1;
 //        _acceptButton.layer.cornerRadius = 2;
-    }
-    if (![LYUser currentUser]) {
-        _acceptButton.enabled = NO;
     }
     return _acceptButton;
 }

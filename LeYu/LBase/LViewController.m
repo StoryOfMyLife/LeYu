@@ -58,14 +58,15 @@
 
 - (void)showNoData:(NSString *)noDateInfo
 {
-    self.noDataVC.view.hidden = NO;
     self.noDataVC.info = noDateInfo;
     [self.view bringSubviewToFront:self.noDataVC.view];
 }
 
 - (void)hideNoData
 {
-    self.noDataVC.view.hidden = YES;
+    [self.noDataVC.view removeFromSuperview];
+    [self.noDataVC removeFromParentViewController];
+    self.noDataVC = nil;
 }
 
 @end

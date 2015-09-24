@@ -103,10 +103,15 @@
 {
     LYUser *currentUser = [LYUser currentUser];
     if (currentUser) {
-        AVQuery *query = [Shop query];
-        [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
-        Shop *shop = (Shop *)[query getFirstObject];
-        currentUser.shop = shop;
+        if (currentUser.shop) {
+            AVQuery *query = [Shop query];
+            [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
+            Shop *shop = (Shop *)[query getFirstObject];
+            currentUser.shop = shop;
+        } else {
+            currentUser.level = UserLevelNormal;
+        }
+        [currentUser saveInBackground];
     }
     
     if (currentUser.level == UserLevelShop) {

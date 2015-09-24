@@ -137,7 +137,13 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="用户登录" id="ddb-TO-o9h"/>
+                    <navigationItem key="navigationItem" title="用户登录" id="ddb-TO-o9h">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="46L-Qw-pfE">
+                            <connections>
+                                <action selector="dismiss:" destination="ZRK-c2-N0p" id="3Xr-Fw-lOE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="loginButton" destination="3ka-VZ-TzY" id="wTZ-IC-rzi"/>
                         <outlet property="password" destination="Cp6-7p-8cq" id="VTY-Rn-P7Q"/>

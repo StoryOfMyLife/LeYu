@@ -11,7 +11,6 @@
 #import "ShopActivities.h"
 #import "Shop.h"
 #import "LYUser.h"
-#import "LoginViewController.h"
 #import "LYLocationManager.h"
 
 @interface ActivitiesNearbyViewController ()

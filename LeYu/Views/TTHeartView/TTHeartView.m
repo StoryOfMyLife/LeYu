@@ -87,7 +87,7 @@
 {
     if (!_hasLiked) {
         self.waveView.hidden = NO;
-        [UIView animateWithDuration:0.8
+        [UIView animateWithDuration:2
                          animations:^{
                              if (animation) {
                                  animation();

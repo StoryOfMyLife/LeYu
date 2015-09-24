@@ -39,6 +39,8 @@
     ActivityAmountCellItem *amountItem = [[ActivityAmountCellItem alloc] init];
     ActivityAmountSelectionCellItem *amountSelectionItem = [[ActivityAmountSelectionCellItem alloc] init];
     
+    [ImageAssetsManager manager].activityDate = [NSDate dateWithTimeInterval:aWeek sinceDate:[NSDate date]];
+    
     [descItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
         __weak ActivityDescriptionCell *descCell = (ActivityDescriptionCell *)descItem.cell;
         [descCell.descriptionView becomeFirstResponder];
@@ -94,7 +96,6 @@
         }] subscribeNext:^(NSString *amount) {
             __weak ActivityAmountCell *amountCell = (ActivityAmountCell *)amountItem.cell;
             amountCell.amountLabel.text = amount;
-            
             [ImageAssetsManager manager].activityAmount = [amount integerValue];
         }];
     }];
@@ -126,8 +127,9 @@
     ShopActivities *activity = [ShopActivities object];
     activity.title = manager.activityTheme;
     activity.activitiesDescription = manager.activityDesc;
-    activity.beginDate = manager.activityDate;
-    activity.endDate = [NSDate dateWithTimeInterval:aWeek sinceDate:manager.activityDate];
+    activity.totalNum = @(manager.activityAmount);
+    activity.beginDate = [NSDate date];
+    activity.endDate = manager.activityDate;
 
     activity.shop = [LYUser currentUser].shop;
     

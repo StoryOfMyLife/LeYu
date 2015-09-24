@@ -37,7 +37,7 @@ static const CGFloat kContentInset = 20;
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
     [super setHighlighted:highlighted animated:animated];
-    [UIView transitionWithView:self.backView duration:.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView transitionWithView:self.backView duration:.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (highlighted) {
             self.backView.backgroundColor = RGBCOLOR(212, 212, 212);
         } else {
@@ -49,12 +49,12 @@ static const CGFloat kContentInset = 20;
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-    self.alpha = 0;
-    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.alpha = 1;
-        self.transform = CGAffineTransformIdentity;
-    } completion:nil];
+//    self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+//    self.alpha = 0;
+//    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        self.alpha = 1;
+//        self.transform = CGAffineTransformIdentity;
+//    } completion:nil];
 }
 
 - (void)initSubviews
