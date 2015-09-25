@@ -76,8 +76,10 @@
     
     activitiesViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"活动" image:[ImageFactory activityTabBarIcon] selectedImage:[ImageFactory activityTabBarIconSelected]];
     
+    NewNotificationsViewController *newsVC = [[NewNotificationsViewController alloc] init];
+    [newsVC view];
     UINavigationController *notificationViewController = [[UINavigationController alloc] initWithRootViewController:
-                                                          [[NewNotificationsViewController alloc] init]];
+                                                          newsVC];
     
     notificationViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息" image:[ImageFactory messageTabbarIcon] selectedImage:[ImageFactory messageTabbarIconSelected]];
     

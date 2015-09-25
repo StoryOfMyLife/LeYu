@@ -39,10 +39,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     if (!self.isLogined) {
         [self loadActivities];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.navigationController.tabBarItem.badgeValue = nil;
 }
 
 #pragma mark -
@@ -56,6 +61,7 @@
     }
     [self hideNoData];
     self.items = @[activities];
+    self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[activities count]];
     [self.tableView.header endRefreshing];
 }
 
