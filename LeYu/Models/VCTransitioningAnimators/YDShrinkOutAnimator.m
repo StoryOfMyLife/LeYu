@@ -41,11 +41,16 @@
                          fromView.maskView.transform = CGAffineTransformConcat(t1, t2);
                      }
                      completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.2 animations:^{
-                             fromView.alpha = 0;
-                         } completion:^(BOOL finished) {
-                             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-                         }];
+                         if ([transitionContext transitionWasCancelled]) {
+                             [transitionContext completeTransition:NO];
+                         } else {
+                             [UIView animateWithDuration:.3 animations:^{
+                                 fromView.alpha = 0;
+                             } completion:^(BOOL finished) {
+                                 [fromVC.view removeFromSuperview];
+                                 [transitionContext completeTransition:YES];
+                             }];
+                         }
                      }];
 }
 

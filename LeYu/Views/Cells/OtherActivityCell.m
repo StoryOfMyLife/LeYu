@@ -65,7 +65,6 @@
         [locationView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel);
             make.top.equalTo(self.contentView.mas_centerY).offset(inset);
-            make.width.and.height.equalTo(@10);
         }];
         
         [self.distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {

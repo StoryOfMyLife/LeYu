@@ -179,7 +179,6 @@ static const CGFloat kContentInset = 20;
     [self.locationView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.distanceLabel);
         make.right.equalTo(self.distanceLabel.mas_left).offset(- kContentInset / 4);
-        make.width.and.height.equalTo(@10);
     }];
     
     [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {

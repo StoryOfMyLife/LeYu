@@ -652,8 +652,8 @@
                                                         <constraint firstAttribute="height" constant="25" id="zaG-zb-svA"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的收藏" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViS-fp-tqd">
-                                                    <rect key="frame" x="55" y="15" width="68" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收藏的店" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViS-fp-tqd">
+                                                    <rect key="frame" x="55" y="15" width="68" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1232,8 +1232,8 @@
                                                         <constraint firstAttribute="height" constant="25" id="c0d-Sa-ylB"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的收藏" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmf-wT-2Tl">
-                                                    <rect key="frame" x="55" y="15" width="68" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收藏的店" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmf-wT-2Tl">
+                                                    <rect key="frame" x="55" y="15" width="68" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1688,9 +1688,9 @@
         <image name="设置" width="34" height="34"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QSJ-aw-600"/>
-        <segue reference="lVB-Hd-VWK"/>
-        <segue reference="dd0-bl-yEK"/>
         <segue reference="v6A-qz-fSY"/>
+        <segue reference="QSJ-aw-600"/>
+        <segue reference="yJb-NT-Cmx"/>
+        <segue reference="lVB-Hd-VWK"/>
     </inferredMetricsTieBreakers>
 </document>

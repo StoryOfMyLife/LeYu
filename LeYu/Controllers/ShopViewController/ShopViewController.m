@@ -33,7 +33,7 @@
 
 #define kContentInsetTop (kTopViewHeightMax + kHeaderViewHeight)
 
-@interface ShopViewController () <LTableViewScrollDelegate, TTCollectionPageViewControllerDelegate>
+@interface ShopViewController () <LTableViewScrollDelegate, TTCollectionPageViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView *topInfoView;
 @property (nonatomic, strong) UIImageView *avatar;
@@ -53,6 +53,8 @@
 @property (nonatomic, strong) UIMotionEffectGroup *motionEffect;
 
 @property (nonatomic, assign) CGPoint contentOffset;
+
+@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactive;
 
 @end
 
@@ -102,6 +104,20 @@
     view.backgroundColor = [UIColor whiteColor];
     view.layer.cornerRadius = view.size.width / 2;
     self.navigationController.view.maskView = view;
+    
+    UIScreenEdgePanGestureRecognizer *edgePan = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+    edgePan.delegate = self;
+    edgePan.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:edgePan];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if (self.tabHeader.selectedIndex == 0) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -586,6 +602,41 @@
     YDShrinkOutAnimator *animtor = [YDShrinkOutAnimator new];
     animtor.endRect = self.presentedRect;
     return animtor;
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator
+{
+    return self.interactive;
+}
+
+- (void)pan:(UIPanGestureRecognizer *)pan
+{
+    UIView *view = self.navigationController.view;
+    NSLog(@"%.2f", [pan velocityInView:view].x);
+    if (pan.state == UIGestureRecognizerStateBegan) {
+        CGPoint location = [pan locationInView:view];
+        if (location.x < view.width) {
+            self.interactive = [[UIPercentDrivenInteractiveTransition alloc] init];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    else if (pan.state == UIGestureRecognizerStateChanged) { // 以当前的位移作为进度执行动画
+        CGPoint translation = [pan translationInView:view];
+        CGFloat scale = 1.5;
+        CGFloat progress = MAX(0, MIN(1, fabs(translation.x * scale / CGRectGetWidth(view.bounds))));
+        [self.interactive updateInteractiveTransition:progress];
+    }
+    else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled) {
+        CGFloat vx = [pan velocityInView:view].x;
+        CGFloat tx = [pan translationInView:view].x;
+        if (vx > 800 || (vx > 0 &&  tx > view.width / 2)) {
+            [self.interactive finishInteractiveTransition];
+        }
+        else {
+            [self.interactive cancelInteractiveTransition];
+        }
+        self.interactive = nil; // 最后必须将interactionController清空，确保不会影响到后面的动画执行
+    }
 }
 
 @end
