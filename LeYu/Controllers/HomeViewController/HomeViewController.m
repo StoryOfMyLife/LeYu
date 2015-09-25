@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "ShopActivityViewController.h"
+#import "IntroViewController.h"
 
 @interface HomeViewController ()
 
@@ -34,6 +35,14 @@
     [self.activityVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    BOOL showedIntro = [[NSUserDefaults standardUserDefaults] boolForKey:@"intro"];
+    if (!showedIntro) {
+        IntroViewController *introVC = [[IntroViewController alloc] init];
+        UIViewController *rootVC = [[UIApplication sharedApplication].delegate window].rootViewController;
+        [rootVC.view addSubview:introVC.view];
+        [rootVC addChildViewController:introVC];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
