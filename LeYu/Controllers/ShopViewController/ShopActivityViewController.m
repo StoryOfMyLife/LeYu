@@ -112,11 +112,7 @@
                             s.presentedRect = rect;
                             s.hidesBottomBarWhenPushed = YES;
                             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:s];
-                            nav.delegate = s;
                             nav.transitioningDelegate = s;
-//                            self.navigationController.delegate = s;
-//                            self.navigationController.transitioningDelegate = s;
-//                            [self.navigationController pushViewController:s animated:YES];
                             nav.modalPresentationStyle = UIModalPresentationCustom;
                             [self presentViewController:nav animated:YES completion:nil];
                         };

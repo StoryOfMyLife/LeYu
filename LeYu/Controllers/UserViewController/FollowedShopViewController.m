@@ -73,8 +73,18 @@
             
             item.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+                ShopFollowedCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                CGRect rect = [tableView convertRect:cell.shopIcon.frame fromView:cell];
+                rect.origin.y += self.navigationController.navigationBar.height + 20;
+                
                 ShopViewController *s = [[ShopViewController alloc] initWithShop:shop];
-                [self.navigationController pushViewController:s animated:YES];
+                s.presentedRect = rect;
+                s.hidesBottomBarWhenPushed = YES;
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:s];
+                nav.transitioningDelegate = s;
+                nav.modalPresentationStyle = UIModalPresentationCustom;
+                [self presentViewController:nav animated:YES completion:nil];
             };
         }
         [self updateActivities:shopItems];
