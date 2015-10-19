@@ -275,7 +275,7 @@ static const NSInteger countPerLine = 4;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UILabel *title = [[UILabel alloc] init];
-        title.text = @"活动内容";
+        title.text = @"说明";
         title.font = SystemFontWithSize(15);
         title.textColor = [UIColor blackColor];
         [self.contentView addSubview:title];
@@ -346,7 +346,7 @@ static const NSInteger countPerLine = 4;
         self.contentView.userInteractionEnabled = YES;
         UILabel *title = [[UILabel alloc] init];
         title.userInteractionEnabled = NO;
-        title.text = @"活动截止时间";
+        title.text = @"截止日期";
         title.font = SystemFontWithSize(15);
         title.textColor = [UIColor blackColor];
         [self.contentView addSubview:title];
@@ -465,7 +465,7 @@ NSString * const kDatePickValueChanged = @"kDatePickValueChanged";
     if (self) {
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         UILabel *title = [[UILabel alloc] init];
-        title.text = @"活动数量";
+        title.text = @"数量";
         title.font = SystemFontWithSize(15);
         title.textColor = [UIColor blackColor];
         [self.contentView addSubview:title];

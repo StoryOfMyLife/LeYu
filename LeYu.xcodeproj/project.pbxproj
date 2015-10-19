@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29CA24A1546B8CB4CA1DE0B5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB487651842C1124EDB2233 /* libPods.a */; };
-		5214584A1BB5744D00DCBF8C /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521458491BB5744D00DCBF8C /* IntroViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5214584A1BB5744D00DCBF8C /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521458491BB5744D00DCBF8C /* IntroViewController.m */; };
 		5238A4891BB2F1FB00A23282 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5238A4881BB2F1FB00A23282 /* libz.dylib */; };
 		523977D71BA997D600CB9B9E /* LineDashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 523977D61BA997D600CB9B9E /* LineDashView.m */; };
 		523977DB1BA9988E00CB9B9E /* LYLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 523977DA1BA9988E00CB9B9E /* LYLocationManager.m */; };
@@ -121,6 +121,7 @@
 		52D602F91BB05B7700B9B6D3 /* ActivityManageCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602F81BB05B7700B9B6D3 /* ActivityManageCellItem.m */; };
 		52D602FC1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602FB1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m */; };
 		52D602FF1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602FE1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m */; };
+		52FE095E1BCCA01B00A4EA81 /* VoiceRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -364,6 +365,8 @@
 		52D602FB1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityAcceptedDetailCellItem.m; sourceTree = "<group>"; };
 		52D602FD1BB064AC00B9B6D3 /* ActivityManageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityManageDetailViewController.h; sourceTree = "<group>"; };
 		52D602FE1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityManageDetailViewController.m; sourceTree = "<group>"; };
+		52FE095C1BCCA01B00A4EA81 /* VoiceRecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceRecordingViewController.h; path = VoiceRecordingViewController/VoiceRecordingViewController.h; sourceTree = "<group>"; };
+		52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VoiceRecordingViewController.m; path = VoiceRecordingViewController/VoiceRecordingViewController.m; sourceTree = "<group>"; };
 		982A3A3C72BDE802A2981A37 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -673,6 +676,7 @@
 		52635AB61BA8728100703DBE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				52FE095B1BCC9FC100A4EA81 /* VoiceRecordingViewController */,
 				521458471BB5744D00DCBF8C /* IntroViewController */,
 				523978251BA99B8900CB9B9E /* HomeViewController */,
 				523978281BA99B8900CB9B9E /* MessageViewController */,
@@ -882,6 +886,15 @@
 			name = Message;
 			sourceTree = "<group>";
 		};
+		52FE095B1BCC9FC100A4EA81 /* VoiceRecordingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				52FE095C1BCCA01B00A4EA81 /* VoiceRecordingViewController.h */,
+				52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */,
+			);
+			name = VoiceRecordingViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -895,6 +908,7 @@
 				52635A7C1BA8718000703DBE /* Resources */,
 				12A427030CF43771A6FBE073 /* Copy Pods Resources */,
 				5214583F1BB2F73D00DCBF8C /* ShellScript */,
+				DE14B22C272FEEA7C5747391 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1025,6 +1039,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		DE14B22C272FEEA7C5747391 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1051,6 +1080,7 @@
 				52D602F01BB0496900B9B6D3 /* ShopFollowedCellItem.m in Sources */,
 				52635BC01BA8728200703DBE /* CTAssetsSupplementaryView.m in Sources */,
 				52D602F91BB05B7700B9B6D3 /* ActivityManageCellItem.m in Sources */,
+				52FE095E1BCCA01B00A4EA81 /* VoiceRecordingViewController.m in Sources */,
 				52635C0F1BA8728200703DBE /* DesignManager.m in Sources */,
 				52C334DF1BAF260D007C833A /* MyAcceptedActivityViewController.m in Sources */,
 				52D602F61BB0562200B9B6D3 /* ActivityManageViewController.m in Sources */,
@@ -1252,7 +1282,7 @@
 				INFOPLIST_FILE = LeYu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeYu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeYu.LeYu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1262,16 +1292,16 @@
 			baseConfigurationReference = 982A3A3C72BDE802A2981A37 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zeren Yu (E362AN38VU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Bytedance Technology Co., Ltd";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LeYu/PrefixHeader.pch;
 				INFOPLIST_FILE = LeYu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeYu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeYu.LeYu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f0307da8-c8a4-465b-b710-0b2541ec18f0";
+				PROVISIONING_PROFILE = "a7c6874a-aced-4514-b6c9-1982526eee78";
 			};
 			name = Release;
 		};

@@ -12,6 +12,7 @@
 #import "ActivityDetailViewController.h"
 #import "LYLocationManager.h"
 #import "Shop.h"
+#import "VoiceRecordingViewController.h"
 
 @interface ShopActivityViewController ()
 
@@ -94,9 +95,12 @@
                     [self.recentActivities addObjectsFromArray:activities];
                     activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
                         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                        ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.recentActivities[indexPath.row]];
-                        activitiesViewController.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:activitiesViewController animated:YES];
+                        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        VoiceRecordingViewController *vc = [sb instantiateViewControllerWithIdentifier:@"VoiceRecordingViewController"];
+//                        ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.recentActivities[indexPath.row]];
+//                        activitiesViewController.hidesBottomBarWhenPushed = YES;
+//                        [self.navigationController pushViewController:activitiesViewController animated:YES];
+                        [self.navigationController pushViewController:vc animated:YES];
                     };
                     
                     if (self.couldShowShop) {
