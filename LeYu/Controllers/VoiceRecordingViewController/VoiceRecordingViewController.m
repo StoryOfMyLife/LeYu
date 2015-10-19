@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (nonatomic, strong) UIButton *completeButton;
+@property (nonatomic, strong) UIButton *saveButton;
 
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 @property (nonatomic, strong) AVAudioPlayer *player;
@@ -31,6 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupNavigationItems];
     
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSError *sessionError;
@@ -76,13 +78,15 @@
     [super viewWillAppear:animated];
 }
 
-- (UIButton *)completeButton
+- (void)setupNavigationItems
 {
-    if (!_completeButton) {
-        _completeButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_completeButton setTitle:@"完成" forState:UIControlStateNormal];
-    }
-    return _completeButton;
+    self.saveButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.saveButton setTitle:@"保存" forState:UIControlStateNormal];
+    [self.saveButton addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
+    [self.saveButton sizeToFit];
+    
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.saveButton];
+    self.navigationItem.rightBarButtonItem = rightBarItem;
 }
 
 - (RACSignal *)timeSignal
@@ -192,6 +196,18 @@
         [self.player pause];
         [self setPlayButtonStatusNormal:YES];
     }
+}
+
+- (void)save:(id)sender
+{
+    AVFile *audioFile = [AVFile fileWithName:@"voice.m4a" contentsAtPath:[self finalFilePath]];
+    [audioFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!succeeded) {
+            NSLog(@"upload audio fail : %@", error);
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 - (void)setPlayButtonStatusNormal:(BOOL)normal
