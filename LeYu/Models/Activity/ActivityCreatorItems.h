@@ -50,13 +50,29 @@ extern NSString * const kAmountPickValueChanged;
 
 #pragma mark ---------------------------------------------
 
+@interface ActivityRecordCellItem : LTableViewCellItem
+
+@property (nonatomic, assign) NSTimeInterval duration;
+
+@end
+
+@interface ActivityRecordCell : LTableViewCell
+
+@property (nonatomic, strong) UILabel *descLabel;
+
+@end
+
+#pragma mark ---------------------------------------------
+
 @interface ActivityDescriptionCellItem : LTableViewCellItem
+
+@property (nonatomic, strong) NSString *desc;
 
 @end
 
 @interface ActivityDescriptionCell : LTableViewCell
 
-@property (nonatomic, strong) UITextView *descriptionView;
+@property (nonatomic, strong) UILabel *descLabel;
 
 @end
 

@@ -153,6 +153,8 @@
     [[UITextField appearance] setTintColor:DefaultYellowColor];
     
     [[UIButton appearance] setTintColor:DefaultYellowColor];
+    
+    [[UIView appearance] setTintColor:DefaultYellowColor];
 }
 
 - (void)registerAVOSClasses

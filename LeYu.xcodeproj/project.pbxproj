@@ -121,6 +121,7 @@
 		52D602F91BB05B7700B9B6D3 /* ActivityManageCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602F81BB05B7700B9B6D3 /* ActivityManageCellItem.m */; };
 		52D602FC1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602FB1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m */; };
 		52D602FF1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602FE1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m */; };
+		52F45E471BD68CC6006A7A74 /* ActivityEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F45E461BD68CC6006A7A74 /* ActivityEditViewController.m */; settings = {ASSET_TAGS = (); }; };
 		52FE095E1BCCA01B00A4EA81 /* VoiceRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -365,6 +366,8 @@
 		52D602FB1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityAcceptedDetailCellItem.m; sourceTree = "<group>"; };
 		52D602FD1BB064AC00B9B6D3 /* ActivityManageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityManageDetailViewController.h; sourceTree = "<group>"; };
 		52D602FE1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityManageDetailViewController.m; sourceTree = "<group>"; };
+		52F45E451BD68CC6006A7A74 /* ActivityEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityEditViewController.h; sourceTree = "<group>"; };
+		52F45E461BD68CC6006A7A74 /* ActivityEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityEditViewController.m; sourceTree = "<group>"; };
 		52FE095C1BCCA01B00A4EA81 /* VoiceRecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceRecordingViewController.h; path = VoiceRecordingViewController/VoiceRecordingViewController.h; sourceTree = "<group>"; };
 		52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VoiceRecordingViewController.m; path = VoiceRecordingViewController/VoiceRecordingViewController.m; sourceTree = "<group>"; };
 		982A3A3C72BDE802A2981A37 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -463,6 +466,8 @@
 		523977EC1BA99ACB00CB9B9E /* CreateActivityViewController */ = {
 			isa = PBXGroup;
 			children = (
+				52F45E441BD68CA0006A7A74 /* ActivityDescEditViewController */,
+				52FE095B1BCC9FC100A4EA81 /* VoiceRecordingViewController */,
 				523977ED1BA99ACB00CB9B9E /* HFActivityEditViewController.h */,
 				523977EE1BA99ACB00CB9B9E /* HFActivityEditViewController.m */,
 				523977EF1BA99ACB00CB9B9E /* HFCreateAvtivityViewController.h */,
@@ -676,7 +681,6 @@
 		52635AB61BA8728100703DBE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				52FE095B1BCC9FC100A4EA81 /* VoiceRecordingViewController */,
 				521458471BB5744D00DCBF8C /* IntroViewController */,
 				523978251BA99B8900CB9B9E /* HomeViewController */,
 				523978281BA99B8900CB9B9E /* MessageViewController */,
@@ -886,6 +890,15 @@
 			name = Message;
 			sourceTree = "<group>";
 		};
+		52F45E441BD68CA0006A7A74 /* ActivityDescEditViewController */ = {
+			isa = PBXGroup;
+			children = (
+				52F45E451BD68CC6006A7A74 /* ActivityEditViewController.h */,
+				52F45E461BD68CC6006A7A74 /* ActivityEditViewController.m */,
+			);
+			name = ActivityDescEditViewController;
+			sourceTree = "<group>";
+		};
 		52FE095B1BCC9FC100A4EA81 /* VoiceRecordingViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -893,6 +906,7 @@
 				52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */,
 			);
 			name = VoiceRecordingViewController;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1085,6 +1099,7 @@
 				52C334DF1BAF260D007C833A /* MyAcceptedActivityViewController.m in Sources */,
 				52D602F61BB0562200B9B6D3 /* ActivityManageViewController.m in Sources */,
 				52635AAC1BA871E400703DBE /* AppDelegate.m in Sources */,
+				52F45E471BD68CC6006A7A74 /* ActivityEditViewController.m in Sources */,
 				52635BB51BA8728200703DBE /* ALAsset+accessibilityLabel.m in Sources */,
 				52D602FC1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m in Sources */,
 				5239783D1BA9A25A00CB9B9E /* ActivityCreatorItems.m in Sources */,

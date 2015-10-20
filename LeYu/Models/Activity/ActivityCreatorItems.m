@@ -32,6 +32,8 @@ static const NSInteger countPerLine = 4;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+//        self.backgroundColor = [UIColor clearColor];
+        
         self.theme = [[UITextField alloc] init];
         self.theme.delegate = self;
         self.theme.tintColor = DefaultYellowColor;
@@ -59,9 +61,9 @@ static const NSInteger countPerLine = 4;
         }];
         
         
-        UIView *seperator = [[UIView alloc] init];
-        seperator.backgroundColor = [UIColor blackColor];
-        [self.contentView addSubview:seperator];
+//        UIView *seperator = [[UIView alloc] init];
+//        seperator.backgroundColor = [UIColor blackColor];
+//        [self.contentView addSubview:seperator];
         
         [self.theme mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView);
@@ -75,11 +77,11 @@ static const NSInteger countPerLine = 4;
             make.right.equalTo(self.theme);
         }];
         
-        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(self.theme);
-            make.height.equalTo(@0.5);
-            make.bottom.equalTo(self.contentView);
-        }];
+//        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.and.right.equalTo(self.theme);
+//            make.height.equalTo(@0.5);
+//            make.bottom.equalTo(self.contentView);
+//        }];
     }
     return self;
 }
@@ -139,6 +141,7 @@ static const NSInteger countPerLine = 4;
         UIView *containerView = [[UIView alloc] init];
         containerView.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:containerView];
+//        self.backgroundColor = [UIColor clearColor];
         
         [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(10, 10, 10, 10));
@@ -170,15 +173,15 @@ static const NSInteger countPerLine = 4;
             }];
         }
         
-        UIView *seperator = [[UIView alloc] init];
-        seperator.backgroundColor = [UIColor blackColor];
-        [self addSubview:seperator];
-        
-        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(containerView);
-            make.height.equalTo(@0.5);
-            make.bottom.equalTo(self);
-        }];
+//        UIView *seperator = [[UIView alloc] init];
+//        seperator.backgroundColor = [UIColor blackColor];
+//        [self addSubview:seperator];
+//        
+//        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.and.right.equalTo(containerView);
+//            make.height.equalTo(@0.5);
+//            make.bottom.equalTo(self);
+//        }];
     }
     return self;
 }
@@ -248,6 +251,70 @@ static const NSInteger countPerLine = 4;
 
 #pragma mark ---------------------------------------------
 
+@implementation ActivityRecordCellItem
+
+- (Class)cellClass
+{
+    return [ActivityRecordCell class];
+}
+
+- (CGFloat)heightForTableView:(UITableView *)tableView
+{
+    return 45;
+}
+
+@end
+
+@implementation ActivityRecordCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        UILabel *title = [[UILabel alloc] init];
+        title.text = @"店家录音";
+        title.textColor = [UIColor blackColor];
+        title.font = SystemFontWithSize(16);
+        [self.contentView addSubview:title];
+        
+        [title mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contentView);
+            make.left.equalTo(self.contentView).offset(space);
+        }];
+        
+        self.descLabel = [[UILabel alloc] init];
+        self.descLabel.textAlignment = NSTextAlignmentRight;
+        self.descLabel.font = SystemFontWithSize(12);
+        self.descLabel.textColor = RGBCOLOR(130, 130, 130);
+        self.descLabel.text = @"44\"";
+        [self.contentView addSubview:self.descLabel];
+        
+        [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contentView);
+            make.right.equalTo(self.contentView);
+        }];
+    }
+    return self;
+}
+
+- (void)setCellItem:(ActivityRecordCellItem *)cellItem
+{
+    [super setCellItem:cellItem];
+    NSTimeInterval duration = cellItem.duration;
+    if (duration > 0) {
+        self.descLabel.text = [NSString stringWithFormat:@"%.2f", duration];
+        self.descLabel.hidden = NO;
+    } else {
+        self.descLabel.hidden = YES;
+    }
+}
+
+@end
+
+#pragma mark ---------------------------------------------
+
 @implementation ActivityDescriptionCellItem
 
 - (Class)cellClass
@@ -257,7 +324,7 @@ static const NSInteger countPerLine = 4;
 
 - (CGFloat)heightForTableView:(UITableView *)tableView
 {
-    return 70;
+    return 45;
 }
 
 @end
@@ -272,50 +339,58 @@ static const NSInteger countPerLine = 4;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         UILabel *title = [[UILabel alloc] init];
-        title.text = @"说明";
+        title.text = @"内容说明";
         title.font = SystemFontWithSize(15);
         title.textColor = [UIColor blackColor];
         [self.contentView addSubview:title];
         
-        self.descriptionView = [[UITextView alloc] init];
-        self.descriptionView.delegate = self;
-        self.descriptionView.scrollEnabled = NO;
-        self.descriptionView.tintColor = DefaultYellowColor;
-        self.descriptionView.font = SystemFontWithSize(12);
-        self.descriptionView.textColor = RGBCOLOR(130, 130, 130);
-        [self.contentView addSubview:self.descriptionView];
+        self.descLabel = [[UILabel alloc] init];
+        self.descLabel.textAlignment = NSTextAlignmentRight;
+        self.descLabel.font = SystemFontWithSize(12);
+        self.descLabel.textColor = RGBCOLOR(130, 130, 130);
+        self.descLabel.text = @"未填写";
+        [self.contentView addSubview:self.descLabel];
+        
+        [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contentView);
+            make.right.equalTo(self.contentView);
+        }];
+        
+//        self.descriptionView = [[UITextView alloc] init];
+//        self.descriptionView.delegate = self;
+//        self.descriptionView.scrollEnabled = NO;
+//        self.descriptionView.tintColor = DefaultYellowColor;
+//        self.descriptionView.font = SystemFontWithSize(12);
+//        self.descriptionView.textColor = RGBCOLOR(130, 130, 130);
+//        [self.contentView addSubview:self.descriptionView];
         
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.and.left.equalTo(self.contentView).offset(space);
+            make.centerY.equalTo(self.contentView);
+            make.left.equalTo(self.contentView).offset(space);
         }];
         
-        [self.descriptionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(title.mas_right).offset(space);
-            make.right.lessThanOrEqualTo(self.contentView).offset(-space);
-            make.top.equalTo(self.contentView).offset(space/2);
-            make.bottom.equalTo(self.contentView).offset(-space/2);
-        }];
+//        [self.descriptionView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(title.mas_right).offset(space);
+//            make.right.lessThanOrEqualTo(self.contentView).offset(-space);
+//            make.top.equalTo(self.contentView).offset(space/2);
+//            make.bottom.equalTo(self.contentView).offset(-space/2);
+//        }];
         
-        UIView *seperator = [[UIView alloc] init];
-        seperator.backgroundColor = RGBCOLOR_HEX(0xe6e6e6);
-        [self addSubview:seperator];
-        
-        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).offset(space);
-            make.right.equalTo(self).offset(-space);
-            make.height.equalTo(@1);
-            make.bottom.equalTo(self.contentView);
-        }];
+//        UIView *seperator = [[UIView alloc] init];
+//        seperator.backgroundColor = RGBCOLOR_HEX(0xe6e6e6);
+//        [self addSubview:seperator];
+//        
+//        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self).offset(space);
+//            make.right.equalTo(self).offset(-space);
+//            make.height.equalTo(@1);
+//            make.bottom.equalTo(self.contentView);
+//        }];
     }
     return self;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    [ImageAssetsManager manager].activityDesc = textView.text;
 }
 
 @end
@@ -359,7 +434,7 @@ static const NSInteger countPerLine = 4;
         [self.contentView addSubview:self.timeLabel];
         
         NSDate *now = [NSDate date];
-        NSDate *weekFromNow = [now dateByAddingTimeInterval:aWeek];
+        NSDate *weekFromNow = [now dateByAddingTimeInterval:aDay * 30];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"YYYY.MM.dd";
         NSString *nowString = [formatter stringFromDate:now];
@@ -376,16 +451,16 @@ static const NSInteger countPerLine = 4;
             make.right.equalTo(self.contentView);
         }];
         
-        UIView *seperator = [[UIView alloc] init];
-        seperator.backgroundColor = RGBCOLOR_HEX(0xe6e6e6);
-        [self addSubview:seperator];
-        
-        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).offset(space);
-            make.right.equalTo(self).offset(-space);
-            make.height.equalTo(@1);
-            make.bottom.equalTo(self.contentView);
-        }];
+//        UIView *seperator = [[UIView alloc] init];
+//        seperator.backgroundColor = RGBCOLOR_HEX(0xe6e6e6);
+//        [self addSubview:seperator];
+//        
+//        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self).offset(space);
+//            make.right.equalTo(self).offset(-space);
+//            make.height.equalTo(@1);
+//            make.bottom.equalTo(self.contentView);
+//        }];
     }
     return self;
 }
@@ -465,7 +540,7 @@ NSString * const kDatePickValueChanged = @"kDatePickValueChanged";
     if (self) {
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         UILabel *title = [[UILabel alloc] init];
-        title.text = @"数量";
+        title.text = @"参与人数";
         title.font = SystemFontWithSize(15);
         title.textColor = [UIColor blackColor];
         [self.contentView addSubview:title];
@@ -487,16 +562,16 @@ NSString * const kDatePickValueChanged = @"kDatePickValueChanged";
             make.right.equalTo(self.contentView);
         }];
         
-        UIView *seperator = [[UIView alloc] init];
-        seperator.backgroundColor = RGBCOLOR_HEX(0xe6e6e6);
-        [self addSubview:seperator];
-        
-        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).offset(space);
-            make.right.equalTo(self).offset(-space);
-            make.height.equalTo(@1);
-            make.bottom.equalTo(self.contentView);
-        }];
+//        UIView *seperator = [[UIView alloc] init];
+//        seperator.backgroundColor = RGBCOLOR_HEX(0xe6e6e6);
+//        [self addSubview:seperator];
+//        
+//        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self).offset(space);
+//            make.right.equalTo(self).offset(-space);
+//            make.height.equalTo(@1);
+//            make.bottom.equalTo(self.contentView);
+//        }];
     }
     return self;
 }

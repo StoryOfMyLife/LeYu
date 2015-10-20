@@ -7,7 +7,7 @@
 //
 
 #import "VoiceRecordingViewController.h"
-#import <AFSoundManager/AFSoundManager.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface VoiceRecordingViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
@@ -175,16 +175,24 @@
 
 - (IBAction)reset:(id)sender
 {
-    [self.recorder stop];
-    [self.player stop];
-    self.player = nil;
-    [self.recorder deleteRecording];
-    self.playButton.enabled = NO;
-    self.resetButton.enabled = NO;
-    [self setPlayButtonStatusNormal:YES];
-    self.duration = 0;
-    [[NSFileManager defaultManager] removeItemAtPath:[self finalFilePath] error:nil];
-    [[NSFileManager defaultManager] removeItemAtPath:[self newFilePath] error:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定重置录音吗？" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [[alertView rac_buttonClickedSignal] subscribeNext:^(NSNumber *indexNumber) {
+        if ([indexNumber intValue] == 0) {
+            NSLog(@"you touched NO");
+        } else {
+            [self.recorder stop];
+            [self.player stop];
+            self.player = nil;
+            [self.recorder deleteRecording];
+            self.playButton.enabled = NO;
+            self.resetButton.enabled = NO;
+            [self setPlayButtonStatusNormal:YES];
+            self.duration = 0;
+            [[NSFileManager defaultManager] removeItemAtPath:[self finalFilePath] error:nil];
+            [[NSFileManager defaultManager] removeItemAtPath:[self newFilePath] error:nil];
+        }
+    }];
+    [alertView show];
 }
 
 - (IBAction)play:(id)sender

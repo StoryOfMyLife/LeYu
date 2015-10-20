@@ -26,6 +26,8 @@
 
 - (void)_setItems:(NSArray *)items;
 
+- (UITableViewStyle)tableViewStyle;
+
 @end
 
 
