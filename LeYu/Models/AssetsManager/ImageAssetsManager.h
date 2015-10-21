@@ -26,7 +26,8 @@
 @property (nonatomic, strong) UIImage *activityTopImage;
 @property (nonatomic, strong) NSDate *activityDate;
 @property (nonatomic) NSInteger activityAmount;
-@property (nonatomic, strong) AVFile *voiceFile;
+@property (nonatomic, strong) AVFile *audioFile;
+@property (nonatomic, assign) NSTimeInterval audioDuration;
 
 + (instancetype)manager;
 

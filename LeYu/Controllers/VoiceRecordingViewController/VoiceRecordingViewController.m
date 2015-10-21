@@ -8,6 +8,7 @@
 
 #import "VoiceRecordingViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "ImageAssetsManager.h"
 
 @interface VoiceRecordingViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
@@ -188,6 +189,8 @@
             self.resetButton.enabled = NO;
             [self setPlayButtonStatusNormal:YES];
             self.duration = 0;
+            [ImageAssetsManager manager].audioFile = nil;
+            [ImageAssetsManager manager].audioDuration = 0;
             [[NSFileManager defaultManager] removeItemAtPath:[self finalFilePath] error:nil];
             [[NSFileManager defaultManager] removeItemAtPath:[self newFilePath] error:nil];
         }
@@ -209,13 +212,9 @@
 - (void)save:(id)sender
 {
     AVFile *audioFile = [AVFile fileWithName:@"voice.m4a" contentsAtPath:[self finalFilePath]];
-    [audioFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!succeeded) {
-            NSLog(@"upload audio fail : %@", error);
-        } else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }];
+    [ImageAssetsManager manager].audioFile = audioFile;
+    [ImageAssetsManager manager].audioDuration = self.player.duration;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setPlayButtonStatusNormal:(BOOL)normal

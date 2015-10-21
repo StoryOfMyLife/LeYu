@@ -263,6 +263,12 @@ static const NSInteger countPerLine = 4;
     return 45;
 }
 
+- (void)setDuration:(NSTimeInterval)duration
+{
+    _duration = duration;
+    [self.cell setCellItem:self];
+}
+
 @end
 
 @implementation ActivityRecordCell
@@ -288,7 +294,6 @@ static const NSInteger countPerLine = 4;
         self.descLabel.textAlignment = NSTextAlignmentRight;
         self.descLabel.font = SystemFontWithSize(12);
         self.descLabel.textColor = RGBCOLOR(130, 130, 130);
-        self.descLabel.text = @"44\"";
         [self.contentView addSubview:self.descLabel];
         
         [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -304,10 +309,9 @@ static const NSInteger countPerLine = 4;
     [super setCellItem:cellItem];
     NSTimeInterval duration = cellItem.duration;
     if (duration > 0) {
-        self.descLabel.text = [NSString stringWithFormat:@"%.2f", duration];
-        self.descLabel.hidden = NO;
+        self.descLabel.text = [NSString stringWithFormat:@"%.fs", duration];
     } else {
-        self.descLabel.hidden = YES;
+        self.descLabel.text = @"未录音";
     }
 }
 

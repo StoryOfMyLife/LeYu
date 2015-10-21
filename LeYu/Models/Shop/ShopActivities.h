@@ -31,6 +31,8 @@
 
 @property (nonatomic, strong) NSNumber *participantNum;
 
+@property (nonatomic, strong) AVFile *activityDescVoice;
+
 @property (nonatomic) BOOL accepted;
 
 @property (nonatomic) BOOL otherActivity;

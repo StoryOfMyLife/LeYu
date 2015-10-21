@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) ActivityEditViewController *descEditVC;
 @property (nonatomic, strong) ActivityDescriptionCellItem *descItem;
+@property (nonatomic, strong) ActivityRecordCellItem *recordItem;
 
 @end
 
@@ -39,7 +40,7 @@
     
     shopNameItem.shopName = [LYUser currentUser].shop.shopname;
     
-    ActivityRecordCellItem *recordItem = [[ActivityRecordCellItem alloc] init];
+    self.recordItem = [[ActivityRecordCellItem alloc] init];
     
     ActivityDescriptionCellItem *descItem = [[ActivityDescriptionCellItem alloc] init];
     self.descItem = descItem;
@@ -50,7 +51,10 @@
     
     [ImageAssetsManager manager].activityDate = [NSDate dateWithTimeInterval:aWeek sinceDate:[NSDate date]];
     
-    [recordItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
+    @weakify(self);
+    
+    [self.recordItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
+        @strongify(self);
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         VoiceRecordingViewController *vc = [sb instantiateViewControllerWithIdentifier:@"VoiceRecordingViewController"];
         [self.navigationController pushViewController:vc animated:YES];
@@ -124,7 +128,15 @@
         }];
     }];
     
-    self.items = @[@[themeItem, photoItem], @[recordItem, descItem], @[amountItem, timeItem]];
+    self.items = @[@[themeItem, photoItem], @[self.recordItem, descItem], @[amountItem, timeItem]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    ImageAssetsManager *manager = [ImageAssetsManager manager];
+    self.recordItem.duration = manager.audioDuration;
 }
 
 - (UITableViewStyle)tableViewStyle
@@ -188,6 +200,17 @@
 
     activity.shop = [LYUser currentUser].shop;
     
+    NSError *error = nil;
+    if (manager.audioFile) {
+        [manager.audioFile save:&error];
+        if (!error) {
+            activity.activityDescVoice = manager.audioFile;
+        } else {
+            Log(@"upload audio fail : %@", error);
+            error = nil;
+        }
+    }
+    
     NSArray *imageAssets = [manager allAssets];
     NSMutableArray *imageIds = [NSMutableArray arrayWithCapacity:0];
     for (ALAsset *asset in imageAssets) {
@@ -210,12 +233,11 @@
     }
     [activity addObjectsFromArray:imageIds forKey:@"pics"];
     
-    NSError *error = nil;
     [activity save:&error];
     if (!error) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
-        Log(@"%@", error);
+        Log(@"upload activity fail : %@", error);
     }
 }
 

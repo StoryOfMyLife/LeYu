@@ -27,6 +27,7 @@
 @dynamic title;
 @dynamic activitiesType;
 @dynamic participantNum;
+@dynamic activityDescVoice;
 
 - (Class)cellClass
 {
