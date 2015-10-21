@@ -17,6 +17,8 @@
 
 #import "LoginViewController.h"
 
+#import <AFSoundManager/AFSoundManager.h>
+
 @interface ActivityDetailViewController ()
 
 @property (nonatomic, strong) ShopActivities *activities;
@@ -37,6 +39,8 @@
 @property (nonatomic, strong) UIButton *acceptButton;
 
 @property (nonatomic, strong) UIImageView *shopIcon;
+
+@property (nonatomic, strong) AFSoundPlayback *playBack;
 
 @end
 
@@ -279,12 +283,23 @@
 #pragma mark -
 #pragma mark setters and getters
 
+- (AFSoundPlayback *)playBack
+{
+    if (!_playBack) {
+        AVFile *audioFile = self.activities.activityDescVoice;
+        AFSoundItem *item = [[AFSoundItem alloc] initWithStreamingURL:[NSURL URLWithString:audioFile.url]];
+        _playBack = [[AFSoundPlayback alloc] initWithItem:item];
+        [_playBack pause];
+    }
+    return _playBack;
+}
+
 - (UIView *)cardView
 {
     UIView *viewContainer = [[UIView alloc] init];
-    viewContainer.layer.shadowOffset = CGSizeMake(0, 1);
-    viewContainer.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
-    viewContainer.layer.shadowOpacity = 1;
+    viewContainer.layer.cornerRadius = 5;
+    viewContainer.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
+    viewContainer.layer.borderWidth = 0.5;
     viewContainer.backgroundColor = [UIColor whiteColor];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft)];
@@ -375,7 +390,6 @@
     
     [cardView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(titleView.mas_bottom);
-        make.bottom.equalTo(containerView).offset(-10);
         make.width.equalTo(@(SCREEN_WIDTH - 10 * 2));
         make.centerX.equalTo(containerView);
     }];
@@ -387,12 +401,101 @@
         make.centerY.equalTo(cardView.mas_top);
     }];
     
+    if (self.activities.activityDescVoice) {
+        UIView *voiceView = [self voiceView];
+        [containerView addSubview:voiceView];
+        
+        [voiceView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(cardView);
+            make.top.equalTo(cardView.mas_bottom).offset(10);
+            make.height.mas_equalTo(80);
+            make.bottom.equalTo(containerView).offset(-10);
+        }];
+    } else {
+        [cardView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(containerView).offset(-10);
+        }];
+    }
+    
     weakSelf();
     [self.activities.shop loadShopIcon:^(UIImage *image, NSError *error) {
         weakSelf.shopIcon.image = image;
     }];
     
     return containerView;
+}
+
+- (UIView *)voiceView
+{
+    UIButton *viewContainer = [UIButton buttonWithType:UIButtonTypeSystem];
+    viewContainer.layer.cornerRadius = 5;
+    viewContainer.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
+    viewContainer.layer.borderWidth = 0.5;
+    viewContainer.backgroundColor = [UIColor whiteColor];
+    
+    [[viewContainer rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        if (self.playBack.status == AFSoundStatusPlaying) {
+            [self.playBack pause];
+            self.playBack = nil;
+        }
+        [self.playBack play];
+    }];
+    
+    [RACObserve(viewContainer, highlighted) subscribeNext:^(NSNumber *highlighted) {
+        [UIView transitionWithView:viewContainer duration:.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            if (highlighted.boolValue) {
+                viewContainer.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.5];
+            } else {
+                viewContainer.backgroundColor = [UIColor whiteColor];
+            }
+        } completion:nil];
+    }];
+    
+    UIImageView *voiceImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"voice"]];
+    [viewContainer addSubview:voiceImage];
+    
+    [voiceImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(viewContainer);
+        make.left.equalTo(viewContainer).offset(50);
+    }];
+    
+    UILabel *titleLable = [[UILabel alloc] init];
+    titleLable.font = SystemFontWithSize(15);
+    titleLable.text = @"店家自白";
+    [viewContainer addSubview:titleLable];
+    
+    [titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(voiceImage.mas_right).offset(10);
+        make.bottom.equalTo(viewContainer.mas_centerY).offset(-2);
+    }];
+    
+    UILabel *descLabel = [[UILabel alloc] init];
+    descLabel.font = SystemFontWithSize(13);
+    descLabel.textColor = RGBCOLOR_HEX(0x646464);
+    descLabel.text = [NSString stringWithFormat:@"来自 %@", self.activities.shop.shopname];
+    [viewContainer addSubview:descLabel];
+    
+    [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(titleLable);
+        make.top.equalTo(viewContainer.mas_centerY).offset(2);
+    }];
+    
+    UILabel *durationLabel = [[UILabel alloc] init];
+    durationLabel.font = SystemFontWithSize(16);
+    durationLabel.textColor = descLabel.textColor;
+    [viewContainer addSubview:durationLabel];
+    
+    [AVFile getFileWithObjectId:self.activities.activityDescVoice.objectId withBlock:^(AVFile *file, NSError *error) {
+        self.activities.activityDescVoice = file;
+        durationLabel.text = [NSString stringWithFormat:@"%lds", (long)self.playBack.currentItem.duration];
+    }];
+    
+    [durationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(viewContainer);
+        make.right.equalTo(viewContainer).offset(-40);
+    }];
+    
+    return viewContainer;
 }
 
 - (UIView *)titleView
