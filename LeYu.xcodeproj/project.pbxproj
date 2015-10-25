@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29CA24A1546B8CB4CA1DE0B5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB487651842C1124EDB2233 /* libPods.a */; };
+		52044C891BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52044C881BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m */; settings = {ASSET_TAGS = (); }; };
 		5214584A1BB5744D00DCBF8C /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521458491BB5744D00DCBF8C /* IntroViewController.m */; };
 		5238A4891BB2F1FB00A23282 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5238A4881BB2F1FB00A23282 /* libz.dylib */; };
 		523977D71BA997D600CB9B9E /* LineDashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 523977D61BA997D600CB9B9E /* LineDashView.m */; };
@@ -138,6 +139,8 @@
 /* Begin PBXFileReference section */
 		00D119BC1203A65FF07F1741 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2EB487651842C1124EDB2233 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		52044C871BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityAcceptedMoreDetailCellItem.h; sourceTree = "<group>"; };
+		52044C881BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityAcceptedMoreDetailCellItem.m; sourceTree = "<group>"; };
 		521458481BB5744D00DCBF8C /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		521458491BB5744D00DCBF8C /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		5238A4881BB2F1FB00A23282 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -559,6 +562,8 @@
 				52D602F81BB05B7700B9B6D3 /* ActivityManageCellItem.m */,
 				52D602FA1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.h */,
 				52D602FB1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m */,
+				52044C871BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.h */,
+				52044C881BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -1107,6 +1112,7 @@
 				52635A841BA8718000703DBE /* main.m in Sources */,
 				52635BC51BA8728200703DBE /* NSDateFormatter+timeIntervalFormatter.m in Sources */,
 				52635C0B1BA8728200703DBE /* YDShrinkOutAnimator.m in Sources */,
+				52044C891BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m in Sources */,
 				52635BBB1BA8728200703DBE /* CTAssetsGroupViewCell.m in Sources */,
 				523977E51BA99A6600CB9B9E /* ActivitiesNearbyViewController.m in Sources */,
 				523978771BADDFE400CB9B9E /* SettingViewController.m in Sources */,

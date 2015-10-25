@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, UserLevel) {
 
 @interface LYUser : AVUser <AVSubclassing>
 
-@property (nonatomic, assign) BOOL hasBeenUpdate ;
+@property (nonatomic, assign) BOOL hasBeenUpdate;
 
 @property (nonatomic, strong) AVFile* thumbnail;
 

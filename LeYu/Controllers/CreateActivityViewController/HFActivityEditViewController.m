@@ -67,14 +67,14 @@
     [amountItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
         NSArray *indexPaths = @[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
         if (![self.items[indexPath.section] containsObject:amountSelectionItem]) {
-            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
             NSMutableArray *newSectionItems = [NSMutableArray arrayWithArray:self.items[indexPath.section]];
             [newSectionItems insertObject:amountSelectionItem atIndex:indexPath.row + 1];
             NSMutableArray *newItems = [NSMutableArray arrayWithArray:self.items];
             [newItems replaceObjectAtIndex:indexPath.section withObject:newSectionItems];
             [self _setItems:newItems];
         } else {
-            [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
             NSMutableArray *newSectionItems = [NSMutableArray arrayWithArray:self.items[indexPath.section]];
             [newSectionItems removeObject:amountSelectionItem];
             

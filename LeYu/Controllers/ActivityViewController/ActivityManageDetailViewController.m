@@ -8,6 +8,7 @@
 
 #import "ActivityManageDetailViewController.h"
 #import "ActivityAcceptedDetailCellItem.h"
+#import "ActivityAcceptedMoreDetailCellItem.h"
 #import "ActivityUserRelation.h"
 
 @interface ActivityManageDetailViewController ()
@@ -33,27 +34,75 @@
     
     [relationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 
-        NSMutableArray *items = [NSMutableArray arrayWithCapacity:0];
         NSMutableDictionary *arriveDateDic = [NSMutableDictionary dictionary];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy/mm/dd";
+        
         for (ActivityUserRelation *relation in objects) {
             NSDate *date = relation.userArriveDate;
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            formatter.dateFormat = @"yyyy/mm/dd";
             NSString *dateString = [formatter stringFromDate:date];
             
-            NSNumber *count = arriveDateDic[dateString];
-            count = @([count intValue] + 1);
+            NSArray *users = arriveDateDic[dateString];
+            NSMutableArray *mutableUsers;
             
-            arriveDateDic[dateString] = count;
+            if (users) {
+                mutableUsers = [NSMutableArray arrayWithArray:users];
+            } else {
+                mutableUsers = [NSMutableArray arrayWithCapacity:0];
+            }
+            
+            [mutableUsers addObject:relation];
+            
+            arriveDateDic[dateString] = mutableUsers;
         }
         
+        NSMutableArray *items = [NSMutableArray arrayWithCapacity:0];
         for (NSString *date in [arriveDateDic allKeys]) {
+            NSArray *relations = arriveDateDic[date];
+            
             ActivityAcceptedDetailCellItem *item = [[ActivityAcceptedDetailCellItem alloc] init];
+            [item applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
+                NSArray *currentItems = self.items[indexPath.section];
+                
+                NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:0];
+                NSMutableArray *moreDetailItems = [NSMutableArray arrayWithCapacity:0];
+                NSInteger row = indexPath.row;
+                NSInteger section = indexPath.section;
+                for (ActivityUserRelation *relation in relations) {
+                    row++;
+                    [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+                    ActivityAcceptedMoreDetailCellItem *moreItem = [[ActivityAcceptedMoreDetailCellItem alloc] init];
+                    moreItem.relation = relation;
+                    [moreDetailItems addObject:moreItem];
+                }
+                
+                if ([currentItems count] == 1) {
+                    //未展开，现在展开
+                    [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+                    
+                    NSMutableArray *newSectionItems = [NSMutableArray arrayWithArray:self.items[indexPath.section]];
+                    [newSectionItems addObjectsFromArray:moreDetailItems];
+                    
+                    NSMutableArray *newItems = [NSMutableArray arrayWithArray:self.items];
+                    [newItems replaceObjectAtIndex:indexPath.section withObject:newSectionItems];
+                    [self _setItems:newItems];
+                    
+                } else {
+                    //已展开，现在收起
+                    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+                    
+                    NSMutableArray *newSectionItems = [NSMutableArray arrayWithArray:self.items[indexPath.section]];
+                    newSectionItems = [NSMutableArray arrayWithObject:newSectionItems[0]];
+                    NSMutableArray *newItems = [NSMutableArray arrayWithArray:self.items];
+                    [newItems replaceObjectAtIndex:indexPath.section withObject:newSectionItems];
+                    [self _setItems:newItems];
+                }
+            }];
             item.date = date;
-            item.count = [arriveDateDic[date] integerValue];
-            [items addObject:item];
+            item.count = [relations count];
+            [items addObject:@[item]];
         }
-        self.items = @[items];
+        self.items = items;
     }];
 }
 
@@ -74,7 +123,7 @@
     UILabel *date = [[UILabel alloc] init];
     date.font = SystemFontWithSize(15);
     date.textColor = DefaultTitleColor;
-    date.text = @"日期";
+    date.text = @"到店时间";
     [view addSubview:date];
     
     UIImageView *countImage = [[UIImageView alloc] init];
@@ -86,7 +135,7 @@
     UILabel *count = [[UILabel alloc] init];
     count.font = SystemFontWithSize(15);
     count.textColor = DefaultTitleColor;
-    count.text = @"人数";
+    count.text = @"用户数";
     [view addSubview:count];
     
     [dateImage mas_makeConstraints:^(MASConstraintMaker *make) {

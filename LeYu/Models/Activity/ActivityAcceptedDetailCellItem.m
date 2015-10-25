@@ -39,8 +39,7 @@
         
         [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(inset);
-            make.top.equalTo(self.contentView).offset(inset/2);
-            make.bottom.equalTo(self.contentView).offset(-inset/2);
+            make.centerY.equalTo(self.contentView);
         }];
         
         [self.countLabel mas_makeConstraints:^(MASConstraintMaker *make) {

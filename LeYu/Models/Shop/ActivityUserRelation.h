@@ -18,4 +18,6 @@
 
 @property (nonatomic, strong) NSDate *userArriveDate;
 
+@property (nonatomic, assign) BOOL isArrived;
+
 @end

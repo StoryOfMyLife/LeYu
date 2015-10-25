@@ -470,19 +470,11 @@
     viewContainer.backgroundColor = [UIColor whiteColor];
     
     [[viewContainer rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        switch (self.playBack.status) {
-            case AFSoundStatusNotStarted:
-            case AFSoundStatusPaused:
-                [self.playBack play];
-                break;
-            case AFSoundStatusFinished:
-            case AFSoundStatusPlaying:
-            default:
-                [self.playBack pause];
-                self.playBack = nil;
-                [self.playBack play];
-                break;
-        }
+        
+        [self.playBack pause];
+        self.playBack = nil;
+        [self.playBack play];
+        
         [self.timerDisposeable dispose];
         NSDate *current = [NSDate date];
         self.audioProgress.progress = 0;
@@ -551,7 +543,7 @@
     viewContainer.enabled = NO;
     [AVFile getFileWithObjectId:self.activities.activityDescVoice.objectId withBlock:^(AVFile *file, NSError *error) {
         self.activities.activityDescVoice = file;
-        durationLabel.text = [NSString stringWithFormat:@"%lds", (long)self.playBack.currentItem.duration];
+        durationLabel.text = [NSString stringWithFormat:@"%ld\"", (long)self.playBack.currentItem.duration];
         viewContainer.enabled = YES;
     }];
     

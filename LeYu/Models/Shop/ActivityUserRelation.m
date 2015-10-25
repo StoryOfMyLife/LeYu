@@ -18,5 +18,6 @@
 @dynamic user;
 @dynamic activity;
 @dynamic userArriveDate;
+@dynamic isArrived;
 
 @end
