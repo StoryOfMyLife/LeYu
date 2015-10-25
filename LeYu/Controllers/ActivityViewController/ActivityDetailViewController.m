@@ -41,6 +41,11 @@
 @property (nonatomic, strong) UIImageView *shopIcon;
 
 @property (nonatomic, strong) AFSoundPlayback *playBack;
+@property (nonatomic, strong) AFSoundItem *soundItem;
+
+@property (nonatomic, strong) UIProgressView *audioProgress;
+@property (nonatomic, strong) RACSignal *timerSignal;
+@property (nonatomic, strong) RACDisposable *timerDisposeable;
 
 @end
 
@@ -286,12 +291,24 @@
 - (AFSoundPlayback *)playBack
 {
     if (!_playBack) {
-        AVFile *audioFile = self.activities.activityDescVoice;
-        AFSoundItem *item = [[AFSoundItem alloc] initWithStreamingURL:[NSURL URLWithString:audioFile.url]];
-        _playBack = [[AFSoundPlayback alloc] initWithItem:item];
+        _playBack = [[AFSoundPlayback alloc] initWithItem:self.soundItem];
+//        [_playBack listenFeedbackUpdatesWithBlock:^(AFSoundItem *item) {
+//            Log(@"Item duration: %ld - time elapsed: %ld", (long)item.duration, (long)item.timePlayed);
+//        } andFinishedBlock:^{
+//            Log(@"play finish");
+//        }];
         [_playBack pause];
     }
     return _playBack;
+}
+
+- (AFSoundItem *)soundItem
+{
+    if (!_soundItem) {
+        AVFile *audioFile = self.activities.activityDescVoice;
+        _soundItem = [[AFSoundItem alloc] initWithStreamingURL:[NSURL URLWithString:audioFile.url]];
+    }
+    return _soundItem;
 }
 
 - (UIView *)cardView
@@ -425,20 +442,66 @@
     return containerView;
 }
 
+- (UIProgressView *)audioProgress
+{
+    if (!_audioProgress) {
+        _audioProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        _audioProgress.trackTintColor = [UIColor clearColor];
+        _audioProgress.progressTintColor = DefaultYellowColor;
+    }
+    return _audioProgress;
+}
+
+- (RACSignal *)timerSignal
+{
+    if (!_timerSignal) {
+        _timerSignal = [RACSignal interval:0.01f onScheduler:[RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground name:@"audioProgressTimer"]];
+    }
+    return _timerSignal;
+}
+
 - (UIView *)voiceView
 {
     UIButton *viewContainer = [UIButton buttonWithType:UIButtonTypeSystem];
+    viewContainer.clipsToBounds = YES;
     viewContainer.layer.cornerRadius = 5;
     viewContainer.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
     viewContainer.layer.borderWidth = 0.5;
     viewContainer.backgroundColor = [UIColor whiteColor];
     
     [[viewContainer rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        if (self.playBack.status == AFSoundStatusPlaying) {
-            [self.playBack pause];
-            self.playBack = nil;
+        switch (self.playBack.status) {
+            case AFSoundStatusNotStarted:
+            case AFSoundStatusPaused:
+                [self.playBack play];
+                break;
+            case AFSoundStatusFinished:
+            case AFSoundStatusPlaying:
+            default:
+                [self.playBack pause];
+                self.playBack = nil;
+                [self.playBack play];
+                break;
         }
-        [self.playBack play];
+        [self.timerDisposeable dispose];
+        NSDate *current = [NSDate date];
+        self.audioProgress.progress = 0;
+        
+        @weakify(self);
+        self.timerDisposeable = [self.timerSignal subscribeNext:^(NSDate *date) {
+            @strongify(self);
+            NSTimeInterval timeElapsed = [date timeIntervalSinceDate:current];
+            float progress = (double)timeElapsed / (double)self.playBack.currentItem.duration;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.audioProgress setProgress:progress animated:YES];
+            });
+        }];
+        
+        [self.playBack listenFeedbackUpdatesWithBlock:nil andFinishedBlock:^{
+            @strongify(self);
+            [self.timerDisposeable dispose];
+        }];
+        
     }];
     
     [RACObserve(viewContainer, highlighted) subscribeNext:^(NSNumber *highlighted) {
@@ -485,14 +548,22 @@
     durationLabel.textColor = descLabel.textColor;
     [viewContainer addSubview:durationLabel];
     
+    viewContainer.enabled = NO;
     [AVFile getFileWithObjectId:self.activities.activityDescVoice.objectId withBlock:^(AVFile *file, NSError *error) {
         self.activities.activityDescVoice = file;
         durationLabel.text = [NSString stringWithFormat:@"%lds", (long)self.playBack.currentItem.duration];
+        viewContainer.enabled = YES;
     }];
     
     [durationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(viewContainer);
         make.right.equalTo(viewContainer).offset(-40);
+    }];
+    
+    [viewContainer addSubview:self.audioProgress];
+    
+    [self.audioProgress mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(viewContainer);
     }];
     
     return viewContainer;
