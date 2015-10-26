@@ -73,8 +73,8 @@
             make.left.equalTo(self.avatar.mas_right).offset(inset/4);
         }];
         
-        self.checkButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.checkButton setImage:[UIImage imageNamed:@"unchecked"] forState:UIControlStateNormal];
+        self.checkButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.checkButton setImage:[UIImage imageNamed:@"unchecked_square"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.checkButton];
         
         [self.checkButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -88,9 +88,9 @@
 - (void)setCheckButtonStatus:(BOOL)arrived
 {
     if (arrived) {
-        [self.checkButton setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateNormal];
+        [self.checkButton setImage:[UIImage imageNamed:@"checked_square"] forState:UIControlStateNormal];
     } else {
-        [self.checkButton setImage:[UIImage imageNamed:@"unchecked"] forState:UIControlStateNormal];
+        [self.checkButton setImage:[UIImage imageNamed:@"unchecked_square"] forState:UIControlStateNormal];
     }
 }
 

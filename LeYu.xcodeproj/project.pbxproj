@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29CA24A1546B8CB4CA1DE0B5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB487651842C1124EDB2233 /* libPods.a */; };
-		52044C891BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52044C881BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m */; settings = {ASSET_TAGS = (); }; };
+		52044C891BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52044C881BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m */; };
 		5214584A1BB5744D00DCBF8C /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521458491BB5744D00DCBF8C /* IntroViewController.m */; };
 		5238A4891BB2F1FB00A23282 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5238A4881BB2F1FB00A23282 /* libz.dylib */; };
 		523977D71BA997D600CB9B9E /* LineDashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 523977D61BA997D600CB9B9E /* LineDashView.m */; };
@@ -84,7 +84,6 @@
 		52635BF31BA8728200703DBE /* LTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B311BA8728100703DBE /* LTableViewController.m */; };
 		52635BF41BA8728200703DBE /* LViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B341BA8728100703DBE /* LViewController.m */; };
 		52635BF51BA8728200703DBE /* UIView+Sizes.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B371BA8728100703DBE /* UIView+Sizes.m */; };
-		52635BFA1BA8728200703DBE /* DetailActivities.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B421BA8728200703DBE /* DetailActivities.m */; };
 		52635BFC1BA8728200703DBE /* LYUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B461BA8728200703DBE /* LYUser.m */; };
 		52635BFE1BA8728200703DBE /* NotificationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B4A1BA8728200703DBE /* NotificationMessage.m */; };
 		52635C071BA8728200703DBE /* YDDismissFadeOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635B5D1BA8728200703DBE /* YDDismissFadeOutAnimator.m */; };
@@ -122,8 +121,8 @@
 		52D602F91BB05B7700B9B6D3 /* ActivityManageCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602F81BB05B7700B9B6D3 /* ActivityManageCellItem.m */; };
 		52D602FC1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602FB1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m */; };
 		52D602FF1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602FE1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m */; };
-		52F45E471BD68CC6006A7A74 /* ActivityEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F45E461BD68CC6006A7A74 /* ActivityEditViewController.m */; settings = {ASSET_TAGS = (); }; };
-		52FE095E1BCCA01B00A4EA81 /* VoiceRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		52F45E471BD68CC6006A7A74 /* ActivityEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F45E461BD68CC6006A7A74 /* ActivityEditViewController.m */; };
+		52FE095E1BCCA01B00A4EA81 /* VoiceRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -292,8 +291,6 @@
 		52635B351BA8728100703DBE /* MacroHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacroHelper.h; sourceTree = "<group>"; };
 		52635B361BA8728100703DBE /* UIView+Sizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Sizes.h"; sourceTree = "<group>"; };
 		52635B371BA8728100703DBE /* UIView+Sizes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Sizes.m"; sourceTree = "<group>"; };
-		52635B411BA8728200703DBE /* DetailActivities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailActivities.h; sourceTree = "<group>"; };
-		52635B421BA8728200703DBE /* DetailActivities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailActivities.m; sourceTree = "<group>"; };
 		52635B451BA8728200703DBE /* LYUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYUser.h; sourceTree = "<group>"; };
 		52635B461BA8728200703DBE /* LYUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYUser.m; sourceTree = "<group>"; };
 		52635B491BA8728200703DBE /* NotificationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMessage.h; sourceTree = "<group>"; };
@@ -772,8 +769,6 @@
 				523978531BA9A2C300CB9B9E /* AssetsManager */,
 				523978431BA9A2A100CB9B9E /* Shop */,
 				523978301BA9A25A00CB9B9E /* Activity */,
-				52635B411BA8728200703DBE /* DetailActivities.h */,
-				52635B421BA8728200703DBE /* DetailActivities.m */,
 				52635B451BA8728200703DBE /* LYUser.h */,
 				52635B461BA8728200703DBE /* LYUser.m */,
 				52635B491BA8728200703DBE /* NotificationMessage.h */,
@@ -1170,7 +1165,6 @@
 				52635BC21BA8728200703DBE /* CTAssetsViewController.m in Sources */,
 				523977F61BA99ACB00CB9B9E /* HFCreateAvtivityViewController.m in Sources */,
 				523977E71BA99A6600CB9B9E /* ActivityDetailViewController.m in Sources */,
-				52635BFA1BA8728200703DBE /* DetailActivities.m in Sources */,
 				52635C241BA8728200703DBE /* LYUITextField.m in Sources */,
 				52635C0D1BA8728200703DBE /* TTHorizontalCategoryBar.m in Sources */,
 				52635BF41BA8728200703DBE /* LViewController.m in Sources */,

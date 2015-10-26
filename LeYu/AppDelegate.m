@@ -66,15 +66,15 @@
     tabBarController = [[UITabBarController alloc] init];
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:[[HomeViewController alloc] init]];
     
-    homeNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"主页" image:[ImageFactory homeTabBarIcon] selectedImage:[ImageFactory homeTabBarIconSelected]];
+    homeNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"精选" image:[ImageFactory homeTabBarIcon] selectedImage:[ImageFactory homeTabBarIconSelected]];
     
     UINavigationController *userProfileNavigationController = [[UINavigationController alloc] initWithRootViewController:[[UserContainerViewController alloc] init]];
     
-    userProfileNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"个人" image:[ImageFactory userProfilesTabBarIcon] selectedImage:[ImageFactory userProfilesTabBarIconSelected]];
+    userProfileNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我的" image:[ImageFactory userProfilesTabBarIcon] selectedImage:[ImageFactory userProfilesTabBarIconSelected]];
     
     UINavigationController *activitiesViewController = [[UINavigationController alloc] initWithRootViewController:[[ActivityViewController alloc] init]];
     
-    activitiesViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"活动" image:[ImageFactory activityTabBarIcon] selectedImage:[ImageFactory activityTabBarIconSelected]];
+    activitiesViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"发现" image:[ImageFactory activityTabBarIcon] selectedImage:[ImageFactory activityTabBarIconSelected]];
     
     NewNotificationsViewController *newsVC = [[NewNotificationsViewController alloc] init];
     [newsVC view];

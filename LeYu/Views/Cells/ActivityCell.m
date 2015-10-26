@@ -103,6 +103,7 @@ static const CGFloat kContentInset = 20;
     
     self.backView = [[UIView alloc] init];
     self.backView.backgroundColor = [UIColor whiteColor];
+    self.backView.clipsToBounds = YES;
     
     [self.contentView addSubview:self.backView];
     [self.backView addSubview:self.titleLabel];
@@ -115,10 +116,13 @@ static const CGFloat kContentInset = 20;
     [self.backView addSubview:self.distanceLabel];
     [self.contentView addSubview:self.bottomView];
     
-    self.backView.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
-    self.backView.layer.shadowOffset = CGSizeMake(0, 0);
-    self.backView.layer.shadowOpacity = 1;
-    self.backView.layer.shadowRadius = 3;
+    self.backView.layer.cornerRadius = 5;
+    self.backView.layer.borderWidth = 1;
+    self.backView.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:0.6].CGColor;
+//    self.backView.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
+//    self.backView.layer.shadowOffset = CGSizeMake(0, 0);
+//    self.backView.layer.shadowOpacity = 1;
+//    self.backView.layer.shadowRadius = 3;
     
     [self setupConstraints];
     
@@ -132,7 +136,9 @@ static const CGFloat kContentInset = 20;
     UIView *superview = self.backView;
     
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(self.contentView);
+        make.top.equalTo(self.contentView);
+        make.left.equalTo(self.contentView).offset(titleVerticalGap);
+        make.right.equalTo(self.contentView).offset(-titleVerticalGap);
         make.bottom.equalTo(self.bottomView.mas_top);
 //        make.bottom.equalTo(self.contentView).offset(-kContentInset);
     }];
