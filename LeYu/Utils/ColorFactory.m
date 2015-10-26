@@ -17,7 +17,7 @@
 }
 
 +(UIColor *)navigationBarBackgroundColor{
-    return UIColorFromRGB(0x262420);
+    return [UIColor whiteColor];//UIColorFromRGB(0x262420);
 
 }
 

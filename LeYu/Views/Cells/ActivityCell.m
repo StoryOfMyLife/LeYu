@@ -60,8 +60,8 @@ static const CGFloat kContentInset = 20;
 - (void)initSubviews
 {
     self.titleLabel = [[UILabel alloc] init];
-    self.titleLabel.font = SystemFontWithSize(15);
-    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.font = SystemFontWithSize(14);
+    self.titleLabel.textColor = RGBCOLOR_HEX(0x888888);
     
     self.thumbnailImage = [[UIImageView alloc] init];
     self.thumbnailImage.clipsToBounds = YES;
@@ -81,8 +81,8 @@ static const CGFloat kContentInset = 20;
     [self.shopIcon addGestureRecognizer:tap];
     
     self.shopNameLabel = [[UILabel alloc] init];
-    self.shopNameLabel.font = SystemFontWithSize(15);
-    self.shopNameLabel.textColor = RGBCOLOR(168, 168, 168);
+    self.shopNameLabel.font = SystemFontWithSize(12);
+    self.shopNameLabel.textColor = RGBCOLOR_HEX(0xbbbbbb);
     
     self.giftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Package"]];
     self.giftImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -91,19 +91,19 @@ static const CGFloat kContentInset = 20;
     self.giftNumberLabel.font = self.shopNameLabel.font;
     self.giftNumberLabel.textColor = [UIColor grayColor];
     
-    self.locationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Location"]];
-    self.locationView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    self.distanceLabel = [[UILabel alloc] init];
-    self.distanceLabel.textAlignment = NSTextAlignmentRight;
-    self.distanceLabel.font = SystemFontWithSize(13);
-    self.distanceLabel.textColor = RGBCOLOR_HEX(0x1f1f1f);
+//    self.locationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Location"]];
+//    self.locationView.contentMode = UIViewContentModeScaleAspectFill;
+//    
+//    self.distanceLabel = [[UILabel alloc] init];
+//    self.distanceLabel.textAlignment = NSTextAlignmentRight;
+//    self.distanceLabel.font = SystemFontWithSize(13);
+//    self.distanceLabel.textColor = RGBCOLOR_HEX(0x1f1f1f);
     
     self.bottomView = [[UIView alloc] init];
     
     self.backView = [[UIView alloc] init];
-    self.backView.backgroundColor = [UIColor whiteColor];
-    self.backView.clipsToBounds = YES;
+    self.backView.backgroundColor = RGBCOLOR_HEX(0xfafafa);
+//    self.backView.clipsToBounds = YES;
     
     [self.contentView addSubview:self.backView];
     [self.backView addSubview:self.titleLabel];
@@ -116,13 +116,13 @@ static const CGFloat kContentInset = 20;
     [self.backView addSubview:self.distanceLabel];
     [self.contentView addSubview:self.bottomView];
     
-    self.backView.layer.cornerRadius = 5;
-    self.backView.layer.borderWidth = 1;
-    self.backView.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:0.6].CGColor;
-//    self.backView.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
-//    self.backView.layer.shadowOffset = CGSizeMake(0, 0);
-//    self.backView.layer.shadowOpacity = 1;
-//    self.backView.layer.shadowRadius = 3;
+//    self.backView.layer.cornerRadius = 5;
+//    self.backView.layer.borderWidth = 1;
+//    self.backView.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:0.6].CGColor;
+    self.backView.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
+    self.backView.layer.shadowOffset = CGSizeMake(0, 0);
+    self.backView.layer.shadowOpacity = 1;
+    self.backView.layer.shadowRadius = 3;
     
     [self setupConstraints];
     
@@ -131,14 +131,15 @@ static const CGFloat kContentInset = 20;
 
 - (void)setupConstraints
 {
-    CGFloat titleVerticalGap = 15;
+    CGFloat titleVerticalGap = 10;
     
     UIView *superview = self.backView;
     
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView);
-        make.left.equalTo(self.contentView).offset(titleVerticalGap);
-        make.right.equalTo(self.contentView).offset(-titleVerticalGap);
+//        make.top.equalTo(self.contentView);
+//        make.left.equalTo(self.contentView).offset(titleVerticalGap);
+//        make.right.equalTo(self.contentView).offset(-titleVerticalGap);
+        make.left.top.right.equalTo(self.contentView);
         make.bottom.equalTo(self.bottomView.mas_top);
 //        make.bottom.equalTo(self.contentView).offset(-kContentInset);
     }];
@@ -163,7 +164,7 @@ static const CGFloat kContentInset = 20;
     [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.shopIcon.mas_bottom).with.offset(titleVerticalGap);
         make.left.equalTo(self.shopIcon);
-        make.right.lessThanOrEqualTo(self.locationView.mas_left).offset(-kContentInset/2);
+//        make.right.lessThanOrEqualTo(self.locationView.mas_left).offset(-kContentInset/2);
         make.bottom.equalTo(superview).with.offset(-titleVerticalGap);
     }];
     
@@ -177,15 +178,15 @@ static const CGFloat kContentInset = 20;
 //        make.centerY.equalTo(self.giftImageView);
 //    }];
     
-    [self.distanceLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(superview).with.offset(-kContentInset/2);
-        make.centerY.equalTo(self.titleLabel);
-    }];
-    
-    [self.locationView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.distanceLabel);
-        make.right.equalTo(self.distanceLabel.mas_left).offset(- kContentInset / 4);
-    }];
+//    [self.distanceLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(superview).with.offset(-kContentInset/2);
+//        make.centerY.equalTo(self.titleLabel);
+//    }];
+//    
+//    [self.locationView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.distanceLabel);
+//        make.right.equalTo(self.distanceLabel.mas_left).offset(- kContentInset / 4);
+//    }];
     
     [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.contentView);
