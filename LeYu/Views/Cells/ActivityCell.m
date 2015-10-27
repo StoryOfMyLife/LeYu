@@ -12,6 +12,8 @@
 
 static const CGFloat kContentInset = 20;
 
+static const CGFloat titleVerticalGap = 10;
+
 @interface ActivityCell()
 
 @property (nonatomic, strong) UIImageView *giftImageView;
@@ -131,8 +133,6 @@ static const CGFloat kContentInset = 20;
 
 - (void)setupConstraints
 {
-    CGFloat titleVerticalGap = 10;
-    
     UIView *superview = self.backView;
     
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -144,7 +144,7 @@ static const CGFloat kContentInset = 20;
 //        make.bottom.equalTo(self.contentView).offset(-kContentInset);
     }];
     
-    [self.thumbnailImage mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.thumbnailImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(superview);
         make.height.equalTo(@(SCREEN_WIDTH * 9.0 / 16.0));
     }];
@@ -156,12 +156,12 @@ static const CGFloat kContentInset = 20;
         make.centerY.equalTo(self.thumbnailImage.mas_bottom);
     }];
     
-    [self.shopNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.shopNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.shopIcon.mas_right).offset(kContentInset/4);
         make.bottom.equalTo(self.shopIcon);
     }];
     
-    [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.shopIcon.mas_bottom).with.offset(titleVerticalGap);
         make.left.equalTo(self.shopIcon);
 //        make.right.lessThanOrEqualTo(self.locationView.mas_left).offset(-kContentInset/2);
@@ -188,7 +188,7 @@ static const CGFloat kContentInset = 20;
 //        make.right.equalTo(self.distanceLabel.mas_left).offset(- kContentInset / 4);
 //    }];
     
-    [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.contentView);
         make.top.equalTo(self.backView.mas_bottom);
         make.height.equalTo(@(titleVerticalGap));
@@ -199,7 +199,24 @@ static const CGFloat kContentInset = 20;
 {
     [super setCellItem:cellItem];
     [self configureCellWithActivity:cellItem];
-    [self configureShopWithShop:cellItem.shop];
+    if ([cellItem.activityType integerValue] == ActivityTypeNormal) {
+        self.shopIcon.hidden = NO;
+        self.shopNameLabel.hidden = NO;
+        [self configureShopWithShop:cellItem.shop];
+        [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.shopIcon.mas_bottom).with.offset(titleVerticalGap);
+            make.bottom.equalTo(self.backView).with.offset(-titleVerticalGap);
+            make.left.equalTo(self.shopIcon);
+        }];
+    } else {
+        self.shopNameLabel.hidden = YES;
+        self.shopIcon.hidden = YES;
+        [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.thumbnailImage.mas_bottom).offset(titleVerticalGap);
+            make.left.equalTo(self.shopIcon);
+            make.bottom.equalTo(self.backView).with.offset(-titleVerticalGap);
+        }];
+    }
 }
 
 - (void)configureCellWithActivity:(ShopActivities *)activity
@@ -211,18 +228,17 @@ static const CGFloat kContentInset = 20;
 //        } completion:nil];
     }];
 
-    self.shopNameLabel.text = activity.shop.shopname;
     self.distanceLabel.text = @"--km";
     
-    AVGeoPoint *geo = activity.shop.geolocation;
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
-    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
-        if (success) {
-            CLLocationDistance distance = [currentLocation distanceFromLocation:location];
-            double distanceInKM = distance / 1000.0;
-            self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
-        }
-    }];
+//    AVGeoPoint *geo = activity.shop.geolocation;
+//    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
+//    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
+//        if (success) {
+//            CLLocationDistance distance = [currentLocation distanceFromLocation:location];
+//            double distanceInKM = distance / 1000.0;
+//            self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
+//        }
+//    }];
 }
 
 - (void)configureShopWithShop:(Shop *)shop
@@ -230,7 +246,6 @@ static const CGFloat kContentInset = 20;
     [shop loadShopIcon:^(UIImage *image, NSError *error) {
         self.shopIcon.image = image;
     }];
-    
     self.shopNameLabel.text = shop.shopname;
 }
 

@@ -10,6 +10,7 @@
 
 #import "ShopViewController.h"
 #import "ActivityDetailViewController.h"
+#import "ActivityWebviewController.h"
 #import "LYLocationManager.h"
 #import "Shop.h"
 
@@ -92,12 +93,24 @@
                 for (ShopActivities *activity in activities) {
                     [self.recentActivities removeAllObjects];
                     [self.recentActivities addObjectsFromArray:activities];
-                    activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
-                        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                        ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.recentActivities[indexPath.row]];
-                        activitiesViewController.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:activitiesViewController animated:YES];
-                    };
+                    if ([activity.activityType integerValue] == ActivityTypeNormal) {
+                        activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+                            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                            ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.recentActivities[indexPath.row]];
+                            activitiesViewController.hidesBottomBarWhenPushed = YES;
+                            [self.navigationController pushViewController:activitiesViewController animated:YES];
+                        };
+                    } else {
+                        @weakify(activity);
+                        activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+                            @strongify(activity);
+                            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                            ActivityWebviewController *webVC = [[ActivityWebviewController alloc] init];
+                            [self.navigationController pushViewController:webVC animated:YES];
+                            webVC.urlID = activity.objectId;
+                        };
+                    }
+                    
                     
                     if (self.couldShowShop) {
                         __weak ShopActivities *shopActivity = activity;

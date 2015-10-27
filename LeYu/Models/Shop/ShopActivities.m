@@ -25,7 +25,7 @@
 @dynamic totalNum;
 @dynamic likes;
 @dynamic title;
-@dynamic activitiesType;
+@dynamic activityType;
 @dynamic participantNum;
 @dynamic activityDescVoice;
 

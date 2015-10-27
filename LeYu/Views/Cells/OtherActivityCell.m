@@ -102,20 +102,22 @@
     formatter.dateFormat = @"YYYY.MM.dd";
     self.distanceLabel.text = [formatter stringFromDate:cellItem.beginDate];
     
-    AVQuery *query = [ActivityUserRelation query];
-    [query whereKey:@"user" equalTo:[LYUser currentUser]];
-    [query whereKey:@"activity" equalTo:cellItem];
-    
-    [query getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error) {
-        if ([object isKindOfClass:[ActivityUserRelation class]]) {
-            ActivityUserRelation *relation = (ActivityUserRelation *)object;
-            if (relation.isArrived) {
-                self.arrivedImage.hidden = NO;
-            } else {
-                self.arrivedImage.hidden = YES;
+    if ([LYUser currentUser]) {
+        AVQuery *query = [ActivityUserRelation query];
+        [query whereKey:@"user" equalTo:[LYUser currentUser]];
+        [query whereKey:@"activity" equalTo:cellItem];
+        
+        [query getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+            if ([object isKindOfClass:[ActivityUserRelation class]]) {
+                ActivityUserRelation *relation = (ActivityUserRelation *)object;
+                if (relation.isArrived) {
+                    self.arrivedImage.hidden = NO;
+                } else {
+                    self.arrivedImage.hidden = YES;
+                }
             }
-        }
-    }];
+        }];
+    }
     
 //    AVGeoPoint *geo = cellItem.shop.geolocation;
 //    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];

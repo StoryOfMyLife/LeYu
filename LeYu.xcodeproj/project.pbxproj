@@ -115,6 +115,7 @@
 		5281B5681BB1CC7800EA382F /* NoDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5281B5671BB1CC7800EA382F /* NoDataViewController.m */; };
 		52C334DC1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334DB1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m */; };
 		52C334DF1BAF260D007C833A /* MyAcceptedActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334DE1BAF260D007C833A /* MyAcceptedActivityViewController.m */; };
+		52C334E21BDFD65000D1873A /* ActivityWebviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334E11BDFD65000D1873A /* ActivityWebviewController.m */; };
 		52D602F01BB0496900B9B6D3 /* ShopFollowedCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602EF1BB0496900B9B6D3 /* ShopFollowedCellItem.m */; };
 		52D602F31BB04DD800B9B6D3 /* FollowedShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602F21BB04DD800B9B6D3 /* FollowedShopViewController.m */; };
 		52D602F61BB0562200B9B6D3 /* ActivityManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602F51BB0562200B9B6D3 /* ActivityManageViewController.m */; };
@@ -354,6 +355,8 @@
 		52C334DB1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityOfFollowedShopViewController.m; sourceTree = "<group>"; };
 		52C334DD1BAF260D007C833A /* MyAcceptedActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAcceptedActivityViewController.h; sourceTree = "<group>"; };
 		52C334DE1BAF260D007C833A /* MyAcceptedActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAcceptedActivityViewController.m; sourceTree = "<group>"; };
+		52C334E01BDFD65000D1873A /* ActivityWebviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActivityWebviewController.h; path = ActivityWebviewController/ActivityWebviewController.h; sourceTree = "<group>"; };
+		52C334E11BDFD65000D1873A /* ActivityWebviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActivityWebviewController.m; path = ActivityWebviewController/ActivityWebviewController.m; sourceTree = "<group>"; };
 		52D602EE1BB0496900B9B6D3 /* ShopFollowedCellItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopFollowedCellItem.h; sourceTree = "<group>"; };
 		52D602EF1BB0496900B9B6D3 /* ShopFollowedCellItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopFollowedCellItem.m; sourceTree = "<group>"; };
 		52D602F11BB04DD800B9B6D3 /* FollowedShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowedShopViewController.h; sourceTree = "<group>"; };
@@ -693,6 +696,8 @@
 				52635ABF1BA8728100703DBE /* CTAssetsPickerController */,
 				5281B5661BB1CC7800EA382F /* NoDataViewController.h */,
 				5281B5671BB1CC7800EA382F /* NoDataViewController.m */,
+				52C334E01BDFD65000D1873A /* ActivityWebviewController.h */,
+				52C334E11BDFD65000D1873A /* ActivityWebviewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1091,6 +1096,7 @@
 				52635BBC1BA8728200703DBE /* CTAssetsGroupViewController.m in Sources */,
 				52635BC31BA8728200703DBE /* CTAssetsViewControllerTransition.m in Sources */,
 				52635C0E1BA8728200703DBE /* ColorFactory.m in Sources */,
+				52C334E21BDFD65000D1873A /* ActivityWebviewController.m in Sources */,
 				52D602F01BB0496900B9B6D3 /* ShopFollowedCellItem.m in Sources */,
 				52635BC01BA8728200703DBE /* CTAssetsSupplementaryView.m in Sources */,
 				52D602F91BB05B7700B9B6D3 /* ActivityManageCellItem.m in Sources */,

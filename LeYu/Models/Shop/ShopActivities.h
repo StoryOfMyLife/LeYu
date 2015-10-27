@@ -9,6 +9,11 @@
 #import "LTableViewCellItem.h"
 #import "Shop.h"
 
+typedef NS_ENUM(NSUInteger, ActivityType) {
+    ActivityTypeNormal = 1,
+    ActivityTypeArticle = 2
+};
+
 @interface ShopActivities : LTableViewCellItem
 
 @property (nonatomic, copy) NSString *activitiesDescription;
@@ -27,7 +32,7 @@
 
 @property (nonatomic, strong) NSString *title;
 
-@property (nonatomic, strong) NSNumber *activitiesType;
+@property (nonatomic, strong) NSNumber *activityType;
 
 @property (nonatomic, strong) NSNumber *participantNum;
 
