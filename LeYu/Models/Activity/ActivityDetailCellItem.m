@@ -175,13 +175,18 @@
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
     [self layoutButton:self.likeButton];
     
-    NSDate *beginDate = cellItem.activity.beginDate ?: [NSDate date];
+    NSDate *beginDate = cellItem.activity.beginDate;
     NSDate *endDate = cellItem.activity.endDate;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"YYYY.MM.dd";
-    NSString *beginDateString = [formatter stringFromDate:beginDate];
-    NSString *endDateString = [formatter stringFromDate:endDate];
-    self.activityDateLabel.text = [NSString stringWithFormat:@"%@ - %@", beginDateString, endDateString];
+    if (endDate) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"YYYY.MM.dd";
+        NSString *beginDateString = [formatter stringFromDate:beginDate];
+        NSString *endDateString = [formatter stringFromDate:endDate];
+        self.activityDateLabel.text = [NSString stringWithFormat:@"%@ - %@", beginDateString, endDateString];
+    } else {
+        self.activityDateLabel.text = @"无限制";
+    }
+    
     
     weakSelf();
     [[self.likeButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {

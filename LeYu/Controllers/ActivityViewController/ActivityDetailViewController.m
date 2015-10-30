@@ -23,8 +23,7 @@
 
 @property (nonatomic, strong) ShopActivities *activities;
 @property (nonatomic, strong) NSArray *imageFileIds; // of AVFile id
-@property (nonatomic, strong) NSMutableArray *images;
-@property (nonatomic, strong) NSMutableArray *imagesDesc;
+@property (nonatomic, strong) NSMutableDictionary *imagesDict;
 @property (nonatomic, strong) UIImageView *cardImage;
 @property (nonatomic, strong) UILabel *imageDescLabel;
 @property (nonatomic, strong) UILabel *imageIndexLabel;
@@ -198,35 +197,39 @@
 
 - (void)updateCardViewWithImage:(UIImage *)image desc:(NSString *)desc
 {
-    [UIView transitionWithView:self.cardImage.superview duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        self.cardImage.image = image;
-        self.imageDescLabel.text = desc;
-        self.imageIndexLabel.text = [NSString stringWithFormat:@"%ld / %lu", (long)(self.imageIndex + 1), (unsigned long)self.imageFileIds.count];
-    } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:self.cardImage.superview duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.cardImage.image = image;
+            self.imageDescLabel.text = desc;
+            self.imageIndexLabel.text = [NSString stringWithFormat:@"%ld / %lu", (long)(self.imageIndex + 1), (unsigned long)self.imageFileIds.count];
+        } completion:nil];
+    });
 }
 
 - (void)convertFilesToImages:(NSArray *)imageIds
 {
     for (NSString *imageId in imageIds) {
         [AVFile getFileWithObjectId:imageId withBlock:^(AVFile *file, NSError *error) {
-            NSString *imageDesc = [file.name stringByDeletingPathExtension];
-            if (imageDesc.length == 0) {
-                imageDesc = @"让我们更美的去生活。";
-            }
-            
-            NSData *imageData = [file getData:nil];
-            UIImage *image = [UIImage imageWithData:imageData];
-            
-            if (image) {
-                if ([imageId isEqualToString:self.imageFileIds[0]]) {
-                    [self.images insertObject:image atIndex:0];
-                    [self.imagesDesc insertObject:imageDesc atIndex:0];
-                    [self updateCardViewWithImage:image desc:imageDesc];
-                } else {
-                    [self.images addObject:image];
-                    [self.imagesDesc addObject:imageDesc];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                NSString *imageDesc = [file.metaData valueForKey:@"desc"];
+                if (imageDesc.length == 0) {
+                    imageDesc = @"让我们更美的去生活。";
                 }
-            }
+                
+                NSData *imageData = [file getData:nil];
+                UIImage *image = [UIImage imageWithData:imageData];
+                
+                if (image) {
+                    NSDictionary *imageDict = @{@"image" : image, @"desc" : imageDesc};
+                    self.imagesDict[file.objectId] = imageDict;
+                    if ([self.imagesDict count] == [self.imageFileIds count]) {
+                        NSDictionary *dict = self.imagesDict[self.imageFileIds[0]];
+                        UIImage *image = dict[@"image"];
+                        NSString *desc = dict[@"desc"];
+                        [self updateCardViewWithImage:image desc:desc];
+                    }
+                }
+            });
         }];
     }
 }
@@ -341,7 +344,7 @@
     
     [cardImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.and.left.and.right.equalTo(viewContainer);
-        make.height.equalTo(cardImageView.mas_width).multipliedBy(540.0f / 600.0f);
+        make.height.equalTo(cardImageView.mas_width).multipliedBy(3.0f / 4.0f);
     }];
     
     self.imageIndexLabel = [[UILabel alloc] init];
@@ -608,20 +611,12 @@
     return titleView;
 }
 
-- (NSMutableArray *)images
+- (NSMutableDictionary *)imagesDict
 {
-    if (!_images) {
-        _images = [NSMutableArray arrayWithCapacity:0];
+    if (!_imagesDict) {
+        _imagesDict = [NSMutableDictionary dictionary];
     }
-    return _images;
-}
-
-- (NSMutableArray *)imagesDesc
-{
-    if (!_imagesDesc) {
-        _imagesDesc = [NSMutableArray arrayWithCapacity:0];
-    }
-    return _imagesDesc;
+    return _imagesDict;
 }
 
 - (void)setImageIndex:(NSInteger)imageIndex
@@ -632,8 +627,11 @@
         imageIndex = 0;
     }
     _imageIndex = imageIndex;
-    if (imageIndex < self.images.count) {
-        [self updateCardViewWithImage:self.images[imageIndex] desc:self.imagesDesc[imageIndex]];
+    if (imageIndex < self.imageFileIds.count) {
+        NSDictionary *dict = self.imagesDict[self.imageFileIds[imageIndex]];
+        UIImage *image = dict[@"image"];
+        NSString *desc = dict[@"desc"];
+        [self updateCardViewWithImage:image desc:desc];
     }
 }
 
@@ -710,13 +708,20 @@
 
 - (void)tapToPreview
 {
-    if ([self.images count] < [self.imageFileIds count]) {
+    if ([self.imagesDict count] < [self.imageFileIds count]) {
         return;//图片还没获取完成
     }
     ImagePreviewViewController *previewVC = [[ImagePreviewViewController alloc] init];
     previewVC.transitioningDelegate = previewVC;
     previewVC.modalPresentationStyle = UIModalPresentationCustom;
-    previewVC.images = self.images;
+    
+    NSMutableArray *images = [NSMutableArray arrayWithCapacity:0];
+    for (NSString *key in self.imageFileIds) {
+        NSDictionary *dict = self.imagesDict[key];
+        UIImage *image = dict[@"image"];
+        [images addObject:image];
+    }
+    previewVC.images = images;
     previewVC.currentIndex = self.imageIndex;
     
     [self presentViewController:previewVC animated:YES completion:nil];

@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIImage *clippedImage;
 @property (nonatomic, strong) UIImage *originalImage;
 @property (nonatomic, copy)   NSString *imageDescription;
+@property (nonatomic, assign) NSInteger order;
 @property (nonatomic, assign) BOOL topAsset;
 
 @end
@@ -31,9 +32,9 @@
 
 + (instancetype)manager;
 
-- (void)setClippedImageDescription:(NSString *)desc forKey:(ALAsset *)key;
+- (void)setClippedImageDescription:(NSString *)desc forKey:(ALAsset *)key withOrderIndex:(NSInteger)order;
 
-- (void)setClippedImage:(UIImage *)image forKey:(ALAsset *)key;
+- (void)setClippedImage:(UIImage *)image forKey:(ALAsset *)key withOrderIndex:(NSInteger)order;
 
 - (AssetInfo *)assetInfoForKey:(ALAsset *)key;
 

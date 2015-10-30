@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"活动";
+    self.title = @"发现";
     
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.tabHeader];

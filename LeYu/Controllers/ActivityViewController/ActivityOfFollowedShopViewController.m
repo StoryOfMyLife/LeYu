@@ -9,6 +9,7 @@
 #import "ActivityOfFollowedShopViewController.h"
 #import "ShopActivities.h"
 #import "ActivityDetailViewController.h"
+#import "ActivityWebviewController.h"
 #import "LYLocationManager.h"
 
 @interface ActivityOfFollowedShopViewController ()
@@ -121,12 +122,23 @@
             for (ShopActivities *activity in activities) {
                 activity.accepted = YES;
                 
-                activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
-                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                    ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activities[indexPath.row]];
-                    activitiesViewController.hidesBottomBarWhenPushed = YES;
-                    [self.parentViewController.navigationController pushViewController:activitiesViewController animated:YES];
-                };
+                if ([activity.activityType integerValue] == ActivityTypeNormal) {
+                    activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+                        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:self.activities[indexPath.row]];
+                        activitiesViewController.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:activitiesViewController animated:YES];
+                    };
+                } else {
+                    @weakify(activity);
+                    activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+                        @strongify(activity);
+                        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        ActivityWebviewController *webVC = [[ActivityWebviewController alloc] init];
+                        [self.navigationController pushViewController:webVC animated:YES];
+                        webVC.urlID = activity.objectId;
+                    };
+                }
             }
             [self updateActivities:activities];
         }];

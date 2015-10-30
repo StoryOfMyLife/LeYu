@@ -49,8 +49,6 @@
     ActivityAmountCellItem *amountItem = [[ActivityAmountCellItem alloc] init];
     ActivityAmountSelectionCellItem *amountSelectionItem = [[ActivityAmountSelectionCellItem alloc] init];
     
-    [ImageAssetsManager manager].activityDate = [NSDate dateWithTimeInterval:aWeek sinceDate:[NSDate date]];
-    
     @weakify(self);
     
     [self.recordItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
@@ -118,8 +116,8 @@
         }] subscribeNext:^(NSDate *date) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyy.MM.dd";
-            NSString *startDate = [formatter stringFromDate:date];
-            NSString *endDate = [formatter stringFromDate:[date dateByAddingTimeInterval:aDay * 30]];
+            NSString *startDate = [formatter stringFromDate:[NSDate date]];
+            NSString *endDate = [formatter stringFromDate:date];
             
             __weak ActivityTimeCell *timeCell = (ActivityTimeCell *)timeItem.cell;
             timeCell.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startDate, endDate];
@@ -217,12 +215,13 @@
         AssetInfo *imageInfo = [manager assetInfoForKey:asset];
         NSData *imageData = UIImagePNGRepresentation(imageInfo.clippedImage);
         
-        NSString *name = @"让我们更美的去生活。";
+        NSString *desc = @"让我们更美的去生活。";
         if ([imageInfo.imageDescription length] > 0) {
-            name = imageInfo.imageDescription;
+            desc = imageInfo.imageDescription;
         }
-        NSString *imageName = [NSString stringWithFormat:@"%@.png", name];
-        AVFile *imageFile = [AVFile fileWithName:imageName data:imageData];
+        
+        AVFile *imageFile = [AVFile fileWithName:@"image.png" data:imageData];
+        [imageFile.metaData setValue:desc forKey:@"desc"];
         [imageFile save];
         
         if (imageInfo.topAsset) {

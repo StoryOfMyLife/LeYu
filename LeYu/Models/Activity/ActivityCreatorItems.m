@@ -121,7 +121,7 @@ static const NSInteger countPerLine = 4;
 {
     NSArray *assets = [[ImageAssetsManager manager] allAssets];
     CGFloat oneRowWidth = (SCREEN_WIDTH - (countPerLine + 1) * space) / countPerLine;
-    CGFloat oneRowHeight = oneRowWidth * 10.0 / 9.0;
+    CGFloat oneRowHeight = oneRowWidth * 3.0 / 4.0;
     if (assets.count > 4) {
         return oneRowHeight * 2 + space * 3;
     } else {
@@ -157,12 +157,12 @@ static const NSInteger countPerLine = 4;
             
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
             imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
             
             CGFloat itemWidth = (SCREEN_WIDTH - (countPerLine + 1) * space) / countPerLine;
-            CGSize itemSize = CGSizeMake(itemWidth, itemWidth * 10.0 / 9.0);
+            CGSize itemSize = CGSizeMake(itemWidth, itemWidth * 3.0 / 4.0);
             
             CGPoint itemOrigin = CGPointMake((itemSize.width + space) * col, (itemSize.height + space) * row);
-            
             
             [containerView addSubview:imageView];
             
@@ -437,13 +437,13 @@ static const NSInteger countPerLine = 4;
         self.timeLabel.textColor = RGBCOLOR(130, 130, 130);
         [self.contentView addSubview:self.timeLabel];
         
-        NSDate *now = [NSDate date];
-        NSDate *weekFromNow = [now dateByAddingTimeInterval:aDay * 30];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"YYYY.MM.dd";
-        NSString *nowString = [formatter stringFromDate:now];
-        NSString *weekFromNowString = [formatter stringFromDate:weekFromNow];
-        self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", nowString, weekFromNowString];
+//        NSDate *now = [NSDate date];
+//        NSDate *weekFromNow = [now dateByAddingTimeInterval:aDay * 30];
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        formatter.dateFormat = @"YYYY.MM.dd";
+//        NSString *nowString = [formatter stringFromDate:now];
+//        NSString *weekFromNowString = [formatter stringFromDate:weekFromNow];
+        self.timeLabel.text = @"无限制";
         
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(space);

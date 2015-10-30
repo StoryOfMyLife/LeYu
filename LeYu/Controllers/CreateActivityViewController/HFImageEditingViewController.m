@@ -180,7 +180,7 @@ static const NSInteger kTagOffset = 1000;
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     ALAsset *asset = self.assets[_currentSelectedIndex];
-    [[ImageAssetsManager manager] setClippedImageDescription:textView.text forKey:asset];
+    [[ImageAssetsManager manager] setClippedImageDescription:textView.text forKey:asset withOrderIndex:_currentSelectedIndex];
 }
 
 #pragma mark - setter and getter
@@ -262,13 +262,13 @@ static const NSInteger kTagOffset = 1000;
             self.rightGradient = [CAGradientLayer layer];
             CGFloat gradientWidth = height / 2;
             self.rightGradient.frame = CGRectMake(_topPreviewView.width - gradientWidth, 0, gradientWidth, _topPreviewView.height);
-            self.rightGradient.colors = @[(id)[UIColor clearColor].CGColor, (id)DefaultBackgroundColor.CGColor];
+            self.rightGradient.colors = @[(id)[UIColor clearColor].CGColor, (id)DefaultDarkBackgroundColor.CGColor];
             self.rightGradient.startPoint = CGPointMake(0, 0.5);
             self.rightGradient.endPoint = CGPointMake(1, 0.5);
             
             self.leftGradient = [CAGradientLayer layer];
             self.leftGradient.frame = CGRectMake(0, 0, gradientWidth, _topPreviewView.height);
-            self.leftGradient.colors = @[(id)DefaultBackgroundColor.CGColor, (id)[UIColor clearColor].CGColor];
+            self.leftGradient.colors = @[(id)DefaultDarkBackgroundColor.CGColor, (id)[UIColor clearColor].CGColor];
             self.leftGradient.startPoint = CGPointMake(0, 0.5);
             self.leftGradient.endPoint = CGPointMake(1, 0.5);
             
@@ -284,8 +284,8 @@ static const NSInteger kTagOffset = 1000;
     if (!_middleImageView) {
         _middleImageView = [[UIView alloc] init];
         _middleImageView.width = self.view.width;
-        _middleImageView.height = self.view.width * 10.0 / 9.0;
-        _middleImageView.top = self.view.top + 20;
+        _middleImageView.height = self.view.width * 3.0 / 4.0;
+        _middleImageView.top = self.view.top + 100;
         
         _middleImageView.layer.borderWidth = 2;
         _middleImageView.layer.borderColor = DefaultYellowColor.CGColor;
@@ -440,6 +440,7 @@ static const NSInteger kTagOffset = 1000;
 
 - (void)didSelectImage:(UITapGestureRecognizer *)sender
 {
+    [self.descTextView resignFirstResponder];
     NSInteger index = sender.view.tag - kTagOffset;
     if (index < self.assets.count) {
         self.currentSelectedIndex = index;
@@ -485,7 +486,7 @@ static const NSInteger kTagOffset = 1000;
         }];
     } else {
         ALAsset *asset = self.assets[_currentSelectedIndex];
-        [[ImageAssetsManager manager] setClippedImage:[self currentClippedImage] forKey:asset];
+        [[ImageAssetsManager manager] setClippedImage:[self currentClippedImage] forKey:asset withOrderIndex:_currentSelectedIndex];
         
         self.navigationItem.rightBarButtonItem.enabled = [self enableNextButton];
     }

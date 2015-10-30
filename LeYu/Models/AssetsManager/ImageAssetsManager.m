@@ -52,7 +52,7 @@
     return _assetInfo;
 }
 
-- (void)setClippedImageDescription:(NSString *)desc forKey:(ALAsset *)key
+- (void)setClippedImageDescription:(NSString *)desc forKey:(ALAsset *)key withOrderIndex:(NSInteger)order
 {
     AssetInfo *info = self.assetInfo[[self urlForAsset:key]];
     if (!info) {
@@ -60,10 +60,11 @@
         info.asset = key;
     }
     info.imageDescription = desc;
+    info.order = order;
     self.assetInfo[[self urlForAsset:key]] = info;
 }
 
-- (void)setClippedImage:(UIImage *)image forKey:(ALAsset *)key
+- (void)setClippedImage:(UIImage *)image forKey:(ALAsset *)key withOrderIndex:(NSInteger)order
 {
     AssetInfo *info = self.assetInfo[[self urlForAsset:key]];
     if (!info) {
@@ -71,6 +72,7 @@
         info.asset = key;
     }
     info.clippedImage = image;
+    info.order = order;
     self.assetInfo[[self urlForAsset:key]] = info;
 }
 
@@ -82,6 +84,15 @@
 - (NSArray *)allAssets
 {
     NSArray *allAssetsInfo = [self.assetInfo allValues];
+    allAssetsInfo = [allAssetsInfo sortedArrayUsingComparator:^NSComparisonResult(AssetInfo *obj1, AssetInfo *obj2) {
+        if (obj1.order < obj2.order) {
+            return NSOrderedAscending;
+        }
+        if (obj1.order > obj2.order) {
+            return NSOrderedDescending;
+        }
+        return NSOrderedSame;
+    }];
     NSMutableArray *assets = [NSMutableArray array];
     for (AssetInfo *info in allAssetsInfo) {
         [assets addObject:info.asset];
@@ -92,6 +103,15 @@
 - (NSArray *)allClippedImages
 {
     NSArray *allAssetsInfo = [self.assetInfo allValues];
+    allAssetsInfo = [allAssetsInfo sortedArrayUsingComparator:^NSComparisonResult(AssetInfo *obj1, AssetInfo *obj2) {
+        if (obj1.order < obj2.order) {
+            return NSOrderedAscending;
+        }
+        if (obj1.order > obj2.order) {
+            return NSOrderedDescending;
+        }
+        return NSOrderedSame;
+    }];
     NSMutableArray *clippedImages = [NSMutableArray array];
     for (AssetInfo *info in allAssetsInfo) {
         [clippedImages addObject:info.clippedImage];
