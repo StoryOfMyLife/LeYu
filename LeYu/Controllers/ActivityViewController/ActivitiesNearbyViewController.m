@@ -111,7 +111,7 @@
                     [self.activities addObjectsFromArray:activities];
                     
                     for (ShopActivities *activity in activities) {
-                        activity.otherActivity = YES;
+                        activity.style = OtherActivityStyleNearby;
                         
                         if ([activity.activityType integerValue] == ActivityTypeNormal) {
                             activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){

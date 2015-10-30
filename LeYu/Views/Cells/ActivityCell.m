@@ -199,7 +199,7 @@ static const CGFloat titleVerticalGap = 10;
 {
     [super setCellItem:cellItem];
     [self configureCellWithActivity:cellItem];
-    if ([cellItem.activityType integerValue] == ActivityTypeNormal) {
+    if (cellItem.shop) {
         self.shopIcon.hidden = NO;
         self.shopNameLabel.hidden = NO;
         [self configureShopWithShop:cellItem.shop];

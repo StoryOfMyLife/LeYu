@@ -120,7 +120,7 @@
             [self.activities addObjectsFromArray:activities];
             
             for (ShopActivities *activity in activities) {
-                activity.accepted = YES;
+                activity.style = OtherActivityStyleFavorite;
                 
                 if ([activity.activityType integerValue] == ActivityTypeNormal) {
                     activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){

@@ -35,6 +35,7 @@
 
 - (IBAction)login:(id)sender
 {
+    [self.view endEditing:YES];
     [LYUser logInWithMobilePhoneNumberInBackground:self.phone.text password:self.password.text block:^(AVUser *user, NSError *error) {
         LYUser *currentUser = [LYUser currentUser];
         if (currentUser) {

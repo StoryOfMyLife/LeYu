@@ -80,7 +80,7 @@
         [self.activities removeAllObjects];
         [self.activities addObjectsFromArray:objects];
         for (ShopActivities *activity in objects) {
-            activity.accepted = YES;
+            activity.style = OtherActivityStyleAccepted;
             
             activity.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];

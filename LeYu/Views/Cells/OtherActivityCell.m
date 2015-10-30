@@ -29,6 +29,8 @@
         [self.contentView addSubview:self.imageIconView];
         
         self.titleLabel = [[UILabel alloc] init];
+        self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.titleLabel.numberOfLines = 2;
         self.titleLabel.textColor = DefaultTitleColor;
         self.titleLabel.font = SystemFontWithSize(16);
         [self.contentView addSubview:self.titleLabel];
@@ -60,7 +62,8 @@
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imageIconView.mas_right).offset(inset * 2);
             make.right.equalTo(self.contentView).offset(- inset * 2);
-            make.bottom.equalTo(self.contentView.mas_centerY).offset(-inset);
+            make.top.equalTo(self.contentView).offset(inset);
+//            make.bottom.equalTo(self.contentView.mas_centerY).offset(-inset);
         }];
         
 //        [locationView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,8 +73,7 @@
         
         [self.distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel);
-//            make.centerY.equalTo(locationView);
-            make.top.equalTo(self.contentView.mas_centerY).offset(inset);
+            make.bottom.equalTo(self.contentView).offset(-inset);
         }];
         
         [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,9 +100,14 @@
     [super setCellItem:cellItem];
     self.titleLabel.text = cellItem.title;
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"YYYY.MM.dd";
-    self.distanceLabel.text = [formatter stringFromDate:cellItem.beginDate];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    formatter.dateFormat = @"YYYY.MM.dd";
+//    self.distanceLabel.text = [formatter stringFromDate:cellItem.beginDate];
+    if (cellItem.style == OtherActivityStyleNearby) {
+        self.distanceLabel.hidden = NO;
+    } else {
+        self.distanceLabel.hidden = YES;
+    }
     
     if ([LYUser currentUser]) {
         AVQuery *query = [ActivityUserRelation query];
@@ -119,15 +126,15 @@
         }];
     }
     
-//    AVGeoPoint *geo = cellItem.shop.geolocation;
-//    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
-//    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
-//        if (success) {
-//            CLLocationDistance distance = [currentLocation distanceFromLocation:location];
-//            double distanceInKM = distance / 1000.0;
-//            self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
-//        }
-//    }];
+    AVGeoPoint *geo = cellItem.shop.geolocation;
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
+    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
+        if (success) {
+            CLLocationDistance distance = [currentLocation distanceFromLocation:location];
+            double distanceInKM = distance / 1000.0;
+            self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
+        }
+    }];
     
     [AVFile getFileWithObjectId:cellItem.pics[0] withBlock:^(AVFile *file, NSError *error) {
         [file getThumbnail:YES width:140 height:(140.0 * 16.0 / 9.0) withBlock:^(UIImage *image, NSError *error) {

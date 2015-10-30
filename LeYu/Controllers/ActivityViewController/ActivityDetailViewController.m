@@ -46,6 +46,8 @@
 @property (nonatomic, strong) RACSignal *timerSignal;
 @property (nonatomic, strong) RACDisposable *timerDisposeable;
 
+@property (nonatomic, strong) UILabel *durationLabel;
+
 @end
 
 @implementation ActivityDetailViewController
@@ -55,6 +57,12 @@
         self.activities = activities;
     }
     return self;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.playBack pause];
 }
 
 - (void)viewDidLoad
@@ -141,14 +149,14 @@
             //过滤掉已经接受的活动
             NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:0];
             [result enumerateObjectsUsingBlock:^(ShopActivities *obj, NSUInteger idx, BOOL *stop) {
-                if (!obj.accepted) {
+                if (obj.style != OtherActivityStyleAccepted) {
                     [tmp addObject:obj];
                 }
             }];
             self.otherActivities = tmp;
             
             for (ShopActivities *activity in self.otherActivities) {
-                activity.otherActivity = YES;
+                activity.style = OtherActivityStyleFavorite;
                 
                 [activity applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
                     ShopActivities *activities = self.otherActivities[indexPath.row];
@@ -300,7 +308,6 @@
 //        } andFinishedBlock:^{
 //            Log(@"play finish");
 //        }];
-        [_playBack pause];
     }
     return _playBack;
 }
@@ -365,7 +372,7 @@
     [labelView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(cardImageView.mas_bottom);
         make.left.and.right.and.bottom.equalTo(viewContainer);
-        make.height.equalTo(@100);
+        make.height.equalTo(@60);
     }];
     
     UILabel *imageDescription = [[UILabel alloc] init];
@@ -378,7 +385,9 @@
     self.imageDescLabel = imageDescription;
     
     [imageDescription mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(labelView).insets(UIEdgeInsetsMake(20, 10, 20, 10));
+        make.center.equalTo(labelView);
+        make.left.equalTo(labelView).offset(10);
+        make.right.equalTo(labelView).offset(-10);
     }];
     
     return viewContainer;
@@ -402,7 +411,6 @@
     
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.and.left.and.right.equalTo(containerView);
-        make.height.equalTo(@40);
     }];
     
     UIView *cardView = [self cardView];
@@ -412,13 +420,6 @@
         make.top.equalTo(titleView.mas_bottom);
         make.width.equalTo(@(SCREEN_WIDTH - 10 * 2));
         make.centerX.equalTo(containerView);
-    }];
-    
-    [cardView addSubview:self.shopIcon];
-    [self.shopIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(@50);
-        make.centerX.equalTo(cardView);
-        make.centerY.equalTo(cardView.mas_top);
     }];
     
     if (self.activities.activityDescVoice) {
@@ -474,9 +475,22 @@
     
     [[viewContainer rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         
-        [self.playBack pause];
-        self.playBack = nil;
-        [self.playBack play];
+        switch (self.playBack.status) {
+            case AFSoundStatusPlaying:
+                [self.playBack restart];
+                break;
+            case AFSoundStatusNotStarted:
+                [self.playBack play];
+                break;
+            case AFSoundStatusFinished:
+                [self.playBack restart];
+                break;
+            default:
+                break;
+        }
+        
+        NSString *duration = [NSString stringWithFormat:@"%ld\"", (long)self.playBack.currentItem.duration];
+        self.durationLabel.text = duration;
         
         [self.timerDisposeable dispose];
         NSDate *current = [NSDate date];
@@ -538,19 +552,22 @@
         make.top.equalTo(viewContainer.mas_centerY).offset(2);
     }];
     
-    UILabel *durationLabel = [[UILabel alloc] init];
-    durationLabel.font = SystemFontWithSize(16);
-    durationLabel.textColor = descLabel.textColor;
-    [viewContainer addSubview:durationLabel];
+    self.durationLabel = [[UILabel alloc] init];
+    self.durationLabel.font = SystemFontWithSize(16);
+    self.durationLabel.textColor = descLabel.textColor;
+    [viewContainer addSubview:self.durationLabel];
     
     viewContainer.enabled = NO;
     [AVFile getFileWithObjectId:self.activities.activityDescVoice.objectId withBlock:^(AVFile *file, NSError *error) {
-        self.activities.activityDescVoice = file;
-        durationLabel.text = [NSString stringWithFormat:@"%ld\"", (long)self.playBack.currentItem.duration];
-        viewContainer.enabled = YES;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            self.activities.activityDescVoice = file;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                viewContainer.enabled = YES;
+            });
+        });
     }];
     
-    [durationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.durationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(viewContainer);
         make.right.equalTo(viewContainer).offset(-40);
     }];
@@ -569,44 +586,79 @@
     UIView *titleView = [[UIView alloc] init];
     titleView.backgroundColor = [UIColor clearColor];
     
-    UILabel *shopName = [[UILabel alloc] init];
-    shopName.font = SystemFontWithSize(13);
-    shopName.textColor = RGBCOLOR_HEX(0xac9456);
-    shopName.text = self.activities.shop.shopname;
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.font = SystemBoldFontWithSize(20);
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.text = self.activities.title;
+    [titleView addSubview:titleLabel];
+    
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.equalTo(titleView).offset(20);
+        make.right.equalTo(titleView).offset(-20);
+    }];
+    
+    UILabel *fromLabel = [[UILabel alloc] init];
+    fromLabel.font = SystemFontWithSize(15);
+    fromLabel.textColor = DefaultTitleColor;
+    fromLabel.text = @"来自:";
+    [titleView addSubview:fromLabel];
+    
+    [fromLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(titleLabel);
+        make.top.equalTo(titleLabel.mas_bottom).offset(20);
+        make.bottom.equalTo(titleView).offset(-20);
+    }];
+    
+    [titleView addSubview:self.shopIcon];
+    
+    [self.shopIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@30);
+        make.centerY.equalTo(fromLabel);
+        make.left.equalTo(fromLabel.mas_right).offset(5);
+    }];
+    
+    UIButton *shopName = [UIButton buttonWithType:UIButtonTypeSystem];
+    shopName.titleLabel.font = SystemFontWithSize(15);
+    shopName.tintColor = DefaultYellowColor;
+    [shopName setTitle:self.activities.shop.shopname forState:UIControlStateNormal];
+    [shopName addTarget:self action:@selector(gotoShop) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:shopName];
     
     [shopName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(titleView);
-        make.left.equalTo(titleView).offset(10);
+        make.centerY.equalTo(fromLabel);
+        make.left.equalTo(self.shopIcon.mas_right).offset(5);
     }];
     
-    UILabel *distanceLable = [[UILabel alloc] init];
-    distanceLable.font = SystemFontWithSize(12);
-    distanceLable.textColor = [UIColor blackColor];
-    [titleView addSubview:distanceLable];
     
-    AVGeoPoint *geo = self.activities.shop.geolocation;
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
-    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
-        if (success) {
-            CLLocationDistance distance = [currentLocation distanceFromLocation:location];
-            double distanceInKM = distance / 1000.0;
-            distanceLable.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
-        }
-    }];
     
-    [distanceLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(shopName);
-        make.right.equalTo(titleView).offset(-10);
-    }];
     
-    UIImageView *locationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Location"]];
-    [titleView addSubview:locationView];
-    
-    [locationView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(distanceLable);
-        make.right.equalTo(distanceLable.mas_left).offset(-4);
-    }];
+//    UILabel *distanceLabel = [[UILabel alloc] init];
+//    distanceLabel.font = SystemFontWithSize(12);
+//    distanceLabel.textColor = [UIColor blackColor];
+//    [titleView addSubview:distanceLabel];
+//    
+//    AVGeoPoint *geo = self.activities.shop.geolocation;
+//    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
+//    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
+//        if (success) {
+//            CLLocationDistance distance = [currentLocation distanceFromLocation:location];
+//            double distanceInKM = distance / 1000.0;
+//            distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
+//        }
+//    }];
+//    
+//    [distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(shopName);
+//        make.right.equalTo(titleView).offset(-10);
+//    }];
+//    
+//    UIImageView *locationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Location"]];
+//    [titleView addSubview:locationView];
+//    
+//    [locationView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(distanceLabel);
+//        make.right.equalTo(distanceLabel.mas_left).offset(-4);
+//    }];
     
     return titleView;
 }
@@ -668,7 +720,7 @@
         _shopIcon.contentMode = UIViewContentModeScaleAspectFill;
         _shopIcon.clipsToBounds = YES;
         _shopIcon.userInteractionEnabled = YES;
-        _shopIcon.layer.cornerRadius = 25;
+        _shopIcon.layer.cornerRadius = 15;
         _shopIcon.layer.borderWidth = 2;
         _shopIcon.layer.borderColor = RGBCOLOR(238, 238, 238).CGColor;
         _shopIcon.image = [UIImage imageNamed:@"DefaultAvatar"];

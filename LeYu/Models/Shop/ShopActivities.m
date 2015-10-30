@@ -31,14 +31,15 @@
 
 - (Class)cellClass
 {
-    if (self.accepted) {
-        return [OtherActivityCell class];
-    } else {
-        if (self.otherActivity) {
+    switch (self.style) {
+        case OtherActivityStyleNearby:
+        case OtherActivityStyleFavorite:
+        case OtherActivityStyleAccepted:
             return [OtherActivityCell class];
-        } else {
+            break;
+        default:
             return [ActivityCell class];
-        }
+            break;
     }
 }
 

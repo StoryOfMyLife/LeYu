@@ -17,6 +17,12 @@
 
 @end
 
+@interface ActivityDetailCell ()
+
+@property (nonatomic, strong) UIView *descLine;
+
+@end
+
 @implementation ActivityDetailCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -25,39 +31,44 @@
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UIView *verticalLine = [[UIView alloc] init];
-        verticalLine.backgroundColor = DefaultYellowColor;
-        [self.contentView addSubview:verticalLine];
+        UIView *timeLine = [[UIView alloc] init];
+        timeLine.backgroundColor = DefaultYellowColor;
+        [self.contentView addSubview:timeLine];
         
-        UILabel *label = [[UILabel alloc] init];
-        label.font = SystemFontWithSize(16);
-        label.textColor = DefaultYellowColor;
-        label.text = @"时间";
-        [self.contentView addSubview:label];
-        
-        self.activityDescLabel = [[UILabel alloc] init];
-        self.activityDescLabel.font = SystemFontWithSize(14);
-        self.activityDescLabel.textColor = RGBCOLOR_HEX(0x828282);
-        self.activityDescLabel.numberOfLines = 0;
-        self.activityDescLabel.textAlignment = NSTextAlignmentJustified;
-        self.activityDescLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        self.activityDescLabel.preferredMaxLayoutWidth = self.contentView.width - 20 * 2;
-        [self.contentView addSubview:self.activityDescLabel];
-        
-        UIView *verticalLine1 = [[UIView alloc] init];
-        verticalLine1.backgroundColor = DefaultYellowColor;
-        [self.contentView addSubview:verticalLine1];
-        
-        UILabel *label1 = [[UILabel alloc] init];
-        label1.font = SystemFontWithSize(16);
-        label1.textColor = DefaultYellowColor;
-        label1.text = @"说明";
-        [self.contentView addSubview:label1];
+        UILabel *timeLabel = [[UILabel alloc] init];
+        timeLabel.font = SystemFontWithSize(16);
+        timeLabel.textColor = DefaultYellowColor;
+        timeLabel.text = @"时间";
+        [self.contentView addSubview:timeLabel];
         
         self.activityDateLabel = [[UILabel alloc] init];
         self.activityDateLabel.font = self.activityDescLabel.font;
         self.activityDateLabel.textColor = self.activityDescLabel.textColor;
         [self.contentView addSubview:self.activityDateLabel];
+        
+        [RACObserve(self.activityDateLabel, hidden) subscribeNext:^(NSNumber *hidden) {
+            timeLabel.hidden = [hidden boolValue];
+            timeLine.hidden = [hidden boolValue];
+        }];
+        
+        self.descLine = [[UIView alloc] init];
+        self.descLine.backgroundColor = DefaultYellowColor;
+        [self.contentView addSubview:self.descLine];
+        
+        UILabel *descLabel = [[UILabel alloc] init];
+        descLabel.font = SystemFontWithSize(16);
+        descLabel.textColor = DefaultYellowColor;
+        descLabel.text = @"说明";
+        [self.contentView addSubview:descLabel];
+        
+        self.activityDescLabel = [[UILabel alloc] init];
+//        self.activityDescLabel.font = SystemFontWithSize(16);
+        self.activityDescLabel.textColor = RGBCOLOR_HEX(0x828282);
+        self.activityDescLabel.numberOfLines = 0;
+        self.activityDescLabel.textAlignment = NSTextAlignmentNatural;
+        self.activityDescLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.activityDescLabel.preferredMaxLayoutWidth = self.contentView.width - 20 * 2;
+        [self.contentView addSubview:self.activityDescLabel];
         
         self.likeButton = [UIButton buttonWithType:UIButtonTypeSystem];
         self.likeButton.tintColor = DefaultYellowColor;
@@ -93,40 +104,40 @@
 //        self.giftLabel.textColor = DefaultYellowColor;
 //        [buttonContainer addSubview:self.giftLabel];
         
-        [verticalLine mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(label);
+        [timeLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(timeLabel);
             make.width.equalTo(@1);
             make.left.equalTo(self.contentView).offset(20);
             make.top.equalTo(self.contentView).offset(30);
         }];
         
-        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(verticalLine);
-            make.left.equalTo(verticalLine.mas_right).offset(10);
+        [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(timeLine);
+            make.left.equalTo(timeLine.mas_right).offset(10);
         }];
         
         [self.activityDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(verticalLine);
+            make.left.equalTo(timeLine);
             make.right.equalTo(self.contentView).offset(-20);
-            make.top.equalTo(verticalLine.mas_bottom).offset(13);
+            make.top.equalTo(timeLine.mas_bottom).offset(10);
         }];
         
-        [verticalLine1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(label1);
+        [self.descLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(descLabel);
             make.width.equalTo(@1);
-            make.left.equalTo(verticalLine);
+            make.left.equalTo(timeLine);
             make.top.equalTo(self.activityDateLabel.mas_bottom).offset(35);
         }];
         
-        [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(verticalLine1);
-            make.left.equalTo(label);
+        [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.descLine);
+            make.left.equalTo(timeLabel);
         }];
         
         [self.activityDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.activityDateLabel);
             make.right.equalTo(self.activityDateLabel);
-            make.top.equalTo(verticalLine1.mas_bottom).offset(13);
+            make.top.equalTo(self.descLine.mas_bottom).offset(-10);
         }];
         
         [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -171,7 +182,16 @@
     
     ShopActivities *activity = cellItem.activity;
     
-    self.activityDescLabel.text = activity.activitiesDescription;
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    paragraph.lineSpacing = 10;
+    paragraph.firstLineHeadIndent = 32;
+    
+    NSAttributedString *aStr = [[NSAttributedString alloc] initWithString:activity.activitiesDescription
+                                                               attributes:@{NSFontAttributeName : SystemFontWithSize(16),
+                                                                            NSKernAttributeName : @(0),
+                                                                            NSParagraphStyleAttributeName : paragraph}];
+    self.activityDescLabel.attributedText = aStr;
+//    self.activityDescLabel.text = activity.activitiesDescription;
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
     [self layoutButton:self.likeButton];
     
@@ -183,8 +203,16 @@
         NSString *beginDateString = [formatter stringFromDate:beginDate];
         NSString *endDateString = [formatter stringFromDate:endDate];
         self.activityDateLabel.text = [NSString stringWithFormat:@"%@ - %@", beginDateString, endDateString];
+        [self.descLine mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.activityDateLabel.mas_bottom).offset(35);
+        }];
+        self.activityDateLabel.hidden = NO;
     } else {
         self.activityDateLabel.text = @"无限制";
+        self.activityDateLabel.hidden = YES;
+        [self.descLine mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentView).offset(30);
+        }];
     }
     
     

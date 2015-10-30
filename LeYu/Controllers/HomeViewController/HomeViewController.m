@@ -43,6 +43,8 @@
         [rootVC.view addSubview:introVC.view];
         [rootVC addChildViewController:introVC];
     }
+    
+    self.title = @"";
 }
 
 - (void)viewWillAppear:(BOOL)animated

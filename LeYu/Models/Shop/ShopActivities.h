@@ -14,6 +14,13 @@ typedef NS_ENUM(NSUInteger, ActivityType) {
     ActivityTypeArticle = 2
 };
 
+typedef NS_ENUM(NSUInteger, OtherActivityStyle) {
+    OtherActivityStyleOther,
+    OtherActivityStyleAccepted,
+    OtherActivityStyleNearby,
+    OtherActivityStyleFavorite
+};
+
 @interface ShopActivities : LTableViewCellItem
 
 @property (nonatomic, copy) NSString *activitiesDescription;
@@ -38,9 +45,7 @@ typedef NS_ENUM(NSUInteger, ActivityType) {
 
 @property (nonatomic, strong) AVFile *activityDescVoice;
 
-@property (nonatomic) BOOL accepted;
-
-@property (nonatomic) BOOL otherActivity;
+@property (nonatomic, assign) OtherActivityStyle style;
 
 - (void)getActivityThumbNail:(AVImageResultBlock)block;
 
