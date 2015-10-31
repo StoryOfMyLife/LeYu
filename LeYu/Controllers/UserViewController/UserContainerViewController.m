@@ -34,7 +34,7 @@
         make.edges.equalTo(self.view);
     }];
     
-    self.title = @"个人";
+//    self.title = @"";
 }
 
 - (void)viewWillAppear:(BOOL)animated

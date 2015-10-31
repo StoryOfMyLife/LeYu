@@ -305,7 +305,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="确定">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="confirm:" destination="3Xv-jZ-qdH" eventType="touchUpInside" id="zeA-59-2sz"/>
@@ -844,7 +844,7 @@
                                         <animations/>
                                         <color key="tintColor" red="0.75686274509999996" green="0.59999999999999998" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvZ-hI-SyM" userLabel="seperator">
                                         <rect key="frame" x="0.0" y="50" width="320" height="1"/>
@@ -907,7 +907,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="下一步">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
                                 <connections>
                                     <action selector="next:" destination="Uz5-47-b8X" eventType="touchUpInside" id="xNz-rI-K5e"/>
@@ -1025,7 +1025,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="注册">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
                                 <connections>
                                     <action selector="signUp:" destination="dnk-H2-jkf" eventType="touchUpInside" id="ooS-aQ-4rj"/>
@@ -1289,7 +1289,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="店家登录">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="login:" destination="sk1-R5-Usx" eventType="touchUpInside" id="JNX-dd-QoQ"/>
@@ -1932,7 +1932,7 @@
         <image name="设置" width="34" height="34"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yJb-NT-Cmx"/>
         <segue reference="QSJ-aw-600"/>
+        <segue reference="yJb-NT-Cmx"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,8 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 
-@property (nonatomic, strong) NSDictionary *userInfo;
-
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @end
 
@@ -56,12 +54,6 @@
 - (void)dismiss
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    self.userInfo = sender;
 }
 
 @end

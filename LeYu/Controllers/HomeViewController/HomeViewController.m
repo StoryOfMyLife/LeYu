@@ -43,14 +43,17 @@
         [rootVC.view addSubview:introVC.view];
         [rootVC addChildViewController:introVC];
     }
-    
-    self.title = @"";
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 - (ShopActivityViewController *)activityVC

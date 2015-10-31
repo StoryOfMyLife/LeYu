@@ -69,7 +69,7 @@
 {
     [super viewDidLoad];
     
-//    [self setTitleView];
+    [self setTitleView];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -119,15 +119,24 @@
 
 - (void)setTitleView
 {
-    AVFile *iconFile = self.activities.shop.shopIcon;
-    [iconFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        UIImage *image = [UIImage imageWithData:[iconFile getData]];
-        UIImageView *titleImage = [[UIImageView alloc] initWithImage:image];
-        titleImage.clipsToBounds = YES;
-        titleImage.contentMode = UIViewContentModeScaleAspectFit;
-        titleImage.width = 30;
-        titleImage.height = 30;
-        self.navigationItem.titleView = titleImage;
+    self.navigationItem.titleView = self.shopIcon;
+    UIView *superview = [[UIView alloc] init];
+    superview.backgroundColor = [UIColor clearColor];
+    superview.size = CGSizeMake(50, 50);
+    [superview addSubview:self.shopIcon];
+    self.navigationItem.titleView = superview;
+    
+    [self.shopIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.width.equalTo(@(40));
+        make.centerX.equalTo(superview);
+        make.centerY.equalTo(superview).offset(-3);
+    }];
+    
+    weakSelf();
+    [self.activities.shop loadShopIcon:^(UIImage *image, NSError *error) {
+        [UIView transitionWithView:weakSelf.shopIcon duration:0.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            weakSelf.shopIcon.image = image;
+        } completion:nil];
     }];
 }
 
@@ -438,11 +447,6 @@
         }];
     }
     
-    weakSelf();
-    [self.activities.shop loadShopIcon:^(UIImage *image, NSError *error) {
-        weakSelf.shopIcon.image = image;
-    }];
-    
     return containerView;
 }
 
@@ -593,8 +597,9 @@
     [titleView addSubview:titleLabel];
     
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(titleView).offset(20);
-        make.right.equalTo(titleView).offset(-20);
+        make.top.equalTo(titleView).offset(20);
+        make.left.equalTo(titleView).offset(10);
+        make.right.equalTo(titleView).offset(-10);
     }];
     
     UILabel *fromLabel = [[UILabel alloc] init];
@@ -605,17 +610,17 @@
     
     [fromLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleLabel);
-        make.top.equalTo(titleLabel.mas_bottom).offset(20);
+        make.top.equalTo(titleLabel.mas_bottom).offset(10);
         make.bottom.equalTo(titleView).offset(-20);
     }];
     
-    [titleView addSubview:self.shopIcon];
+//    [titleView addSubview:self.shopIcon];
     
-    [self.shopIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(@30);
-        make.centerY.equalTo(fromLabel);
-        make.left.equalTo(fromLabel.mas_right).offset(5);
-    }];
+//    [self.shopIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.height.equalTo(@30);
+//        make.centerY.equalTo(fromLabel);
+//        make.left.equalTo(fromLabel.mas_right).offset(5);
+//    }];
     
     UIButton *shopName = [UIButton buttonWithType:UIButtonTypeSystem];
     shopName.titleLabel.font = SystemFontWithSize(15);
@@ -626,10 +631,8 @@
     
     [shopName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(fromLabel);
-        make.left.equalTo(self.shopIcon.mas_right).offset(5);
+        make.left.equalTo(fromLabel.mas_right).offset(5);
     }];
-    
-    
     
     
 //    UILabel *distanceLabel = [[UILabel alloc] init];
@@ -720,8 +723,8 @@
         _shopIcon.contentMode = UIViewContentModeScaleAspectFill;
         _shopIcon.clipsToBounds = YES;
         _shopIcon.userInteractionEnabled = YES;
-        _shopIcon.layer.cornerRadius = 15;
-        _shopIcon.layer.borderWidth = 2;
+        _shopIcon.layer.cornerRadius = 20;
+        _shopIcon.layer.borderWidth = 0;
         _shopIcon.layer.borderColor = RGBCOLOR(238, 238, 238).CGColor;
         _shopIcon.image = [UIImage imageNamed:@"DefaultAvatar"];
         

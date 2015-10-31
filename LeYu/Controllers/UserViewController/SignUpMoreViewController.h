@@ -10,4 +10,6 @@
 
 @interface SignUpMoreViewController : LViewController
 
+@property (nonatomic, strong) NSDictionary *userInfo;
+
 @end
