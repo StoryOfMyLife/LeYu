@@ -575,7 +575,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="用户资料" id="xIi-m2-j9G">
                         <barButtonItem key="backBarButtonItem" title=" " id="CKl-Uq-Ovq"/>
-                        <barButtonItem key="rightBarButtonItem" title="完成" style="done" id="bJm-4X-g4w">
+                        <barButtonItem key="rightBarButtonItem" title="保存" style="done" id="bJm-4X-g4w">
                             <color key="tintColor" red="0.82745098039999998" green="0.59999999999999998" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="done:" destination="fOf-rj-baO" id="PEg-d0-2OR"/>
@@ -1891,7 +1891,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="店家资料" id="kWs-9v-5n9">
-                        <barButtonItem key="rightBarButtonItem" title="完成" style="done" id="VOs-vd-SNg">
+                        <barButtonItem key="rightBarButtonItem" title="保存" style="done" id="VOs-vd-SNg">
                             <color key="tintColor" red="0.82745098039999998" green="0.59999999999999998" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="done:" destination="53r-nL-LLq" id="BAk-8w-xZQ"/>

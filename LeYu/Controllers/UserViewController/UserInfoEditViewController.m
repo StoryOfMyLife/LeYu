@@ -87,6 +87,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.view endEditing:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 && indexPath.row == 0) {
         [self changeAvatar];
@@ -136,38 +137,37 @@
 
 - (IBAction)done:(id)sender
 {
-    if (self.edited) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        
-        LYUser *user = [LYUser currentUser];
-        user.username = self.nickname.text;
-        user.mobilePhoneNumber = self.phone.text;
+    [self.view endEditing:YES];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-        if (user.level == UserLevelShop) {
-            user.shop.shopdescription = self.desc.text;
-            [user.shop save];
-        } else {
-            user.signature = self.desc.text;
-        }
-        if (self.maleButton.selected) {
-            user.sex = @"男";
-        } else {
-            user.sex = @"女";
-        }
-        if (self.avatarEdited) {
-            user.thumbnail = [AVFile fileWithData:UIImageJPEGRepresentation(self.avatar.image, 0.1)];
-        }
-        
-        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            if (succeeded) {
-                [self.userVC updateAvatar];
-                [self.navigationController popViewControllerAnimated:YES];
-            } else {
-                Log(@"%@", error);
-            }
-        }];
+    LYUser *user = [LYUser currentUser];
+    user.username = self.nickname.text;
+    user.mobilePhoneNumber = self.phone.text;
+
+    if (user.level == UserLevelShop) {
+        user.shop.shopdescription = self.desc.text;
+        [user.shop save];
+    } else {
+        user.signature = self.desc.text;
     }
+    if (self.maleButton.selected) {
+        user.sex = @"男";
+    } else {
+        user.sex = @"女";
+    }
+    if (self.avatarEdited) {
+        user.thumbnail = [AVFile fileWithData:UIImageJPEGRepresentation(self.avatar.image, 0.1)];
+    }
+    
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if (succeeded) {
+            [self.userVC updateAvatar];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            Log(@"%@", error);
+        }
+    }];
 }
 
 - (IBAction)genderSelected:(id)sender
