@@ -69,7 +69,6 @@
 		52635BBB1BA8728200703DBE /* CTAssetsGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635ACD1BA8728100703DBE /* CTAssetsGroupViewCell.m */; };
 		52635BBC1BA8728200703DBE /* CTAssetsGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635ACF1BA8728100703DBE /* CTAssetsGroupViewController.m */; };
 		52635BBD1BA8728200703DBE /* CTAssetsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635AD11BA8728100703DBE /* CTAssetsPageViewController.m */; };
-		52635BBE1BA8728200703DBE /* CTAssetsPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 52635AD31BA8728100703DBE /* CTAssetsPickerController.bundle */; };
 		52635BBF1BA8728200703DBE /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635AD51BA8728100703DBE /* CTAssetsPickerController.m */; };
 		52635BC01BA8728200703DBE /* CTAssetsSupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635AD71BA8728100703DBE /* CTAssetsSupplementaryView.m */; };
 		52635BC11BA8728200703DBE /* CTAssetsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52635AD91BA8728100703DBE /* CTAssetsViewCell.m */; };
@@ -123,6 +122,7 @@
 		52D602FC1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602FB1BB062B200B9B6D3 /* ActivityAcceptedDetailCellItem.m */; };
 		52D602FF1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D602FE1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m */; };
 		52F45E471BD68CC6006A7A74 /* ActivityEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F45E461BD68CC6006A7A74 /* ActivityEditViewController.m */; };
+		52F5D9881BE65C55003100A1 /* CTAssetsPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 52F5D9871BE65C55003100A1 /* CTAssetsPickerController.bundle */; };
 		52FE095E1BCCA01B00A4EA81 /* VoiceRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -262,7 +262,6 @@
 		52635AD01BA8728100703DBE /* CTAssetsPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPageViewController.h; sourceTree = "<group>"; };
 		52635AD11BA8728100703DBE /* CTAssetsPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPageViewController.m; sourceTree = "<group>"; };
 		52635AD21BA8728100703DBE /* CTAssetsPickerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerCommon.h; sourceTree = "<group>"; };
-		52635AD31BA8728100703DBE /* CTAssetsPickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CTAssetsPickerController.bundle; sourceTree = "<group>"; };
 		52635AD41BA8728100703DBE /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerController.h; sourceTree = "<group>"; };
 		52635AD51BA8728100703DBE /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerController.m; sourceTree = "<group>"; };
 		52635AD61BA8728100703DBE /* CTAssetsSupplementaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsSupplementaryView.h; sourceTree = "<group>"; };
@@ -371,6 +370,7 @@
 		52D602FE1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityManageDetailViewController.m; sourceTree = "<group>"; };
 		52F45E451BD68CC6006A7A74 /* ActivityEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityEditViewController.h; sourceTree = "<group>"; };
 		52F45E461BD68CC6006A7A74 /* ActivityEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityEditViewController.m; sourceTree = "<group>"; };
+		52F5D9871BE65C55003100A1 /* CTAssetsPickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CTAssetsPickerController.bundle; sourceTree = "<group>"; };
 		52FE095C1BCCA01B00A4EA81 /* VoiceRecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceRecordingViewController.h; path = VoiceRecordingViewController/VoiceRecordingViewController.h; sourceTree = "<group>"; };
 		52FE095D1BCCA01B00A4EA81 /* VoiceRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VoiceRecordingViewController.m; path = VoiceRecordingViewController/VoiceRecordingViewController.m; sourceTree = "<group>"; };
 		982A3A3C72BDE802A2981A37 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -705,6 +705,7 @@
 		52635ABF1BA8728100703DBE /* CTAssetsPickerController */ = {
 			isa = PBXGroup;
 			children = (
+				52F5D9871BE65C55003100A1 /* CTAssetsPickerController.bundle */,
 				52635AC01BA8728100703DBE /* ALAsset+accessibilityLabel.h */,
 				52635AC11BA8728100703DBE /* ALAsset+accessibilityLabel.m */,
 				52635AC21BA8728100703DBE /* ALAsset+assetType.h */,
@@ -724,7 +725,6 @@
 				52635AD01BA8728100703DBE /* CTAssetsPageViewController.h */,
 				52635AD11BA8728100703DBE /* CTAssetsPageViewController.m */,
 				52635AD21BA8728100703DBE /* CTAssetsPickerCommon.h */,
-				52635AD31BA8728100703DBE /* CTAssetsPickerController.bundle */,
 				52635AD41BA8728100703DBE /* CTAssetsPickerController.h */,
 				52635AD51BA8728100703DBE /* CTAssetsPickerController.m */,
 				52635AD61BA8728100703DBE /* CTAssetsSupplementaryView.h */,
@@ -999,9 +999,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5239785F1BAB0F4C00CB9B9E /* Main.storyboard in Resources */,
-				52635BBE1BA8728200703DBE /* CTAssetsPickerController.bundle in Resources */,
 				5281B55E1BB19E3000EA382F /* Launch Screen.storyboard in Resources */,
 				52635BF01BA8728200703DBE /* Images.xcassets in Resources */,
+				52F5D9881BE65C55003100A1 /* CTAssetsPickerController.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
