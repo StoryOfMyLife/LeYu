@@ -20,11 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:nil];
-    [self.navigationController.navigationBar setTranslucent:NO];
-    
+
     UIImageView *topImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top_leyu"]];
     [topImageView sizeToFit];
     self.navigationItem.titleView = topImageView;

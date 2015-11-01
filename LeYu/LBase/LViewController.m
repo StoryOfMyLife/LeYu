@@ -22,6 +22,7 @@
 {
     [super viewDidLoad];
     [self hideNoData];
+    self.navigationItem.title = @"";
 }
 
 - (void)setNavigationBackgroundClear:(BOOL)clear

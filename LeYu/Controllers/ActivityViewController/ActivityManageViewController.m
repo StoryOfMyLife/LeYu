@@ -64,13 +64,15 @@
         return;
     }
     
-    AVQuery *shopQuery = [Shop query];
-    [shopQuery whereKey:@"objectId" equalTo:currentUser.shop.objectId];
-    
     AVQuery *query = [ShopActivities query];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"shop"];
-    [query whereKey:@"shop" matchesQuery:shopQuery];
+    
+    if (currentUser.shop.objectId) {
+        AVQuery *shopQuery = [Shop query];
+        [shopQuery whereKey:@"objectId" equalTo:currentUser.shop.objectId];
+        [query whereKey:@"shop" matchesQuery:shopQuery];
+    }
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {

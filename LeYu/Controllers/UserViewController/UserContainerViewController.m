@@ -33,8 +33,6 @@
     [self.loginView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
-//    self.title = @"";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,6 +51,11 @@
             self.showShopUser = NO;
         }
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark -

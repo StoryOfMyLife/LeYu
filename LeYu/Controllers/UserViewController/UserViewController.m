@@ -45,7 +45,6 @@
     
     [self.avatar addMotionEffect:self.motionEffect];
     [self.name addMotionEffect:self.motionEffect];
-    [self.editButton addMotionEffect:self.motionEffect];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
