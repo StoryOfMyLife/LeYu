@@ -8,6 +8,7 @@
 
 #import "LTableViewController.h"
 #import "ShopActivities.h"
+#import "ActivityDetailViewController.h"
 
 @interface ActivityAcceptViewController : LTableViewController <UIViewControllerTransitioningDelegate>
 

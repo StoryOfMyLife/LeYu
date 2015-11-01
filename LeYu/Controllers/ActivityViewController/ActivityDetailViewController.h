@@ -14,4 +14,6 @@
 
 - (instancetype)initWithActivities:(ShopActivities *)activities;
 
+- (void)didAccept;
+
 @end

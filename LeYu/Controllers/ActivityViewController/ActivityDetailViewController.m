@@ -17,6 +17,8 @@
 
 #import "LoginViewController.h"
 
+#import "ActivityUserRelation.h"
+
 #import <AFSoundManager/AFSoundManager.h>
 
 @interface ActivityDetailViewController ()
@@ -115,6 +117,17 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    if ([LYUser currentUser]) {
+        AVQuery *relationQuery = [ActivityUserRelation query];
+        [relationQuery whereKey:@"user" equalTo:[LYUser currentUser]];
+        [relationQuery whereKey:@"activity" equalTo:self.activities];
+        [relationQuery countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+            if (number == 0) {
+                [self didAccept];
+            }
+        }];
+    }
 }
 
 - (void)setTitleView
@@ -271,6 +284,12 @@
         vc.modalPresentationStyle = UIModalPresentationCustom;
         [self presentViewController:vc animated:YES completion:nil];
     }
+}
+
+- (void)didAccept
+{
+    [self.acceptButton setTitle:@"已报名" forState:UIControlStateNormal];
+    self.acceptButton.enabled = NO;
 }
 
 #pragma mark -
@@ -694,6 +713,7 @@
 {
     if (!_bottomView) {
         _bottomView = [[UIView alloc] init];
+        _bottomView.clipsToBounds = YES;
         _bottomView.backgroundColor = DefaultYellowColor;
     }
     return _bottomView;
