@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import <MBProgressHUD.h>
 
 @interface LoginViewController ()
 
@@ -37,6 +38,20 @@
 {
     [self.view endEditing:YES];
     [LYUser logInWithMobilePhoneNumberInBackground:self.phone.text password:self.password.text block:^(AVUser *user, NSError *error) {
+        if (error) {
+            MBProgressHUD *hud = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
+            hud.mode = MBProgressHUDModeText;
+            hud.detailsLabelText = error.userInfo[@"NSLocalizedDescription"];
+            if (error.code == 210) {
+                hud.detailsLabelText = @"密码不正确";
+            } else if (error.code == 211) {
+                hud.detailsLabelText = @"找不到这个用户";
+            }
+            [self.view addSubview:hud];
+            [hud show:YES];
+            [hud hide:YES afterDelay:3];
+            return;
+        }
         LYUser *currentUser = [LYUser currentUser];
         if (currentUser) {
             AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
