@@ -137,7 +137,7 @@
         [self.activityDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.activityDateLabel);
             make.right.equalTo(self.activityDateLabel);
-            make.top.equalTo(self.descLine.mas_bottom).offset(-10);
+            make.top.equalTo(self.descLine.mas_bottom).offset(10);
         }];
         
         [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,7 +186,11 @@
     paragraph.lineSpacing = 10;
     paragraph.firstLineHeadIndent = 32;
     
-    NSAttributedString *aStr = [[NSAttributedString alloc] initWithString:activity.activitiesDescription
+    NSString *desc = activity.activitiesDescription;
+    if (!desc) {
+        desc = @"没有说明";
+    }
+    NSAttributedString *aStr = [[NSAttributedString alloc] initWithString:desc
                                                                attributes:@{NSFontAttributeName : SystemFontWithSize(16),
                                                                             NSKernAttributeName : @(0),
                                                                             NSParagraphStyleAttributeName : paragraph}];

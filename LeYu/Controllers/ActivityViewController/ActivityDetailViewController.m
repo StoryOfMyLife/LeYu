@@ -331,11 +331,6 @@
 {
     if (!_playBack) {
         _playBack = [[AFSoundPlayback alloc] initWithItem:self.soundItem];
-//        [_playBack listenFeedbackUpdatesWithBlock:^(AFSoundItem *item) {
-//            Log(@"Item duration: %ld - time elapsed: %ld", (long)item.duration, (long)item.timePlayed);
-//        } andFinishedBlock:^{
-//            Log(@"play finish");
-//        }];
     }
     return _playBack;
 }

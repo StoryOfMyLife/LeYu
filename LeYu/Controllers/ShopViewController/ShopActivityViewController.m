@@ -64,7 +64,7 @@
 {
     [query cancel];
     [query includeKey:@"shop"];
-    query.cachePolicy = kAVCachePolicyNetworkElseCache;
+    query.cachePolicy = kAVCachePolicyCacheThenNetwork;
     query.maxCacheAge = 24*3600;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {

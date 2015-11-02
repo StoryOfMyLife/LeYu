@@ -10,9 +10,10 @@
 #import "ShopActivityViewController.h"
 #import "IntroViewController.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () <LTableViewScrollDelegate>
 
 @property (nonatomic, strong) ShopActivityViewController *activityVC;
+@property (nonatomic, strong) UIImageView *topImageView;
 
 @end
 
@@ -21,9 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIImageView *topImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top_leyu"]];
-    [topImageView sizeToFit];
-    self.navigationItem.titleView = topImageView;
+    self.topImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top_leyu"]];
+    self.navigationItem.titleView = self.topImageView;
     
     [self addChildViewController:self.activityVC];
     [self.view addSubview:self.activityVC.view];
@@ -52,10 +52,22 @@
     [super viewWillDisappear:animated];
 }
 
+- (void)LTableViewDidScroll:(UIScrollView *)tableView
+{
+    CGFloat offsetY = tableView.contentOffset.y;
+    if (offsetY <= 0) {
+        CGRect frame = self.topImageView.frame;
+        frame.origin.y = -offsetY + 5;
+        self.topImageView.frame = frame;
+        self.topImageView.alpha = 1 + offsetY / 20;
+    }
+}
+
 - (ShopActivityViewController *)activityVC
 {
     if (!_activityVC) {
         _activityVC = [[ShopActivityViewController alloc] init];
+        _activityVC.delegate = self;
         _activityVC.activityQuery = [ShopActivities query];
     }
     return _activityVC;

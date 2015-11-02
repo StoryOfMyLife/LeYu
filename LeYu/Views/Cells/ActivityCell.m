@@ -63,6 +63,9 @@ static const CGFloat titleVerticalGap = 10;
 {
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.font = SystemFontWithSize(14);
+    self.titleLabel.preferredMaxLayoutWidth = self.contentView.width - kContentInset * 2;
+    self.titleLabel.numberOfLines = 1;
+    self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.titleLabel.textColor = RGBCOLOR_HEX(0x888888);
     
     self.thumbnailImage = [[UIImageView alloc] init];
@@ -164,6 +167,7 @@ static const CGFloat titleVerticalGap = 10;
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.shopIcon.mas_bottom).with.offset(titleVerticalGap);
         make.left.equalTo(self.shopIcon);
+        make.right.equalTo(self.backView).offset(-kContentInset);
 //        make.right.lessThanOrEqualTo(self.locationView.mas_left).offset(-kContentInset/2);
         make.bottom.equalTo(superview).with.offset(-titleVerticalGap);
     }];
@@ -207,6 +211,7 @@ static const CGFloat titleVerticalGap = 10;
             make.top.equalTo(self.shopIcon.mas_bottom).with.offset(titleVerticalGap);
             make.bottom.equalTo(self.backView).with.offset(-titleVerticalGap);
             make.left.equalTo(self.shopIcon);
+            make.right.equalTo(self.backView).offset(-kContentInset);
         }];
     } else {
         self.shopNameLabel.hidden = YES;
@@ -215,6 +220,7 @@ static const CGFloat titleVerticalGap = 10;
             make.top.equalTo(self.thumbnailImage.mas_bottom).offset(titleVerticalGap);
             make.left.equalTo(self.shopIcon);
             make.bottom.equalTo(self.backView).with.offset(-titleVerticalGap);
+            make.right.equalTo(self.backView).offset(-kContentInset);
         }];
     }
 }

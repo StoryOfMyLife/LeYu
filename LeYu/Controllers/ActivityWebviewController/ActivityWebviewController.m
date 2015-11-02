@@ -25,6 +25,12 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
     [super viewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)setUrlID:(NSString *)urlID
 {
     if (_urlID != urlID) {

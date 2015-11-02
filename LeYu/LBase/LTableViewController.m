@@ -64,18 +64,36 @@
             self.updateBlock();
         }
     } else {
-        self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        self.tableView.header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
             // 进入刷新状态后会自动调用这个block
             if (self.updateBlock) {
                 self.updateBlock();
             }
         }];
-        MJRefreshNormalHeader *header = (MJRefreshNormalHeader *)self.tableView.header;
-        header.arrowView.image = nil;
+        
+        MJRefreshGifHeader *header = (MJRefreshGifHeader *)self.tableView.header;
+        NSMutableArray *images = [NSMutableArray arrayWithCapacity:0];
+        for (int i = 0; i < 25; i++) {
+            [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"leyu%d", i]]];
+        }
+        // 设置普通状态的动画图片
+        [header setImages:images forState:MJRefreshStateIdle];
+        // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+//        [header setImages:images forState:MJRefreshStatePulling];
+        // 设置正在刷新状态的动画图片
+        [header setImages:images duration:.5 forState:MJRefreshStateRefreshing];
+        // 设置header
+
+        header.stateLabel.hidden = YES;
         header.lastUpdatedTimeLabel.hidden = YES;
         //     马上进入刷新状态
         [self.tableView.header beginRefreshing];
     }
+}
+
+- (void)loadNewData
+{
+    
 }
 
 #pragma mark -
