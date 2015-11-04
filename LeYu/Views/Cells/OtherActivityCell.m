@@ -98,6 +98,8 @@
 - (void)setCellItem:(ShopActivities *)cellItem
 {
     [super setCellItem:cellItem];
+    [self configureCellWithActivity:cellItem];
+    
     self.titleLabel.text = cellItem.title;
     
 //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -135,13 +137,16 @@
             self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
         }
     }];
+}
+
+- (void)configureCellWithActivity:(ShopActivities *)activity
+{
     
-    [AVFile getFileWithObjectId:cellItem.pics[0] withBlock:^(AVFile *file, NSError *error) {
-        [file getThumbnail:YES width:140 height:(140.0 * 16.0 / 9.0) withBlock:^(UIImage *image, NSError *error) {
-            [UIView transitionWithView:self.imageIconView duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                self.imageIconView.image = image;
-            } completion:nil];
-        }];
+    BOOL cached = activity.cached;
+    [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
+        [UIView transitionWithView:self duration:cached ? 0 : .3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.imageIconView.image = image;
+        } completion:nil];
     }];
 }
 

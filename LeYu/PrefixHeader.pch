@@ -25,4 +25,6 @@
 #import "LViewController.h"
 #import "MobClick.h"
 
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #endif

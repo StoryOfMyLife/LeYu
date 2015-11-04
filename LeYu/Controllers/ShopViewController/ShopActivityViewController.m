@@ -54,7 +54,9 @@
 - (void)setActivityQuery:(AVQuery *)activityQuery
 {
     if (_activityQuery != activityQuery) {
-        [activityQuery orderByDescending:@"createdAt"];
+        [activityQuery whereKey:@"isApproved" equalTo:@(1)];
+        [activityQuery orderByDescending:@"rank"];
+        [activityQuery addDescendingOrder:@"createdAt"];
         _activityQuery = activityQuery;
         [self loadActivities:activityQuery];
     }

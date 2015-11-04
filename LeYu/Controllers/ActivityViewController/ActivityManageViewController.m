@@ -65,6 +65,7 @@
     }
     
     AVQuery *query = [ShopActivities query];
+    [query whereKey:@"isApproved" equalTo:@(1)];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"shop"];
     

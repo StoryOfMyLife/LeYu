@@ -23,6 +23,10 @@ typedef NS_ENUM(NSUInteger, OtherActivityStyle) {
 
 @interface ShopActivities : LTableViewCellItem
 
+@property (nonatomic, assign) BOOL isApproved;
+
+@property (nonatomic, assign) CGFloat rank;
+
 @property (nonatomic, copy) NSString *activitiesDescription;
 
 @property (nonatomic, strong) NSArray *pics;
@@ -46,6 +50,9 @@ typedef NS_ENUM(NSUInteger, OtherActivityStyle) {
 @property (nonatomic, strong) AVFile *activityDescVoice;
 
 @property (nonatomic, assign) OtherActivityStyle style;
+
+@property (nonatomic, strong) UIImage *thumbnail;
+@property (nonatomic, assign) BOOL cached;
 
 - (void)getActivityThumbNail:(AVImageResultBlock)block;
 

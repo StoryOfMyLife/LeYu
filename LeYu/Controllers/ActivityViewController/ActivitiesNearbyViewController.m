@@ -85,6 +85,7 @@
             [shopQuery whereKey:@"geolocation" nearGeoPoint:currentGeo withinKilometers:100000];
         
             AVQuery *activityQuery = [ShopActivities query];
+            [activityQuery whereKey:@"isApproved" equalTo:@(1)];
             [activityQuery whereKey:@"shop" matchesQuery:shopQuery];
             [activityQuery includeKey:@"shop"];
             

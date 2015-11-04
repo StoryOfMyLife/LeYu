@@ -60,6 +60,12 @@
         frame.origin.y = -offsetY + 5;
         self.topImageView.frame = frame;
         self.topImageView.alpha = 1 + offsetY / 20;
+    } else {
+        offsetY = 0;
+        CGRect frame = self.topImageView.frame;
+        frame.origin.y = -offsetY + 5;
+        self.topImageView.frame = frame;
+        self.topImageView.alpha = 1 + offsetY / 20;
     }
 }
 
@@ -68,7 +74,8 @@
     if (!_activityVC) {
         _activityVC = [[ShopActivityViewController alloc] init];
         _activityVC.delegate = self;
-        _activityVC.activityQuery = [ShopActivities query];
+        AVQuery *query = [ShopActivities query];
+        _activityVC.activityQuery = query;
     }
     return _activityVC;
 }

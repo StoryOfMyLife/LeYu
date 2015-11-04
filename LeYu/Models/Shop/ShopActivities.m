@@ -28,6 +28,8 @@
 @dynamic activityType;
 @dynamic participantNum;
 @dynamic activityDescVoice;
+@dynamic isApproved;
+@dynamic rank;
 
 - (Class)cellClass
 {
@@ -61,9 +63,19 @@
 {
     if (self.pics.count > 0) {
         NSString *objectId = self.pics[0];
-       [AVFile getFileWithObjectId:objectId withBlock:^(AVFile *file, NSError *error) {
-           [file getThumbnail:YES width:640.0 height:640.0 * 9.0 / 16.0 withBlock:block];
-       }];
+        if (self.thumbnail) {
+            block(self.thumbnail, nil);
+        } else {
+           [AVFile getFileWithObjectId:objectId withBlock:^(AVFile *file, NSError *error) {
+               [file getThumbnail:YES width:640.0 height:640.0 * 9.0 / 16.0 withBlock:^(UIImage *image, NSError *error) {
+                   if (image) {
+                       self.thumbnail = image;
+                       self.cached = YES;
+                   }
+                   block(image, error);
+               }];
+           }];
+        }
     }
 }
 

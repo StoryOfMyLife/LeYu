@@ -17,5 +17,6 @@ pod 'UMengAnalytics'
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'AFSoundManager'
+pod 'SDWebImage', '~> 3.7.3'
 
 

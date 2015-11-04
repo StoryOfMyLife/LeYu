@@ -228,10 +228,11 @@ static const CGFloat titleVerticalGap = 10;
 - (void)configureCellWithActivity:(ShopActivities *)activity
 {
     self.titleLabel.text = activity.title;
+    BOOL cached = activity.cached;
     [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
-//        [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [UIView transitionWithView:self duration:cached ? 0 : .3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
             self.thumbnailImage.image = image;
-//        } completion:nil];
+        } completion:nil];
     }];
 
     self.distanceLabel.text = @"--km";

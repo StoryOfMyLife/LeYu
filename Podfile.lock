@@ -20,6 +20,9 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - UICountingLabel (1.2.0)
   - UMengAnalytics (3.6.4)
 
@@ -37,6 +40,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh
   - ReactiveCocoa (~> 2.5)
+  - SDWebImage (~> 3.7.3)
   - UICountingLabel
   - UMengAnalytics
 
@@ -54,6 +58,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: ca8e9589895977df32d379d46e6b8a5450b3ff44
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
   UMengAnalytics: d24fb5200e13d2874f36b6337bc129b96511c54e
 

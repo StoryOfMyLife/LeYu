@@ -524,6 +524,7 @@
         activityVC.couldShowShop = NO;
         
         AVQuery *activityQuery = [ShopActivities query];
+        [activityQuery whereKey:@"isApproved" equalTo:@(1)];
         [activityQuery whereKey:@"shop" equalTo:self.shop];
         activityVC.activityQuery = activityQuery;
         
