@@ -70,7 +70,6 @@ static const CGFloat titleVerticalGap = 10;
     
     self.thumbnailImage = [[UIImageView alloc] init];
     self.thumbnailImage.clipsToBounds = YES;
-    self.thumbnailImage.contentMode = UIViewContentModeScaleAspectFill;
     
     self.shopIcon = [[UIImageView alloc] init];
     self.shopIcon.image = [UIImage imageNamed:@"The news"];
@@ -90,7 +89,7 @@ static const CGFloat titleVerticalGap = 10;
     self.shopNameLabel.textColor = RGBCOLOR_HEX(0xbbbbbb);
     
     self.giftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Package"]];
-    self.giftImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.giftImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.giftNumberLabel = [[UILabel alloc] init];
     self.giftNumberLabel.font = self.shopNameLabel.font;
@@ -228,12 +227,20 @@ static const CGFloat titleVerticalGap = 10;
 - (void)configureCellWithActivity:(ShopActivities *)activity
 {
     self.titleLabel.text = activity.title;
-    BOOL cached = activity.cached;
-    [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
-        [UIView transitionWithView:self duration:cached ? 0 : .3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-            self.thumbnailImage.image = image;
-        } completion:nil];
-    }];
+    if (activity.thumbnail) {
+        self.thumbnailImage.contentMode = UIViewContentModeScaleAspectFill;
+        self.thumbnailImage.image = activity.thumbnail;
+    } else {
+        self.thumbnailImage.contentMode = UIViewContentModeCenter;
+        self.thumbnailImage.image = [UIImage imageNamed:@"placeholder"];
+        
+        [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
+            [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.thumbnailImage.contentMode = UIViewContentModeScaleAspectFill;
+                self.thumbnailImage.image = image;
+            } completion:nil];
+        }];
+    }
 
     self.distanceLabel.text = @"--km";
     
