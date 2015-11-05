@@ -227,7 +227,7 @@ static const CGFloat titleVerticalGap = 10;
 - (void)configureCellWithActivity:(ShopActivities *)activity
 {
     self.titleLabel.text = activity.title;
-    if (activity.thumbnail) {
+    if (activity.cached) {
         self.thumbnailImage.contentMode = UIViewContentModeScaleAspectFill;
         self.thumbnailImage.image = activity.thumbnail;
     } else {

@@ -91,11 +91,6 @@
     }
 }
 
-- (void)loadNewData
-{
-    
-}
-
 #pragma mark -
 #pragma mark Table View Delegate and Datasource
 
@@ -103,6 +98,7 @@
 {
     LTableViewCellItem *item = [self tableView:tableView itemAtIndexPath:indexPath];
     LTableViewCell *cell = [[item cellClass] dequeueCellForTableView:tableView];
+    cell.indexPath = indexPath;
     cell.tableView = tableView;
     cell.cellItem = item;
     item.cell = cell;

@@ -22,6 +22,8 @@
 
 @property (nonatomic, weak) UITableView *tableView;
 
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
 - (CGFloat)tableView:(UITableView *)tableView heightForItem:(LTableViewCellItem *)item;
 
 @end

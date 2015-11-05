@@ -16,7 +16,7 @@
 
 #define DefaultYellowColor RGBCOLOR_HEX(0xe7d082)
 #define DefaultTitleColor RGBCOLOR(60, 60, 60)
-#define DefaultBackgroundColor UIColorFromRGB(0xF0F0F0)
+#define DefaultBackgroundColor UIColorFromRGB(0xf5f5f5)
 #define DefaultDarkBackgroundColor RGBCOLOR(29, 27, 24)
 
 #endif
