@@ -76,22 +76,23 @@
                     [self showNoData:@"定位失败"];
                     return;
                 }
-                NSArray *activities = [objects sortedArrayUsingComparator:^NSComparisonResult(ShopActivities *obj1, ShopActivities *obj2) {
-                    AVGeoPoint *geo1 = obj1.shop.geolocation;
-                    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:geo1.latitude longitude:geo1.longitude];
-                    CLLocationDistance distance1 = [currentLocation distanceFromLocation:location1];
-                    
-                    AVGeoPoint *geo2 = obj2.shop.geolocation;
-                    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:geo2.latitude longitude:geo2.longitude];
-                    CLLocationDistance distance2 = [currentLocation distanceFromLocation:location2];
-                    if (distance1 < distance2) {
-                        return NSOrderedAscending;
-                    }
-                    if (distance1 > distance2) {
-                        return NSOrderedDescending;
-                    }
-                    return NSOrderedSame;
-                }];
+                NSArray *activities = objects;
+//                NSArray *activities = [objects sortedArrayUsingComparator:^NSComparisonResult(ShopActivities *obj1, ShopActivities *obj2) {
+//                    AVGeoPoint *geo1 = obj1.shop.geolocation;
+//                    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:geo1.latitude longitude:geo1.longitude];
+//                    CLLocationDistance distance1 = [currentLocation distanceFromLocation:location1];
+//                    
+//                    AVGeoPoint *geo2 = obj2.shop.geolocation;
+//                    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:geo2.latitude longitude:geo2.longitude];
+//                    CLLocationDistance distance2 = [currentLocation distanceFromLocation:location2];
+//                    if (distance1 < distance2) {
+//                        return NSOrderedAscending;
+//                    }
+//                    if (distance1 > distance2) {
+//                        return NSOrderedDescending;
+//                    }
+//                    return NSOrderedSame;
+//                }];
                 for (ShopActivities *activity in activities) {
                     [self.recentActivities removeAllObjects];
                     [self.recentActivities addObjectsFromArray:activities];
