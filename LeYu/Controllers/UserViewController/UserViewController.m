@@ -63,23 +63,36 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            if (self.shopUser) {
+        if (self.shopUser) {
+            if (indexPath.row == 0) {
+            
                 ActivityManageViewController *vc = [[ActivityManageViewController alloc] init];
                 vc.title = @"活动管理";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-            } else {
+            } else if (indexPath.row == 1) {
                 MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
                 vc.title = @"我的活动";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 2) {
+                FollowedShopViewController *vc = [[FollowedShopViewController alloc] init];
+                vc.title = @"收藏的店铺";
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             }
-        } else if (indexPath.row == 1) {
-            FollowedShopViewController *vc = [[FollowedShopViewController alloc] init];
-            vc.title = @"收藏的店铺";
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            if (indexPath.row == 0) {
+                MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
+                vc.title = @"我的活动";
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 1) {
+                FollowedShopViewController *vc = [[FollowedShopViewController alloc] init];
+                vc.title = @"收藏的店铺";
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
     }
 }

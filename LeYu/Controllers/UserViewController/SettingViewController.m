@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import <LeanCloudFeedback/LeanCloudFeedback.h>
 
 @interface SettingViewController ()
 
@@ -34,6 +35,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 1) {
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
+        hud.removeFromSuperViewOnHide = YES;
+        hud.detailsLabelText = @"正在清除缓存...";
+        [self.view addSubview:hud];
+        [AVFile clearAllCachedFiles];
+        [hud show:YES];
+        [hud hide:YES afterDelay:3];
+    } else if (indexPath.row == 2) {
+        LCUserFeedbackViewController *feedbackViewController = [[LCUserFeedbackViewController alloc] init];
+        feedbackViewController.navigationBarStyle = LCUserFeedbackNavigationBarStyleNone;
+        feedbackViewController.contactHeaderHidden = YES;
+        feedbackViewController.feedbackTitle = [LYUser currentUser].username;
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedbackViewController];
+        [self presentViewController:navigationController animated:YES completion: ^{
+        }];
+    }
 }
 
 - (IBAction)logout:(id)sender
