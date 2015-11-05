@@ -495,12 +495,16 @@
         
         switch (self.playBack.status) {
             case AFSoundStatusPlaying:
-                [self.playBack restart];
+                [self.playBack pause];
+                [self.timerDisposeable dispose];
+                return;
                 break;
             case AFSoundStatusNotStarted:
                 [self.playBack play];
                 break;
             case AFSoundStatusFinished:
+            case AFSoundStatusPaused:
+                [self.playBack play];
                 [self.playBack restart];
                 break;
             default:
