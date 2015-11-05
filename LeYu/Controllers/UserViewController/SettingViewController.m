@@ -7,7 +7,6 @@
 //
 
 #import "SettingViewController.h"
-#import <LeanCloudFeedback/LeanCloudFeedback.h>
 
 @interface SettingViewController ()
 
@@ -43,14 +42,6 @@
         [AVFile clearAllCachedFiles];
         [hud show:YES];
         [hud hide:YES afterDelay:3];
-    } else if (indexPath.row == 2) {
-        LCUserFeedbackViewController *feedbackViewController = [[LCUserFeedbackViewController alloc] init];
-        feedbackViewController.navigationBarStyle = LCUserFeedbackNavigationBarStyleNone;
-        feedbackViewController.contactHeaderHidden = YES;
-        feedbackViewController.feedbackTitle = [LYUser currentUser].username;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedbackViewController];
-        [self presentViewController:navigationController animated:YES completion: ^{
-        }];
     }
 }
 

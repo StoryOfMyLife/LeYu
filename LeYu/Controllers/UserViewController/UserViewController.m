@@ -16,6 +16,8 @@
 #import "ActivityUserRelation.h"
 #import <FXBlurView.h>
 
+#import <LeanCloudFeedback/LeanCloudFeedback.h>
+
 @interface UserViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
@@ -80,6 +82,8 @@
                 vc.title = @"收藏的店铺";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 3) {
+                [self showFeedbackViewController];
             }
         } else {
             if (indexPath.row == 0) {
@@ -92,9 +96,22 @@
                 vc.title = @"收藏的店铺";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 2) {
+                [self showFeedbackViewController];
             }
         }
     }
+}
+
+- (void)showFeedbackViewController
+{
+    LCUserFeedbackViewController *feedbackViewController = [[LCUserFeedbackViewController alloc] init];
+    feedbackViewController.navigationBarStyle = LCUserFeedbackNavigationBarStyleNone;
+    feedbackViewController.contactHeaderHidden = YES;
+    feedbackViewController.feedbackTitle = [LYUser currentUser].username;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedbackViewController];
+    [self presentViewController:navigationController animated:YES completion: ^{
+    }];
 }
 
 #pragma mark -
