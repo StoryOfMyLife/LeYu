@@ -54,6 +54,7 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
         _webview = [[UIWebView alloc] init];
         _webview.scalesPageToFit = YES;
         _webview.delegate = self;
+        _webview.backgroundColor = DefaultBackgroundColor;
         
         [self.view addSubview:_webview];
         [self.view addSubview:self.indicator];
