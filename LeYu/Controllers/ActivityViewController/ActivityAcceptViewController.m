@@ -79,6 +79,7 @@
     self.arriveDate = [NSDate date];
     
     [dateDescItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
+        [tableView beginUpdates];
         NSArray *indexPaths = @[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
         if ([self.items[0] count] == 3) {
             [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
@@ -87,6 +88,7 @@
             [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
             [self _setItems:@[@[nameItem, phoneItem, dateDescItem]]];
         }
+        [tableView endUpdates];
         
         [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kAcceptDatePickValueChanged object:nil] map:^id(NSNotification *noti) {
             UIDatePicker* datePicker = (UIDatePicker *)noti.object;

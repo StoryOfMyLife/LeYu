@@ -10,6 +10,9 @@
 #import "ShopActivities.h"
 #import "OtherActivityCell.h"
 #import "ActivityDetailCellItem.h"
+#import "ActivityShopPreviewCellItem.h"
+#import "ShopMapCellItem.h"
+
 #import "ShopViewController.h"
 #import "ActivityAcceptViewController.h"
 #import "ImagePreviewViewController.h"
@@ -31,6 +34,8 @@
 @property (nonatomic, strong) UILabel *imageIndexLabel;
 
 @property (nonatomic, strong) ActivityDetailCellItem *activityDetailItem;
+@property (nonatomic, strong) ActivityShopPreviewCellItem *shopPreviewItem;
+@property (nonatomic, strong) ShopMapCellItem *shopMapItem;
 
 @property (nonatomic, strong) NSArray *otherActivities;
 
@@ -71,6 +76,8 @@
 {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     [self setTitleView];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -86,12 +93,28 @@
     self.activityDetailItem = [[ActivityDetailCellItem alloc] init];
     self.activityDetailItem.activity = self.activities;
     
-    weakSelf();
-    self.items = @[@[self.activityDetailItem]];
+    self.shopPreviewItem = [[ActivityShopPreviewCellItem alloc] init];
+    self.shopPreviewItem.shop = self.activities.shop;
+    
+    
+    self.shopMapItem = [[ShopMapCellItem alloc] init];
+    self.shopMapItem.shop = self.activities.shop;
+    
+    self.items = @[@[self.activityDetailItem, self.shopPreviewItem, self.shopMapItem]];
     
     [self convertFilesToImages:self.imageFileIds];
     
     self.refreshEnable = NO;
+    
+    weakSelf();
+    self.shopPreviewItem.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+        [weakSelf gotoShop:YES];
+    };
+    
+    self.shopMapItem.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+        [weakSelf gotoShop:YES];
+    };
+
     self.updateBlock = ^{
         [weakSelf loadData];
     };
@@ -215,7 +238,7 @@
 {
     NSMutableArray *mutableItems = [NSMutableArray array];
     
-    [mutableItems addObject:@[self.activityDetailItem]];
+    [mutableItems addObject:@[self.activityDetailItem, self.shopPreviewItem, self.shopMapItem]];
     [mutableItems addObject:activities];
     [self _setItems:mutableItems];
     [self.tableView beginUpdates];
@@ -644,7 +667,7 @@
     shopName.titleLabel.font = SystemFontWithSize(15);
     shopName.tintColor = DefaultYellowColor;
     [shopName setTitle:self.activities.shop.shopname forState:UIControlStateNormal];
-    [shopName addTarget:self action:@selector(gotoShop) forControlEvents:UIControlEventTouchUpInside];
+    [shopName addTarget:self action:@selector(animateToShopView) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:shopName];
     
     [shopName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -747,13 +770,18 @@
         _shopIcon.layer.borderColor = RGBCOLOR(238, 238, 238).CGColor;
         _shopIcon.image = [UIImage imageNamed:@"DefaultAvatar"];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoShop)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animateToShopView)];
         [_shopIcon addGestureRecognizer:tap];
     }
     return _shopIcon;
 }
 
-- (void)gotoShop
+- (void)animateToShopView
+{
+    [self gotoShop:YES];
+}
+
+- (void)gotoShop:(BOOL)animated
 {
     CGRect rect = [self.view convertRect:self.shopIcon.frame fromView:self.shopIcon.superview];
     rect.origin.y += self.view.top;
@@ -761,10 +789,14 @@
     ShopViewController *shopViewController =[[ShopViewController alloc] initWithShop:self.activities.shop];
     shopViewController.presentedRect = rect;
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
-    nav.transitioningDelegate = shopViewController;
-    nav.modalPresentationStyle = UIModalPresentationCustom;
-    [self presentViewController:nav animated:YES completion:nil];
+    if (animated) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
+        nav.transitioningDelegate = shopViewController;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:nav animated:YES completion:nil];
+    } else {
+        [self.navigationController pushViewController:shopViewController animated:YES];
+    }
 }
 
 #pragma mark -

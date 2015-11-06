@@ -115,11 +115,12 @@
 {
     NSAssert([NSThread isMainThread], @"非主线程");
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     LTableViewCellItem *item = [self tableView:tableView itemAtIndexPath:indexPath];
     
     [self tableView:tableView didSelectItem:item atIndexPath:indexPath];
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -139,9 +140,7 @@
 - (void)tableView:(UITableView *)tableView didSelectItem:(LTableViewCellItem *)item atIndexPath:(NSIndexPath *)indexPath
 {
     if (item.actionBlock) {
-        [tableView beginUpdates];
         item.actionBlock(self.tableView, indexPath);
-        [tableView endUpdates];
     }
 }
 

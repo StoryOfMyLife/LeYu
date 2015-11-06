@@ -37,10 +37,12 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.address = [[UILabel alloc] init];
         self.address.numberOfLines = 0;
-        self.address.font = SystemFontWithSize(16);
-        self.address.textColor = [UIColor blackColor];
+        self.address.textAlignment = NSTextAlignmentCenter;
+        self.address.font = SystemFontWithSize(15);
+        self.address.textColor = DefaultTitleColor;
         [self.address setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width-20.0f];
         
         [self.contentView addSubview:self.address];
@@ -59,7 +61,7 @@
     
     [self.address mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).with.offset(inset);
-        make.left.equalTo(self.contentView).offset(inset);
+        make.centerX.equalTo(self.contentView);
         make.right.equalTo(self.contentView).offset(-inset);
     }];
     

@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ShopViewController/ShopActivityViewController.m"
-            timestampString = "468434233.879041"
+            timestampString = "468434279.621297"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "-loadActivities:"
             landmarkType = "5">
          </BreakpointContent>
@@ -115,13 +115,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LeYu/Controllers/ShopViewController/ShopActivityViewController.m"
-            timestampString = "468434279.621297"
+            filePath = "LeYu/Controllers/ShopViewController/ShopViewController.m"
+            timestampString = "468526282.595123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "-loadActivities:"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "-dismiss"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

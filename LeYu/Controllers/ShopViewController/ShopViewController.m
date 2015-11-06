@@ -207,10 +207,10 @@
 
 - (void)dismiss
 {
-    if (CGRectIsEmpty(self.presentedRect)) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
+    if (self.presentingViewController) {
         [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -613,7 +613,7 @@
 - (void)pan:(UIPanGestureRecognizer *)pan
 {
     UIView *view = self.navigationController.view;
-    NSLog(@"%.2f", [pan velocityInView:view].x);
+
     if (pan.state == UIGestureRecognizerStateBegan) {
         CGPoint location = [pan locationInView:view];
         if (location.x < view.width) {

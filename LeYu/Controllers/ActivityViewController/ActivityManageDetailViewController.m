@@ -62,6 +62,9 @@
             
             ActivityAcceptedDetailCellItem *item = [[ActivityAcceptedDetailCellItem alloc] init];
             [item applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
+                
+                [tableView beginUpdates];
+                
                 NSArray *currentItems = self.items[indexPath.section];
                 
                 NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:0];
@@ -97,6 +100,7 @@
                     [newItems replaceObjectAtIndex:indexPath.section withObject:newSectionItems];
                     [self _setItems:newItems];
                 }
+                [tableView endUpdates];
             }];
             item.date = date;
             item.count = [relations count];

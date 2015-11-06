@@ -77,6 +77,10 @@
         [self.likeButton setImage:[UIImage imageNamed:@"Praise"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.likeButton];
         
+        UIView *bottomSeperator = [[UIView alloc] init];
+        bottomSeperator.backgroundColor = RGBCOLOR(205, 205, 205);
+        [self.contentView addSubview:bottomSeperator];
+        
 //        UIView *buttonContainer = [[UIView alloc] init];
 //        buttonContainer.backgroundColor = [UIColor clearColor];
 //        buttonContainer.layer.borderColor = DefaultYellowColor.CGColor;
@@ -143,7 +147,14 @@
         [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
             make.top.equalTo(self.activityDescLabel.mas_bottom).offset(25);
-            make.bottom.equalTo(self.contentView).offset(-25);
+            make.bottom.equalTo(bottomSeperator).offset(-50);
+        }];
+        
+        [bottomSeperator mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.contentView);
+            make.height.equalTo(@0.5);
+            make.width.equalTo(self.contentView).offset(-30);
+            make.bottom.equalTo(self.contentView).offset(-20);
         }];
         
 //        [buttonContainer mas_makeConstraints:^(MASConstraintMaker *make) {

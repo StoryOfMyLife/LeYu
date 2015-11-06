@@ -63,6 +63,7 @@
     }];
     
     [amountItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
+        [tableView beginUpdates];
         NSArray *indexPaths = @[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
         if (![self.items[indexPath.section] containsObject:amountSelectionItem]) {
             [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
@@ -80,6 +81,7 @@
             [newItems replaceObjectAtIndex:indexPath.section withObject:newSectionItems];
             [self _setItems:newItems];
         }
+        [tableView endUpdates];
         
         [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kAmountPickValueChanged object:nil] map:^id(NSNotification *noti) {
             NSString *amount = (NSString *)noti.object;
@@ -93,6 +95,7 @@
     
     [timeItem applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
         NSArray *indexPaths = @[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
+        [tableView beginUpdates];
         if ([self.items[indexPath.section] containsObject:timeSelectionItem]) {
             [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
             NSMutableArray *newSectionItems = [NSMutableArray arrayWithArray:self.items[indexPath.section]];
@@ -109,6 +112,8 @@
             [newItems replaceObjectAtIndex:indexPath.section withObject:newSectionItems];
             [self _setItems:newItems];
         }
+        
+        [tableView endUpdates];
         
         [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kDatePickValueChanged object:nil] map:^id(NSNotification *noti) {
             UIDatePicker* datePicker = (UIDatePicker *)noti.object;
