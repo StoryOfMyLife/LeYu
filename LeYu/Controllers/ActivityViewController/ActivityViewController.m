@@ -69,7 +69,7 @@
         _tabHeader.backgroundColor = [UIColor whiteColor];
         _tabHeader.bottomIndicatorColor = DefaultYellowColor;
         _tabHeader.categories = @[[[TTCategoryItem alloc] initWithTitle:@"附近"],
-                                  [[TTCategoryItem alloc] initWithTitle:@"收藏"]];
+                                  [[TTCategoryItem alloc] initWithTitle:@"关注"]];
         weakSelf();
         _tabHeader.didSelectCategory = ^(NSInteger index){
             [weakSelf.pageViewController setCurrentPage:index scrollToPage:YES];

@@ -141,12 +141,17 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
+    [self checkAcceptance];
+}
+
+- (void)checkAcceptance
+{
     if ([LYUser currentUser]) {
         AVQuery *relationQuery = [ActivityUserRelation query];
         [relationQuery whereKey:@"user" equalTo:[LYUser currentUser]];
         [relationQuery whereKey:@"activity" equalTo:self.activities];
         [relationQuery countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
-            if (number == 0) {
+            if (number != 0) {
                 [self didAccept];
             }
         }];
@@ -306,6 +311,19 @@
         vc.transitioningDelegate = vc;
         vc.modalPresentationStyle = UIModalPresentationCustom;
         [self presentViewController:vc animated:YES completion:nil];
+        
+        vc.completion = ^(BOOL confirmed) {
+            if (confirmed) {
+                MBProgressHUD *hud = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
+                hud.mode = MBProgressHUDModeText;
+                hud.removeFromSuperViewOnHide = YES;
+                hud.detailsLabelText = @"报名成功，可以在我的足迹里查看";
+                [self.view addSubview:hud];
+                [hud show:YES];
+                [hud hide:YES afterDelay:3];
+                [self checkAcceptance];
+            }
+        };
     }
 }
 

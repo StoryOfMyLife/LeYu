@@ -444,7 +444,7 @@
         _tabHeader.backgroundColor = [UIColor whiteColor];
         _tabHeader.bottomIndicatorColor = DefaultYellowColor;
         _tabHeader.categories = @[[[TTCategoryItem alloc] initWithTitle:@"店铺"],
-                                  [[TTCategoryItem alloc] initWithTitle:@"活动"],
+                                  [[TTCategoryItem alloc] initWithTitle:@"分享"],
                                   [[TTCategoryItem alloc] initWithTitle:@"位置"]];
         weakSelf();
         _tabHeader.didSelectCategory = ^(NSInteger index){

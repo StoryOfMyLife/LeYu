@@ -217,7 +217,15 @@
         
         [self.activity incrementKey:@"participantNum"];
         [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (self.completion) {
+                    if (succeeded) {
+                        self.completion(YES);
+                    } else {
+                        self.completion(NO);
+                    }
+                }
+            }];
         }];
     }
 }

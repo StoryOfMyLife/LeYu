@@ -195,7 +195,7 @@
     
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     paragraph.lineSpacing = 10;
-    paragraph.firstLineHeadIndent = 32;
+//    paragraph.firstLineHeadIndent = 32;
     
     NSString *desc = activity.activitiesDescription;
     if (!desc) {

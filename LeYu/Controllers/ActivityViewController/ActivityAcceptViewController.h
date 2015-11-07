@@ -10,10 +10,14 @@
 #import "ShopActivities.h"
 #import "ActivityDetailViewController.h"
 
+typedef void(^Completion)(BOOL confirmed);
+
 @interface ActivityAcceptViewController : LTableViewController <UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, assign) CGRect presentedRect;
 
 @property (nonatomic, strong) ShopActivities *activity;
+
+@property (nonatomic, strong) Completion completion;
 
 @end
