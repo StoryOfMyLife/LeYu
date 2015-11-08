@@ -36,17 +36,24 @@
         if (succeeded) {
             //注册成功，登录
             [LYUser logInWithMobilePhoneNumberInBackground:self.userInfo[@"phone"] password:self.password.text block:^(AVUser *user, NSError *error) {
-                LYUser *currentUser = [LYUser currentUser];
-                AVQuery *query = [Shop query];
-                [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
-                Shop *shop = (Shop *)[query getFirstObject];
-                currentUser.shop = shop;
-                if (currentUser) {
-                    [self dismiss];
+                if (!error) {
+                    LYUser *currentUser = [LYUser currentUser];
+                    if (currentUser) {
+                        AVQuery *query = [Shop query];
+                        [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
+                        Shop *shop = (Shop *)[query getFirstObject];
+                        currentUser.shop = shop;
+                        
+                        [self dismiss];
+                    }
+                } else {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"登录失败:%@", error.userInfo[@"NSLocalizedDescription"]] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    [alertView show];
                 }
             }];
         } else {
-            Log(@"注册失败");
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"注册失败:%@", error.userInfo[@"NSLocalizedDescription"]] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alertView show];
         }
     }];
 }
