@@ -109,6 +109,7 @@
                             @strongify(activity);
                             [tableView deselectRowAtIndexPath:indexPath animated:YES];
                             ActivityWebviewController *webVC = [[ActivityWebviewController alloc] init];
+                            webVC.activity = activity;
                             [self.navigationController pushViewController:webVC animated:YES];
                             webVC.urlID = activity.objectId;
                         };

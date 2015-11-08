@@ -9,12 +9,16 @@
 static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail/";
 
 #import "ActivityWebviewController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
 
 @interface ActivityWebviewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webview;
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicator;
+
+@property (nonatomic, strong) NSURL *url;
 
 @end
 
@@ -23,6 +27,9 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+    self.navigationItem.rightBarButtonItem = shareItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -36,7 +43,8 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
     if (_urlID != urlID) {
         _urlID = urlID;
         NSString *urlString = [NSString stringWithFormat:@"%@%@?from=app", baseURL, urlID];
-        [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+        self.url = [NSURL URLWithString:urlString];
+        [self.webview loadRequest:[NSURLRequest requestWithURL:self.url]];
     }
 }
 
@@ -74,6 +82,55 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
 {
     [self.indicator stopAnimating];
     self.title = @"";
+}
+
+- (void)share
+{
+    [AVFile getFileWithObjectId:self.activity.pics[0] withBlock:^(AVFile *file, NSError *error) {
+        
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@", baseURL, self.urlID];
+        
+        [shareParams SSDKSetupShareParamsByText:self.activity.title
+                                         images:file.url
+                                            url:[NSURL URLWithString:url]
+                                          title:self.activity.title
+                                           type:SSDKContentTypeAuto];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        SSUIShareActionSheetController *sheet = [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                 items:nil
+                           shareParams:shareParams
+                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                       
+                       switch (state) {
+                           case SSDKResponseStateSuccess:
+                           {
+                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                   message:nil
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"确定"
+                                                                         otherButtonTitles:nil];
+                               [alertView show];
+                               break;
+                           }
+                           case SSDKResponseStateFail:
+                           {
+                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                               message:[NSString stringWithFormat:@"%@",error]
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"OK"
+                                                                     otherButtonTitles:nil, nil];
+                               [alert show];
+                               break;
+                           }
+                           default:
+                               break;
+                       }
+                       
+                   }];
+        [sheet.directSharePlatforms addObject:@(SSDKPlatformTypeSinaWeibo)];
+    }];
 }
 
 @end

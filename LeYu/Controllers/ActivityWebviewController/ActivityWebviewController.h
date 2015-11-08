@@ -7,10 +7,13 @@
 //
 
 #import "LViewController.h"
+#import "ShopActivities.h"
 
 @interface ActivityWebviewController : LViewController
 
 @property (nonatomic, strong) NSString *urlID;
+
+@property (nonatomic, strong) ShopActivities *activity;
 
 
 @end

@@ -24,6 +24,9 @@
 
 #import <AFSoundManager/AFSoundManager.h>
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+
 @interface ActivityDetailViewController ()
 
 @property (nonatomic, strong) ShopActivities *activities;
@@ -75,6 +78,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+    self.navigationItem.rightBarButtonItem = shareItem;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -538,6 +544,7 @@
             case AFSoundStatusPlaying:
                 [self.playBack pause];
                 [self.timerDisposeable dispose];
+                self.audioProgress.progress = 0;
                 return;
                 break;
             case AFSoundStatusNotStarted:
@@ -849,6 +856,57 @@
     previewVC.currentIndex = self.imageIndex;
     
     [self presentViewController:previewVC animated:YES completion:nil];
+}
+
+static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail/";
+
+- (void)share
+{
+    [AVFile getFileWithObjectId:self.activities.pics[0] withBlock:^(AVFile *file, NSError *error) {
+        
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@", baseURL, self.activities.objectId];
+        
+        [shareParams SSDKSetupShareParamsByText:self.activities.title
+                                         images:file.url
+                                            url:[NSURL URLWithString:url]
+                                          title:self.activities.title
+                                           type:SSDKContentTypeAuto];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        SSUIShareActionSheetController *sheet = [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                                                         items:nil
+                                                                   shareParams:shareParams
+                                                           onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                                                               
+                                                               switch (state) {
+                                                                   case SSDKResponseStateSuccess:
+                                                                   {
+                                                                       UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                                                           message:nil
+                                                                                                                          delegate:nil
+                                                                                                                 cancelButtonTitle:@"确定"
+                                                                                                                 otherButtonTitles:nil];
+                                                                       [alertView show];
+                                                                       break;
+                                                                   }
+                                                                   case SSDKResponseStateFail:
+                                                                   {
+                                                                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                                                                      delegate:nil
+                                                                                                             cancelButtonTitle:@"OK"
+                                                                                                             otherButtonTitles:nil, nil];
+                                                                       [alert show];
+                                                                       break;
+                                                                   }
+                                                                   default:
+                                                                       break;
+                                                               }
+                                                               
+                                                           }];
+        [sheet.directSharePlatforms addObject:@(SSDKPlatformTypeSinaWeibo)];
+    }];
 }
 
 @end
