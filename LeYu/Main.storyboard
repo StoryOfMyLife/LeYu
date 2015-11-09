@@ -1718,37 +1718,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="The news" translatesAutoresizingMaskIntoConstraints="NO" id="74G-qS-5Sw">
-                                <rect key="frame" x="140" y="70" width="40" height="40"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="关于乐鱼" translatesAutoresizingMaskIntoConstraints="NO" id="WcN-Jq-B8j">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="乐鱼，游好玩的" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2DU-f7-PfM">
-                                <rect key="frame" x="101" y="135" width="119" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="   乐鱼是一款服务于店家线上连接消费者的APP。我们最大的特色是能够让店家最便捷、及时、有效地发布活动和分享内容；同时，我们也向用户提供了个性化的内容定制分发功能，让用户及时获取感兴趣的活动与店家信息，乐于参与活动，找到喜爱的生活方式。" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SsS-9V-t01">
-                                <rect key="frame" x="36" y="170" width="248" height="369"/>
-                                <animations/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SsS-9V-t01" firstAttribute="top" secondItem="2DU-f7-PfM" secondAttribute="bottom" constant="15" id="4gy-Lk-os1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SsS-9V-t01" secondAttribute="trailing" constant="20" id="5pa-dZ-pp9"/>
-                            <constraint firstItem="oFd-ew-dZR" firstAttribute="top" secondItem="SsS-9V-t01" secondAttribute="bottom" constant="29" id="CeR-9d-uYD"/>
-                            <constraint firstItem="74G-qS-5Sw" firstAttribute="centerX" secondItem="Dlv-2E-kKf" secondAttribute="centerX" id="GMQ-9r-Hre"/>
-                            <constraint firstItem="74G-qS-5Sw" firstAttribute="top" secondItem="5DH-dj-RN2" secondAttribute="bottom" constant="50" id="KGa-4I-TVu"/>
-                            <constraint firstItem="2DU-f7-PfM" firstAttribute="top" secondItem="74G-qS-5Sw" secondAttribute="bottom" constant="25" id="RTG-YX-Khw"/>
-                            <constraint firstItem="2DU-f7-PfM" firstAttribute="centerX" secondItem="74G-qS-5Sw" secondAttribute="centerX" id="Xn2-sI-NVS"/>
-                            <constraint firstItem="SsS-9V-t01" firstAttribute="leading" secondItem="Dlv-2E-kKf" secondAttribute="leadingMargin" constant="20" id="YAH-bX-81s"/>
-                            <constraint firstItem="SsS-9V-t01" firstAttribute="centerX" secondItem="2DU-f7-PfM" secondAttribute="centerX" id="iDW-ld-iSJ"/>
+                            <constraint firstItem="WcN-Jq-B8j" firstAttribute="bottom" secondItem="oFd-ew-dZR" secondAttribute="top" id="VGt-WC-bKw"/>
+                            <constraint firstItem="WcN-Jq-B8j" firstAttribute="top" secondItem="Dlv-2E-kKf" secondAttribute="top" id="eGR-WH-oHg"/>
+                            <constraint firstItem="WcN-Jq-B8j" firstAttribute="leading" secondItem="Dlv-2E-kKf" secondAttribute="leading" id="vdl-5x-05j"/>
+                            <constraint firstAttribute="trailing" secondItem="WcN-Jq-B8j" secondAttribute="trailing" id="zAw-lZ-HQ9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5TN-6b-jCE"/>
@@ -2014,7 +1995,6 @@
     </scenes>
     <resources>
         <image name="DefaultAvatar" width="55" height="55"/>
-        <image name="The news" width="40" height="40"/>
         <image name="checked" width="37" height="37"/>
         <image name="denglu" width="90" height="97"/>
         <image name="play" width="50" height="50"/>
@@ -2025,6 +2005,7 @@
         <image name="reset_selected" width="50" height="50"/>
         <image name="stop" width="65" height="65"/>
         <image name="unchecked" width="37" height="37"/>
+        <image name="关于乐鱼" width="375" height="667"/>
         <image name="意见反馈" width="34" height="34"/>
         <image name="收藏" width="34" height="34"/>
         <image name="活动" width="34" height="34"/>
