@@ -55,6 +55,14 @@
         if (currentUser) {
             AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
             [appdelegate checkAddButton];
+            
+            if (currentUser.shop.objectId) {
+                AVQuery *query = [Shop query];
+                [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
+                Shop *shop = (Shop *)[query getFirstObject];
+                currentUser.shop = shop;
+            }
+            
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
