@@ -453,7 +453,7 @@ static const NSInteger kTagOffset = 1000;
 {
     CGFloat borderWidth = self.middleImageView.layer.borderWidth;
     self.middleImageView.layer.borderWidth = 0;
-    UIGraphicsBeginImageContextWithOptions(self.middleImageView.size, YES, 1);
+    UIGraphicsBeginImageContextWithOptions(self.middleImageView.size, YES, 0);
     [self.middleImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *clippedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
