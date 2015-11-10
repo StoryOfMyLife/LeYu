@@ -13,11 +13,15 @@
 #import "VoiceRecordingViewController.h"
 #import "ActivityEditViewController.h"
 
+#import "JDStatusBarNotification.h"
+
 @interface HFActivityEditViewController ()
 
 @property (nonatomic, strong) ActivityEditViewController *descEditVC;
 @property (nonatomic, strong) ActivityDescriptionCellItem *descItem;
 @property (nonatomic, strong) ActivityRecordCellItem *recordItem;
+
+@property (nonatomic, strong) JDStatusBarView *statusBarView;
 
 @end
 
@@ -193,6 +197,9 @@
 {
     [self.view endEditing:YES];
     
+    self.statusBarView = [JDStatusBarNotification showWithStatus:@"正在发布..." styleName:JDStatusBarStyleDefault];
+    [JDStatusBarNotification showActivityIndicator:YES indicatorStyle:UIActivityIndicatorViewStyleGray];
+    
     ImageAssetsManager *manager = [ImageAssetsManager manager];
     ShopActivities *activity = [ShopActivities object];
     activity.title = manager.activityTheme;
@@ -239,9 +246,19 @@
     
     [activity save:&error];
     if (!error) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [JDStatusBarNotification showWithStatus:@"发布成功!"  styleName:JDStatusBarStyleSuccess];
+        [self dismissViewControllerAnimated:YES completion:^{
+            [JDStatusBarNotification dismissAnimated:YES];
+        }];
     } else {
         Log(@"upload activity fail : %@", error);
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
+        hud.mode = MBProgressHUDModeText;
+        hud.removeFromSuperViewOnHide = YES;
+        hud.detailsLabelText = @"出现问题，发布失败";
+        [self.view addSubview:hud];
+        [hud show:YES];
+        [hud hide:YES afterDelay:3];
     }
 }
 

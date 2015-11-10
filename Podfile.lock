@@ -9,6 +9,7 @@ PODS:
   - Fabric/Base (1.5.5)
   - FXBlurView (1.6.4)
   - GCPlaceholderTextView (1.0.1)
+  - JDStatusBarNotification (1.5.2)
   - LeanCloudFeedback (0.0.7):
     - AVOSCloud (~> 3.1)
   - libPhoneNumber-iOS (0.8.8)
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - Fabric
   - FXBlurView (~> 1.6.4)
   - GCPlaceholderTextView (~> 1.0.1)
+  - JDStatusBarNotification
   - LeanCloudFeedback
   - libPhoneNumber-iOS (~> 0.8)
   - Masonry (= 0.5.3)
@@ -56,6 +58,7 @@ SPEC CHECKSUMS:
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   GCPlaceholderTextView: dec36f63092602c6b5df76e2ce43fa22671b9d12
+  JDStatusBarNotification: a36d09ccbb047217572b074a61e7ca10dddc5f0a
   LeanCloudFeedback: 35d2effa89e03e9a3ce2158874a6f127751f7257
   libPhoneNumber-iOS: fe877b7c44c270a9da2082d3e2892d5316f6a2f9
   Masonry: 9f515466afe48632562342a40a1c224071a1a022
