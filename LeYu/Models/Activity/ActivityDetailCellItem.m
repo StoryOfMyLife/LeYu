@@ -122,7 +122,7 @@
         
         [self.activityDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(timeLine);
-            make.right.equalTo(self.contentView).offset(-20);
+            make.right.equalTo(self.contentView).offset(-10);
             make.top.equalTo(timeLine.mas_bottom).offset(10);
         }];
         
@@ -141,13 +141,13 @@
         [self.activityDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.activityDateLabel);
             make.right.equalTo(self.activityDateLabel);
-            make.top.equalTo(self.descLine.mas_bottom).offset(10);
+            make.top.equalTo(self.descLine.mas_bottom).offset(0);
         }];
         
         [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self);
-            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(25);
-            make.bottom.equalTo(bottomSeperator).offset(-50);
+            make.centerX.equalTo(self).offset(5);
+            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(15);
+            make.bottom.equalTo(bottomSeperator).offset(-40);
         }];
         
         [bottomSeperator mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -193,23 +193,17 @@
     
     ShopActivities *activity = cellItem.activity;
     
-    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-    paragraph.lineSpacing = 10;
-//    paragraph.paragraphSpacing = 1;
-//    paragraph.paragraphSpacingBefore = 1;
-//    paragraph.minimumLineHeight = 1;
-//    paragraph.firstLineHeadIndent = 32;
-    
     NSString *desc = activity.activitiesDescription;
-    if (!desc) {
+    if ([desc length] == 0) {
         desc = @"没有说明";
     }
-    NSAttributedString *aStr = [[NSAttributedString alloc] initWithString:desc
-                                                               attributes:@{NSFontAttributeName : SystemFontWithSize(16),
-                                                                            NSKernAttributeName : @(0),
-                                                                            NSParagraphStyleAttributeName : paragraph}];
-    self.activityDescLabel.attributedText = aStr;
-//    self.activityDescLabel.text = activity.activitiesDescription;
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:desc];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 10;
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, desc.length)];
+    self.activityDescLabel.attributedText = attributedString;
+
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
     [self layoutButton:self.likeButton];
     

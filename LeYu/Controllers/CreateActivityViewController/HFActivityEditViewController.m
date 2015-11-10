@@ -246,10 +246,8 @@
     
     [activity save:&error];
     if (!error) {
-        [JDStatusBarNotification showWithStatus:@"发布成功!"  styleName:JDStatusBarStyleSuccess];
-        [self dismissViewControllerAnimated:YES completion:^{
-            [JDStatusBarNotification dismissAnimated:YES];
-        }];
+        [JDStatusBarNotification showWithStatus:@"发布成功!" dismissAfter:2 styleName:JDStatusBarStyleSuccess];
+        [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         Log(@"upload activity fail : %@", error);
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];

@@ -551,9 +551,10 @@
                 [self.playBack play];
                 break;
             case AFSoundStatusFinished:
+                [self.playBack restart];
+                break;
             case AFSoundStatusPaused:
                 [self.playBack play];
-                [self.playBack restart];
                 break;
             default:
                 break;
