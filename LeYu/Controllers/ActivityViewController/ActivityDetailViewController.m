@@ -57,6 +57,7 @@
 @property (nonatomic, strong) RACDisposable *timerDisposeable;
 
 @property (nonatomic, strong) UILabel *durationLabel;
+@property (nonatomic, assign) NSInteger duration;
 
 @end
 
@@ -161,6 +162,24 @@
                 [self didAccept];
             }
         }];
+    }
+}
+
+- (void)setDuration:(NSInteger)duration
+{
+    if (_duration != duration) {
+        _duration = duration;
+        NSInteger minute = _duration / 60;
+        NSInteger second = _duration - minute * 60;
+        NSString *durationStr;
+        if (minute > 0) {
+            durationStr = [NSString stringWithFormat:@"%ld'%ld\"", (long)minute, (long)second];
+        } else {
+            durationStr = [NSString stringWithFormat:@"%ld\"", (long)second];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.durationLabel.text = durationStr;
+        });
     }
 }
 
@@ -378,6 +397,7 @@
 {
     if (!_playBack) {
         _playBack = [[AFSoundPlayback alloc] initWithItem:self.soundItem];
+        [_playBack pause];
     }
     return _playBack;
 }
@@ -538,6 +558,16 @@
     viewContainer.layer.borderWidth = 0.5;
     viewContainer.backgroundColor = [UIColor whiteColor];
     
+    UIImageView *voiceImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"voice3"]];
+    voiceImage.animationImages = @[[UIImage imageNamed:@"voice1"], [UIImage imageNamed:@"voice2"], [UIImage imageNamed:@"voice3"]];
+    voiceImage.animationDuration = 1;
+    [viewContainer addSubview:voiceImage];
+    
+    [voiceImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(viewContainer);
+        make.left.equalTo(viewContainer).offset(50);
+    }];
+    
     [[viewContainer rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         
         switch (self.playBack.status) {
@@ -545,23 +575,29 @@
                 [self.playBack pause];
                 [self.timerDisposeable dispose];
                 self.audioProgress.progress = 0;
+                self.audioProgress.hidden = YES;
+                [voiceImage stopAnimating];
                 return;
                 break;
             case AFSoundStatusNotStarted:
                 [self.playBack play];
+                self.audioProgress.hidden = NO;
+                [voiceImage startAnimating];
                 break;
             case AFSoundStatusFinished:
                 [self.playBack restart];
+                self.audioProgress.hidden = NO;
+                [voiceImage startAnimating];
                 break;
             case AFSoundStatusPaused:
                 [self.playBack play];
+                [self.playBack restart];
+                self.audioProgress.hidden = NO;
+                [voiceImage startAnimating];
                 break;
             default:
                 break;
         }
-        
-        NSString *duration = [NSString stringWithFormat:@"%ld\"", (long)self.playBack.currentItem.duration];
-        self.durationLabel.text = duration;
         
         [self.timerDisposeable dispose];
         NSDate *current = [NSDate date];
@@ -594,14 +630,6 @@
         } completion:nil];
     }];
     
-    UIImageView *voiceImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"voice"]];
-    [viewContainer addSubview:voiceImage];
-    
-    [voiceImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(viewContainer);
-        make.left.equalTo(viewContainer).offset(50);
-    }];
-    
     UILabel *titleLable = [[UILabel alloc] init];
     titleLable.font = SystemFontWithSize(15);
     titleLable.text = @"店家自白";
@@ -612,30 +640,49 @@
         make.bottom.equalTo(viewContainer.mas_centerY).offset(-2);
     }];
     
+    self.durationLabel = [[UILabel alloc] init];
+    self.durationLabel.font = SystemFontWithSize(16);
+    self.durationLabel.textColor = RGBCOLOR_HEX(0x646464);;
+    [viewContainer addSubview:self.durationLabel];
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [viewContainer addSubview:indicator];
+    
+    [[RACObserve(self.durationLabel, text) map:^id(NSString *value) {
+        return @(value.length > 0);
+    }] subscribeNext:^(NSNumber *value) {
+        if ([value boolValue]) {
+            [indicator stopAnimating];
+        }
+    }];
+    
+    [indicator startAnimating];
+    [indicator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.durationLabel);
+    }];
+    
     UILabel *descLabel = [[UILabel alloc] init];
     descLabel.font = SystemFontWithSize(13);
-    descLabel.textColor = RGBCOLOR_HEX(0x646464);
+    descLabel.textColor = self.durationLabel.textColor;
     descLabel.text = [NSString stringWithFormat:@"来自 %@", self.activities.shop.shopname];
     [viewContainer addSubview:descLabel];
     
     [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleLable);
         make.top.equalTo(viewContainer.mas_centerY).offset(2);
+        make.right.lessThanOrEqualTo(self.durationLabel.mas_left).offset(10);
     }];
     
-    self.durationLabel = [[UILabel alloc] init];
-    self.durationLabel.font = SystemFontWithSize(16);
-    self.durationLabel.textColor = descLabel.textColor;
-    [viewContainer addSubview:self.durationLabel];
-    
-    viewContainer.enabled = NO;
+    viewContainer.userInteractionEnabled = NO;
     [AVFile getFileWithObjectId:self.activities.activityDescVoice.objectId withBlock:^(AVFile *file, NSError *error) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             self.activities.activityDescVoice = file;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                viewContainer.enabled = YES;
-            });
+            self.duration = self.playBack.currentItem.duration;
         });
+    }];
+    
+    RAC(viewContainer, userInteractionEnabled) = [RACObserve(self, duration) map:^id(NSNumber *value) {
+        return @([value integerValue] > 0);
     }];
     
     [self.durationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
