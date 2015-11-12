@@ -17,7 +17,7 @@
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                           [ColorFactory navigationBarTitleColor], NSForegroundColorAttributeName,
                                                           [NSValue valueWithUIOffset:UIOffsetMake(0.0f, 0.0f)],UITextAttributeTextShadowOffset,
-                                                          [UIFont fontWithName:@"Helvetica" size:22.0f], NSFontAttributeName,
+                                                          [UIFont fontWithName:@"Helvetica" size:17.0f], NSFontAttributeName,
                                                           nil]];
     
     [[UINavigationBar appearance] setBarTintColor:[ColorFactory navigationBarBackgroundColor]];

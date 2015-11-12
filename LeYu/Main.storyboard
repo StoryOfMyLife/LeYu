@@ -2014,7 +2014,7 @@
         <image name="设置" width="34" height="34"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dd0-bl-yEK"/>
         <segue reference="QSJ-aw-600"/>
+        <segue reference="yJb-NT-Cmx"/>
     </inferredMetricsTieBreakers>
 </document>

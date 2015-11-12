@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "469039233.522076"
+            timestampString = "469040647.394732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "-playBack"
             landmarkType = "5">
          </BreakpointContent>
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "469039565.087581"
+            timestampString = "469040647.394732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "-voiceView"
             landmarkType = "5">
          </BreakpointContent>

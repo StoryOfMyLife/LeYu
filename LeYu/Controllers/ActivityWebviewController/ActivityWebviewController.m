@@ -28,7 +28,12 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    shareButton.tintColor = [UIColor whiteColor];
+    [shareButton setImage:[UIImage imageNamed:@"分享"] forState:UIControlStateNormal];
+    shareButton.size = CGSizeMake(25, 25);
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    [shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = shareItem;
 }
 
