@@ -144,8 +144,8 @@
         make.edges.equalTo(self.bottomView);
     }];
     
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
-    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 50, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -422,6 +422,7 @@
     viewContainer.layer.cornerRadius = 5;
     viewContainer.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
     viewContainer.layer.borderWidth = 0.5;
+    viewContainer.clipsToBounds = YES;
     viewContainer.backgroundColor = [UIColor whiteColor];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft)];
@@ -710,8 +711,8 @@
     titleView.backgroundColor = [UIColor clearColor];
     
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.font = SystemBoldFontWithSize(20);
-    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.font = SystemBoldFontWithSize(18);
+    titleLabel.textColor = RGBCOLOR_HEX(0x5a5a5a);
     titleLabel.text = self.activities.title;
     [titleView addSubview:titleLabel];
     
@@ -723,7 +724,7 @@
     
     UILabel *fromLabel = [[UILabel alloc] init];
     fromLabel.font = SystemFontWithSize(15);
-    fromLabel.textColor = DefaultTitleColor;
+    fromLabel.textColor = RGBCOLOR_HEX(0xbbbbbb);
     fromLabel.text = @"来自:";
     [titleView addSubview:fromLabel];
     

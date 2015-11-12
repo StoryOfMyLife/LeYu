@@ -62,8 +62,8 @@
         [self.contentView addSubview:descLabel];
         
         self.activityDescLabel = [[UILabel alloc] init];
-//        self.activityDescLabel.font = SystemFontWithSize(16);
-        self.activityDescLabel.textColor = RGBCOLOR_HEX(0x828282);
+        self.activityDescLabel.font = SystemFontWithSize(16);
+        self.activityDescLabel.textColor = RGBCOLOR_HEX(0x333333);
         self.activityDescLabel.numberOfLines = 0;
         self.activityDescLabel.textAlignment = NSTextAlignmentNatural;
         self.activityDescLabel.lineBreakMode = NSLineBreakByWordWrapping;

@@ -84,7 +84,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "469040647.394732"
+            timestampString = "469042013.54715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "404"
@@ -116,12 +116,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "469040647.394732"
+            timestampString = "469042013.54715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
             landmarkName = "-voiceView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
+            timestampString = "469042013.54715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "686"
+            endingLineNumber = "686"
+            landmarkName = "-voiceView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
+            timestampString = "469042013.54715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
+            landmarkName = "-soundItem"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
