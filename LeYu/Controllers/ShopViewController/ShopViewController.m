@@ -387,7 +387,7 @@
     if (!_topInfoView) {
         _topInfoView = [[UIView alloc] init];
         _topInfoView.clipsToBounds = YES;
-        _topInfoView.backgroundColor = [UIColor clearColor];
+        _topInfoView.backgroundColor = DefaultDarkBackgroundColor;
         
         self.backImageView = [[UIImageView alloc] init];
         self.backImageView.clipsToBounds = YES;

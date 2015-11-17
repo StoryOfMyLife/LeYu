@@ -11,6 +11,7 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
 #import "ActivityWebviewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
+#import "ShopViewController.h"
 
 @interface ActivityWebviewController () <UIWebViewDelegate>
 
@@ -89,6 +90,21 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
     self.title = @"";
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *urlString = request.URL.absoluteString;
+    if ([urlString containsString:@"shop/jump"]) {
+        [self jumpToShop];
+    }
+    return YES;
+}
+
+- (void)jumpToShop
+{
+    ShopViewController *shopVC = [[ShopViewController alloc] initWithShop:self.activity.shop];
+    [self.navigationController pushViewController:shopVC animated:YES];
+}
+
 - (void)share
 {
     [AVFile getFileWithObjectId:self.activity.pics[0] withBlock:^(AVFile *file, NSError *error) {
@@ -97,7 +113,7 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
         
         NSString *url = [NSString stringWithFormat:@"%@%@", baseURL, self.urlID];
         
-        [shareParams SSDKSetupShareParamsByText:self.activity.title
+        [shareParams SSDKSetupShareParamsByText:self.activity.activitiesDescription
                                          images:file.url
                                             url:[NSURL URLWithString:url]
                                           title:self.activity.title

@@ -30,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView.pagingEnabled = YES;
@@ -38,7 +39,7 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:self.scrollView];
     
-    NSArray *imageArray = @[@"引导页1", @"引导页2", @"引导页3"];
+    NSArray *imageArray = @[@"intro1", @"intro2", @"intro3", @"intro4"];
     
     self.scrollView.contentSize = CGSizeMake(self.view.width * imageArray.count, self.view.height);
     
