@@ -1746,7 +1746,7 @@
                         <viewControllerLayoutGuide type="top" id="jZK-lZ-x2L"/>
                         <viewControllerLayoutGuide type="bottom" id="Cgb-Zf-XY6"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VGG-Q2-mzI">
+                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="VGG-Q2-mzI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1763,7 +1763,7 @@
                             </label>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="XE1-bE-dDw" firstAttribute="top" secondItem="Mou-NA-0PA" secondAttribute="bottom" constant="40" id="EPe-pV-WKu"/>
                             <constraint firstItem="XE1-bE-dDw" firstAttribute="centerX" secondItem="Mou-NA-0PA" secondAttribute="centerX" id="JBx-Xc-td7"/>
