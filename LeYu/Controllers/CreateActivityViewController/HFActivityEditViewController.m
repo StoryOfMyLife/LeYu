@@ -233,13 +233,16 @@
         }
         
         AVFile *imageFile = [AVFile fileWithName:@"image.png" data:imageData];
-        [imageFile.metaData setValue:desc forKey:@"desc"];
-        [imageFile save];
         
-        if (imageInfo.topAsset) {
-            [imageIds insertObject:imageFile.objectId atIndex:0];
-        } else {
-            [imageIds addObject:imageFile.objectId];
+        if (imageFile) {
+            [imageFile.metaData setValue:desc forKey:@"desc"];
+            [imageFile save];
+            
+            if (imageInfo.topAsset) {
+                [imageIds insertObject:imageFile.objectId atIndex:0];
+            } else {
+                [imageIds addObject:imageFile.objectId];
+            }
         }
     }
     [activity addObjectsFromArray:imageIds forKey:@"pics"];
