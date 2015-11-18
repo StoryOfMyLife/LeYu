@@ -59,13 +59,13 @@
 
 - (void)updateActivities:(NSArray *)activities
 {
+    [self.tableView.header endRefreshing];
     if (activities.count == 0) {
         [self showNoData:@"收藏的店铺还没有活动"];
         return;
     }
     [self hideNoData];
     self.items = @[activities];
-    [self.tableView.header endRefreshing];
 }
 
 - (void)loadActivities

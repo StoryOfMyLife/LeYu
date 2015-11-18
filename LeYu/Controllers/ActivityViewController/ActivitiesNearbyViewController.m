@@ -66,14 +66,14 @@
 
 - (void)updateActivities:(NSArray *)activities
 {
+    [self.tableView.header endRefreshing];
+    [self.indicator stopAnimating];
     if (activities.count == 0) {
         [self showNoData:@"附近没有活动"];
         return;
     }
     [self hideNoData];
     self.items = @[activities];
-    [self.indicator stopAnimating];
-    [self.tableView.header endRefreshing];
 }
 
 - (void)loadActivities

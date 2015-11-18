@@ -145,13 +145,13 @@
 
 - (void)updateActivities:(NSArray *)activities
 {
+    [self.tableView.header endRefreshing];
     if (activities.count == 0) {
         [self showNoData:@"没有活动"];
         return;
     }
     [self hideNoData];
     self.items = @[activities];
-    [self.tableView.header endRefreshing];
 }
 
 @end

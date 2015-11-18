@@ -55,6 +55,7 @@
 
 - (void)updateActivities:(NSArray *)activities
 {
+    [self.tableView.header endRefreshing];
     if (activities.count == 0) {
         [self showNoData:@"没有消息"];
         return;
@@ -62,7 +63,6 @@
     [self hideNoData];
     self.items = @[activities];
     self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[activities count]];
-    [self.tableView.header endRefreshing];
 }
 
 - (void)loadActivities
