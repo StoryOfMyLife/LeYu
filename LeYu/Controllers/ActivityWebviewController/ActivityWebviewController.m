@@ -113,7 +113,13 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
         
         NSString *url = [NSString stringWithFormat:@"%@%@", baseURL, self.urlID];
         
-        [shareParams SSDKSetupShareParamsByText:self.activity.activitiesDescription
+        NSString *desc = self.activity.activitiesDescription;
+        if (desc.length > 140) {
+            desc = [desc substringToIndex:135];
+            desc = [desc stringByAppendingString:@"..."];
+        }
+        
+        [shareParams SSDKSetupShareParamsByText:desc
                                          images:file.url
                                             url:[NSURL URLWithString:url]
                                           title:self.activity.title
