@@ -122,7 +122,7 @@
         
         [self.activityDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(timeLine);
-            make.right.equalTo(self.contentView).offset(-10);
+            make.right.equalTo(self.contentView).offset(-20);
             make.top.equalTo(timeLine.mas_bottom).offset(10);
         }];
         
@@ -141,12 +141,12 @@
         [self.activityDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.activityDateLabel);
             make.right.equalTo(self.activityDateLabel);
-            make.top.equalTo(self.descLine.mas_bottom).offset(0);
+            make.top.equalTo(self.descLine.mas_bottom).offset(20);
         }];
         
         [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self).offset(5);
-            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(15);
+            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(40);
             make.bottom.equalTo(bottomSeperator).offset(-40);
         }];
         
@@ -203,6 +203,12 @@
     paragraphStyle.lineSpacing = 10;
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, desc.length)];
     self.activityDescLabel.attributedText = attributedString;
+    
+    CGFloat height = [self heightOfText:desc fontSize:16 forWidth:self.width - 20 * 2 forLineHeight:20 constraintToMaxNumberOfLines:9999];
+    
+    [self.activityDescLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(height);
+    }];
 
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
     [self layoutButton:self.likeButton];
@@ -260,6 +266,31 @@
     if (self.cellItem.handleBlock) {
         self.cellItem.handleBlock(@{@"sender" : button, @"description" : @"Accept button pressed."});
     }
+}
+
+- (CGFloat)heightOfText:(NSString *)text fontSize:(CGFloat)fontSize forWidth:(CGFloat)width forLineHeight:(CGFloat)lineHeight constraintToMaxNumberOfLines:(NSInteger)numberOfLines
+{
+    CGSize size = CGSizeZero;
+    if ([text length] > 0) {
+        UIFont *font = [UIFont systemFontOfSize:fontSize];
+        CGFloat constraintHeight = numberOfLines ? numberOfLines * lineHeight : 9999.f;
+        CGFloat lineHeightMultiple = lineHeight / font.lineHeight;
+        
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineBreakMode = NSLineBreakByWordWrapping;
+        style.alignment = NSTextAlignmentLeft;
+        style.lineHeightMultiple = lineHeightMultiple;
+        style.minimumLineHeight = font.lineHeight * lineHeightMultiple;
+        style.maximumLineHeight = font.lineHeight * lineHeightMultiple;
+        size = [text boundingRectWithSize:CGSizeMake(width, constraintHeight)
+                                  options:NSStringDrawingUsesLineFragmentOrigin
+                               attributes:@{NSFontAttributeName:font,
+                                            NSParagraphStyleAttributeName:style,
+                                            }
+                                  context:nil].size;
+    }
+    size.height = ceil(size.height);
+    return size.height;
 }
 
 @end
