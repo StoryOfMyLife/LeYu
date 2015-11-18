@@ -103,7 +103,7 @@
 - (NSArray *)allClippedImages
 {
     NSArray *allAssetsInfo = [self.assetInfo allValues];
-    allAssetsInfo = [allAssetsInfo sortedArrayUsingComparator:^NSComparisonResult(AssetInfo *obj1, AssetInfo *obj2) {
+    NSArray *sortedAssetsInfo = [allAssetsInfo sortedArrayUsingComparator:^NSComparisonResult(AssetInfo *obj1, AssetInfo *obj2) {
         if (obj1.order < obj2.order) {
             return NSOrderedAscending;
         }
@@ -113,8 +113,10 @@
         return NSOrderedSame;
     }];
     NSMutableArray *clippedImages = [NSMutableArray array];
-    for (AssetInfo *info in allAssetsInfo) {
-        [clippedImages addObject:info.clippedImage];
+    for (AssetInfo *info in sortedAssetsInfo) {
+        if (info.clippedImage) {
+            [clippedImages addObject:info.clippedImage];
+        }
     }
     return clippedImages;
 }
