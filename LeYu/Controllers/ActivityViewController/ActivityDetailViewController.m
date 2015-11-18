@@ -591,7 +591,7 @@
                 [voiceImage startAnimating];
                 break;
             case AFSoundStatusFinished:
-                [self.playBack restart];
+                [self.playBack play];
                 self.audioProgress.hidden = NO;
                 [voiceImage startAnimating];
                 break;
@@ -622,6 +622,10 @@
         [self.playBack listenFeedbackUpdatesWithBlock:nil andFinishedBlock:^{
             @strongify(self);
             [self.timerDisposeable dispose];
+            [voiceImage stopAnimating];
+            self.playBack = nil;
+            self.audioProgress.progress = 0;
+            self.audioProgress.hidden = YES;
         }];
         
     }];

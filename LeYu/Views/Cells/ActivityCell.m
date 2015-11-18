@@ -65,7 +65,6 @@ static const CGFloat titleVerticalGap = 10;
     self.titleLabel.font = SystemFontWithSize(14);
     self.titleLabel.preferredMaxLayoutWidth = self.contentView.width - kContentInset * 2;
     self.titleLabel.numberOfLines = 1;
-    self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.titleLabel.textColor = RGBCOLOR_HEX(0x888888);
     
     self.thumbnailImage = [[UIImageView alloc] init];
