@@ -393,6 +393,14 @@
         self.backImageView.clipsToBounds = YES;
         self.backImageView.contentMode = UIViewContentModeScaleAspectFill;
         
+        UIView *maskView = [[UIView alloc] init];
+        maskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        [self.backImageView addSubview:maskView];
+        
+        [maskView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.backImageView);
+        }];
+        
         [_topInfoView addSubview:self.backImageView];
         [_topInfoView addSubview:self.avatar];
         [_topInfoView addSubview:self.backButton];
@@ -428,7 +436,7 @@
 - (UIButton *)backButton
 {
     if (!_backButton) {
-        _backButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         [_backButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
         _backButton.tintColor = [UIColor whiteColor];

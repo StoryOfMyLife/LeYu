@@ -71,6 +71,7 @@
     if (!currentUser) {
         [self showNoData:@"请先登录"];
         self.isLogined = NO;
+        [self.tableView.header endRefreshing];
         return;
     } else {
         self.isLogined = YES;
