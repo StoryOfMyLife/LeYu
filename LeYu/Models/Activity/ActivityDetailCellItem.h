@@ -7,6 +7,7 @@
 //
 
 #import "LTableViewCellItem.h"
+#import <TTTAttributedLabel.h>
 #import "ShopActivities.h"
 
 @interface ActivityDetailCellItem : LTableViewCellItem
@@ -17,7 +18,7 @@
 
 @interface ActivityDetailCell : LTableViewCell
 
-@property (nonatomic, strong) UILabel *activityDescLabel;
+@property (nonatomic, strong) TTTAttributedLabel *activityDescLabel;
 @property (nonatomic, strong) UILabel *activityDateLabel;
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIButton *acceptButton;

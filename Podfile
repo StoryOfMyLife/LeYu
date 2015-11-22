@@ -20,5 +20,6 @@ pod 'AFSoundManager'
 pod 'SDWebImage', '~> 3.7.3'
 pod 'LeanCloudFeedback'
 pod 'JDStatusBarNotification'
+pod 'TTTAttributedLabel'
 
 

@@ -61,7 +61,7 @@
         descLabel.text = @"说明";
         [self.contentView addSubview:descLabel];
         
-        self.activityDescLabel = [[UILabel alloc] init];
+        self.activityDescLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         self.activityDescLabel.font = SystemFontWithSize(16);
         self.activityDescLabel.textColor = RGBCOLOR_HEX(0x333333);
         self.activityDescLabel.numberOfLines = 0;
@@ -141,12 +141,12 @@
         [self.activityDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.activityDateLabel);
             make.right.equalTo(self.activityDateLabel);
-            make.top.equalTo(self.descLine.mas_bottom).offset(20);
+            make.top.equalTo(self.descLine.mas_bottom).offset(35);
         }];
         
         [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self).offset(5);
-            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(40);
+            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(-20);
             make.bottom.equalTo(bottomSeperator).offset(-40);
         }];
         
@@ -198,17 +198,10 @@
         desc = @"没有说明";
     }
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:desc];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 10;
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, desc.length)];
-    self.activityDescLabel.attributedText = attributedString;
-    
-    CGFloat height = [self heightOfText:desc fontSize:16 forWidth:self.width - 20 * 2 forLineHeight:20 constraintToMaxNumberOfLines:9999];
-    
-    [self.activityDescLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(height);
-    }];
+    self.activityDescLabel.lineSpacing = 10;
+    self.activityDescLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
+//    self.activityDescLabel.textInsets = UIEdgeInsetsMake(-50, 0, -50, 0);
+    [self.activityDescLabel setText:desc];
 
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];
     [self layoutButton:self.likeButton];

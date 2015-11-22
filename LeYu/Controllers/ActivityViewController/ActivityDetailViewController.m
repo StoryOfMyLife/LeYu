@@ -131,21 +131,21 @@
         [weakSelf loadData];
     };
     
-    [self.view addSubview:self.bottomView];
+//    [self.view addSubview:self.bottomView];
+//    
+//    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.bottom.equalTo(self.view);
+//        make.height.equalTo(@50);
+//    }];
     
-    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.height.equalTo(@50);
-    }];
+//    [self.bottomView addSubview:self.acceptButton];
     
-    [self.bottomView addSubview:self.acceptButton];
+//    [self.acceptButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.bottomView);
+//    }];
     
-    [self.acceptButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.bottomView);
-    }];
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 50, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0);
+//    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 50, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
