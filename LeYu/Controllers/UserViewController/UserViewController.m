@@ -72,31 +72,31 @@
                 vc.title = @"活动管理";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
+//            } else if (indexPath.row == 1) {
+//                MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
+//                vc.title = @"我的活动";
+//                vc.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:vc animated:YES];
             } else if (indexPath.row == 1) {
-                MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
-                vc.title = @"我的活动";
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            } else if (indexPath.row == 2) {
                 FollowedShopViewController *vc = [[FollowedShopViewController alloc] init];
                 vc.title = @"收藏的店铺";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == 2) {
                 [self showFeedbackViewController];
             }
         } else {
             if (indexPath.row == 0) {
-                MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
-                vc.title = @"我的活动";
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            } else if (indexPath.row == 1) {
+//                MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
+//                vc.title = @"我的活动";
+//                vc.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:vc animated:YES];
+//            } else if (indexPath.row == 1) {
                 FollowedShopViewController *vc = [[FollowedShopViewController alloc] init];
                 vc.title = @"收藏的店铺";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 1) {
                 [self showFeedbackViewController];
             }
         }
