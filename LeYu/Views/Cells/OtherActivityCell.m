@@ -35,6 +35,10 @@
         self.titleLabel.font = SystemFontWithSize(16);
         [self.contentView addSubview:self.titleLabel];
         
+        self.styleImageView = [[UIImageView alloc] init];
+        self.styleImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.contentView addSubview:self.styleImageView];
+        
 //        UIImageView *locationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Location"]];
 //        locationView.contentMode = UIViewContentModeScaleAspectFill;
 //        [self.contentView addSubview:locationView];
@@ -74,6 +78,11 @@
         [self.distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel);
             make.bottom.equalTo(self.contentView).offset(-inset);
+        }];
+        
+        [self.styleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-inset * 2);
+            make.bottom.equalTo(self.distanceLabel);
         }];
         
         [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -141,13 +150,24 @@
 
 - (void)configureCellWithActivity:(ShopActivities *)activity
 {
-    
     BOOL cached = activity.cached;
     [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
         [UIView transitionWithView:self duration:cached ? 0 : .3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
             self.imageIconView.image = image;
         } completion:nil];
     }];
+    
+    NSString *imageName = nil;
+    if ([activity.activityType integerValue] == ActivityTypeNormal) {
+        imageName = @"他们说2";
+    } else {
+        if (activity.shop) {
+            imageName = @"boutique2";
+        } else {
+            imageName = @"生活+2";
+        }
+    }
+    self.styleImageView.image = [UIImage imageNamed:imageName];
 }
 
 @end

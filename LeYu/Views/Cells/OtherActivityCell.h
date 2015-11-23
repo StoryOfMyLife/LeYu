@@ -10,6 +10,7 @@
 
 @interface OtherActivityCell : LTableViewCell
 
+@property (nonatomic, strong) UIImageView *styleImageView;
 @property (nonatomic, strong) UIImageView *imageIconView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *distanceLabel;

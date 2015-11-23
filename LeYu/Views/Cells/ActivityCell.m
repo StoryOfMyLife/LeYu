@@ -16,6 +16,7 @@ static const CGFloat titleVerticalGap = 10;
 
 @interface ActivityCell()
 
+@property (nonatomic, strong) UIImageView *styleImageView;
 @property (nonatomic, strong) UIImageView *giftImageView;
 @property (nonatomic, strong) UIImageView *locationView;
 @property (nonatomic, strong) UIView *backView;
@@ -69,6 +70,10 @@ static const CGFloat titleVerticalGap = 10;
     
     self.thumbnailImage = [[UIImageView alloc] init];
     self.thumbnailImage.clipsToBounds = YES;
+    
+    self.styleImageView = [[UIImageView alloc] init];
+    self.styleImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.thumbnailImage addSubview:self.styleImageView];
     
     self.shopIcon = [[UIImageView alloc] init];
     self.shopIcon.image = [UIImage imageNamed:@"The news"];
@@ -148,6 +153,11 @@ static const CGFloat titleVerticalGap = 10;
     [self.thumbnailImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(superview);
         make.height.equalTo(@(SCREEN_WIDTH * 9.0 / 16.0));
+    }];
+    
+    [self.styleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.thumbnailImage).offset(20);
+        make.top.equalTo(self.thumbnailImage).offset(20);
     }];
     
     [self.shopIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -240,6 +250,19 @@ static const CGFloat titleVerticalGap = 10;
             } completion:nil];
         }];
     }
+    
+    NSString *imageName = nil;
+    if ([activity.activityType integerValue] == ActivityTypeNormal) {
+        imageName = @"他们说";
+    } else {
+        if (activity.shop) {
+            imageName = @"boutique";
+        } else {
+            imageName = @"生活+";
+        }
+    }
+    self.styleImageView.image = [UIImage imageNamed:imageName];
+    
 
     self.distanceLabel.text = @"--km";
     
