@@ -451,7 +451,7 @@
         _tabHeader.interitemSpacing = 70;
         _tabHeader.backgroundColor = [UIColor whiteColor];
         _tabHeader.bottomIndicatorColor = DefaultYellowColor;
-        _tabHeader.categories = @[[[TTCategoryItem alloc] initWithTitle:@"店铺"],
+        _tabHeader.categories = @[[[TTCategoryItem alloc] initWithTitle:@"环境"],
                                   [[TTCategoryItem alloc] initWithTitle:@"分享"],
                                   [[TTCategoryItem alloc] initWithTitle:@"位置"]];
         weakSelf();

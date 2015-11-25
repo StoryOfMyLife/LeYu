@@ -41,24 +41,24 @@ static const NSInteger countPerLine = 4;
         self.theme.font = SystemFontWithSize(15);
         [self.contentView addSubview:self.theme];
         
-        UILabel *numberLabel = [[UILabel alloc] init];
-        numberLabel.textAlignment = NSTextAlignmentRight;
-        numberLabel.textColor = RGBCOLOR_HEX(0xb4b4b4);
-        numberLabel.font = SystemFontWithSize(10);
-        [self.contentView addSubview:numberLabel];
-        
-        [[self.theme.rac_textSignal map:^id(NSString *text) {
-            return @(text.length)
-            ;
-        }] subscribeNext:^(NSNumber *length) {
-            numberLabel.text = [NSString stringWithFormat:@"%ld/16", (long)length.integerValue];
-        }];
-        
-        [[RACObserve(self.theme, text) map:^id(NSString *text) {
-            return @(text.length);
-        }] subscribeNext:^(NSNumber *length) {
-            numberLabel.text = [NSString stringWithFormat:@"%ld/16", (long)length.integerValue];
-        }];
+//        UILabel *numberLabel = [[UILabel alloc] init];
+//        numberLabel.textAlignment = NSTextAlignmentRight;
+//        numberLabel.textColor = RGBCOLOR_HEX(0xb4b4b4);
+//        numberLabel.font = SystemFontWithSize(10);
+//        [self.contentView addSubview:numberLabel];
+//        
+//        [[self.theme.rac_textSignal map:^id(NSString *text) {
+//            return @(text.length)
+//            ;
+//        }] subscribeNext:^(NSNumber *length) {
+//            numberLabel.text = [NSString stringWithFormat:@"%ld/16", (long)length.integerValue];
+//        }];
+//        
+//        [[RACObserve(self.theme, text) map:^id(NSString *text) {
+//            return @(text.length);
+//        }] subscribeNext:^(NSNumber *length) {
+//            numberLabel.text = [NSString stringWithFormat:@"%ld/16", (long)length.integerValue];
+//        }];
         
         
 //        UIView *seperator = [[UIView alloc] init];
@@ -72,10 +72,10 @@ static const NSInteger countPerLine = 4;
             make.bottom.equalTo(self.contentView);
         }];
         
-        [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.contentView).offset(-8);
-            make.right.equalTo(self.theme);
-        }];
+//        [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.contentView).offset(-8);
+//            make.right.equalTo(self.theme);
+//        }];
         
 //        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
 //            make.left.and.right.equalTo(self.theme);
@@ -92,8 +92,8 @@ static const NSInteger countPerLine = 4;
         return NO;
     }
     
-    NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    return newLength <= 16 || [string isEqualToString:@""];
+//    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return YES;//newLength <= 16 || [string isEqualToString:@""];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
