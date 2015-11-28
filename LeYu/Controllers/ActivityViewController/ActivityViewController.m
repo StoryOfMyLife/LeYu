@@ -11,6 +11,7 @@
 #import "TTCollectionPageViewController.h"
 #import "ActivitiesNearbyViewController.h"
 #import "ActivityOfFollowedShopViewController.h"
+#import "RecentActivitiesViewController.h"
 #import "ShopActivities.h"
 
 @interface ActivityViewController () <TTCollectionPageViewControllerDelegate>
@@ -68,7 +69,8 @@
         _tabHeader.interitemSpacing = 100;
         _tabHeader.backgroundColor = [UIColor whiteColor];
         _tabHeader.bottomIndicatorColor = DefaultYellowColor;
-        _tabHeader.categories = @[[[TTCategoryItem alloc] initWithTitle:@"附近"],
+        _tabHeader.categories = @[[[TTCategoryItem alloc] initWithTitle:@"最新"],
+                                  [[TTCategoryItem alloc] initWithTitle:@"附近"],
                                   [[TTCategoryItem alloc] initWithTitle:@"关注"]];
         weakSelf();
         _tabHeader.didSelectCategory = ^(NSInteger index){
@@ -116,7 +118,8 @@
 - (NSArray *)viewControllers
 {
     if (!_viewControllers) {
-        _viewControllers = @[[[ActivitiesNearbyViewController alloc] init],
+        _viewControllers = @[[[RecentActivitiesViewController alloc] init],
+                             [[ActivitiesNearbyViewController alloc] init],
                              [[ActivityOfFollowedShopViewController alloc] init]];
     }
     return _viewControllers;

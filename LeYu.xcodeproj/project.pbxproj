@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		29CA24A1546B8CB4CA1DE0B5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB487651842C1124EDB2233 /* libPods.a */; };
 		52044C891BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52044C881BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m */; };
+		5211D6B11C09F3B800051E73 /* RecentActivitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5211D6B01C09F3B800051E73 /* RecentActivitiesViewController.m */; };
 		5214584A1BB5744D00DCBF8C /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521458491BB5744D00DCBF8C /* IntroViewController.m */; };
 		5238A4891BB2F1FB00A23282 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5238A4881BB2F1FB00A23282 /* libz.dylib */; };
 		523977D71BA997D600CB9B9E /* LineDashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 523977D61BA997D600CB9B9E /* LineDashView.m */; };
@@ -169,6 +170,8 @@
 		2EB487651842C1124EDB2233 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		52044C871BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityAcceptedMoreDetailCellItem.h; sourceTree = "<group>"; };
 		52044C881BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityAcceptedMoreDetailCellItem.m; sourceTree = "<group>"; };
+		5211D6AF1C09F3B800051E73 /* RecentActivitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentActivitiesViewController.h; sourceTree = "<group>"; };
+		5211D6B01C09F3B800051E73 /* RecentActivitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentActivitiesViewController.m; sourceTree = "<group>"; };
 		521458481BB5744D00DCBF8C /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		521458491BB5744D00DCBF8C /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		5238A4881BB2F1FB00A23282 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -567,6 +570,8 @@
 				52D602F51BB0562200B9B6D3 /* ActivityManageViewController.m */,
 				52D602FD1BB064AC00B9B6D3 /* ActivityManageDetailViewController.h */,
 				52D602FE1BB064AC00B9B6D3 /* ActivityManageDetailViewController.m */,
+				5211D6AF1C09F3B800051E73 /* RecentActivitiesViewController.h */,
+				5211D6B01C09F3B800051E73 /* RecentActivitiesViewController.m */,
 			);
 			path = ActivityViewController;
 			sourceTree = "<group>";
@@ -1350,6 +1355,7 @@
 				523978621BAB158C00CB9B9E /* LoginViewController.m in Sources */,
 				5239784E1BA9A2A100CB9B9E /* Shop.m in Sources */,
 				52635C181BA8728200703DBE /* MyActivityCell.m in Sources */,
+				5211D6B11C09F3B800051E73 /* RecentActivitiesViewController.m in Sources */,
 				523978021BA99B2F00CB9B9E /* ShopActivityViewController.m in Sources */,
 				5239783B1BA9A25A00CB9B9E /* Activities.m in Sources */,
 				52635BC61BA8728200703DBE /* UIImage+CTAssetsPickerController.m in Sources */,

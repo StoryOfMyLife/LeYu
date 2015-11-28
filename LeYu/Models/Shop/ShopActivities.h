@@ -18,7 +18,8 @@ typedef NS_ENUM(NSUInteger, OtherActivityStyle) {
     OtherActivityStyleOther,
     OtherActivityStyleAccepted,
     OtherActivityStyleNearby,
-    OtherActivityStyleFavorite
+    OtherActivityStyleFavorite,
+    OtherActivityStyleRecent
 };
 
 @interface ShopActivities : LTableViewCellItem

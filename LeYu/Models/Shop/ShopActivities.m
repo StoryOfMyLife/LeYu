@@ -37,6 +37,7 @@
         case OtherActivityStyleNearby:
         case OtherActivityStyleFavorite:
         case OtherActivityStyleAccepted:
+        case OtherActivityStyleRecent:
             return [OtherActivityCell class];
             break;
         default:

@@ -111,11 +111,12 @@
     
     self.titleLabel.text = cellItem.title;
     
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    formatter.dateFormat = @"YYYY.MM.dd";
-//    self.distanceLabel.text = [formatter stringFromDate:cellItem.beginDate];
     if (cellItem.style == OtherActivityStyleNearby) {
         self.distanceLabel.hidden = NO;
+    } else if (cellItem.style == OtherActivityStyleRecent) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"YYYY.MM.dd";
+        self.distanceLabel.text = [formatter stringFromDate:cellItem.createdAt];
     } else {
         self.distanceLabel.hidden = YES;
     }
@@ -137,15 +138,17 @@
         }];
     }
     
-    AVGeoPoint *geo = cellItem.shop.geolocation;
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
-    [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
-        if (success) {
-            CLLocationDistance distance = [currentLocation distanceFromLocation:location];
-            double distanceInKM = distance / 1000.0;
-            self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
-        }
-    }];
+    if (cellItem.style == OtherActivityStyleNearby) {
+        AVGeoPoint *geo = cellItem.shop.geolocation;
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:geo.latitude longitude:geo.longitude];
+        [[LYLocationManager sharedManager] getCurrentLocation:^(BOOL success, CLLocation *currentLocation) {
+            if (success) {
+                CLLocationDistance distance = [currentLocation distanceFromLocation:location];
+                double distanceInKM = distance / 1000.0;
+                self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", distanceInKM];
+            }
+        }];
+    }
 }
 
 - (void)configureCellWithActivity:(ShopActivities *)activity
