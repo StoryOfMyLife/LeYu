@@ -110,6 +110,7 @@
                             [tableView deselectRowAtIndexPath:indexPath animated:YES];
                             ActivityWebviewController *webVC = [[ActivityWebviewController alloc] init];
                             webVC.activity = activity;
+                            webVC.hidesBottomBarWhenPushed = YES;
                             [self.navigationController pushViewController:webVC animated:YES];
                             webVC.urlID = activity.objectId;
                         };

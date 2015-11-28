@@ -56,7 +56,7 @@
         [self.contentView addSubview:self.descLine];
         
         UILabel *descLabel = [[UILabel alloc] init];
-        descLabel.font = SystemFontWithSize(16);
+        descLabel.font = SystemFontWithSize(14);
         descLabel.textColor = DefaultYellowColor;
         descLabel.text = @"说明";
         [self.contentView addSubview:descLabel];
@@ -70,12 +70,12 @@
         self.activityDescLabel.preferredMaxLayoutWidth = self.contentView.width - 20 * 2;
         [self.contentView addSubview:self.activityDescLabel];
         
-        self.likeButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.likeButton.tintColor = DefaultYellowColor;
-        self.likeButton.titleLabel.font = SystemFontWithSize(10);
-        self.likeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.likeButton setImage:[UIImage imageNamed:@"Praise"] forState:UIControlStateNormal];
-        [self.contentView addSubview:self.likeButton];
+//        self.likeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//        self.likeButton.tintColor = DefaultYellowColor;
+//        self.likeButton.titleLabel.font = SystemFontWithSize(10);
+//        self.likeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+//        [self.likeButton setImage:[UIImage imageNamed:@"Praise"] forState:UIControlStateNormal];
+//        [self.contentView addSubview:self.likeButton];
         
         UIView *bottomSeperator = [[UIView alloc] init];
         bottomSeperator.backgroundColor = RGBCOLOR(205, 205, 205);
@@ -142,13 +142,14 @@
             make.left.equalTo(self.activityDateLabel);
             make.right.equalTo(self.activityDateLabel);
             make.top.equalTo(self.descLine.mas_bottom).offset(35);
+            make.bottom.equalTo(bottomSeperator);
         }];
         
-        [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self).offset(5);
-            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(-20);
-            make.bottom.equalTo(bottomSeperator).offset(-40);
-        }];
+//        [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerX.equalTo(self).offset(5);
+//            make.top.equalTo(self.activityDescLabel.mas_bottom).offset(-20);
+//            make.bottom.equalTo(bottomSeperator).offset(-40);
+//        }];
         
         [bottomSeperator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.contentView);

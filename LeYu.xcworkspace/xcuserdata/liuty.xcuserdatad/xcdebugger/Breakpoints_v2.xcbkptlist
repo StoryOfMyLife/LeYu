@@ -196,11 +196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Models/Activity/ActivityDetailCellItem.m"
-            timestampString = "469907533.494517"
+            timestampString = "470412975.306223"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "-setCellItem:"
             landmarkType = "5">
          </BreakpointContent>
