@@ -201,7 +201,6 @@
     
     self.activityDescLabel.lineSpacing = 10;
     self.activityDescLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
-//    self.activityDescLabel.textInsets = UIEdgeInsetsMake(-50, 0, -50, 0);
     [self.activityDescLabel setText:desc];
 
     [self.likeButton setTitle:[activity.likes stringValue] ?: @"0" forState:UIControlStateNormal];

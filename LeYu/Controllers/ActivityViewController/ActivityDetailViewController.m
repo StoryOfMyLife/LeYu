@@ -9,6 +9,7 @@
 #import "ActivityDetailViewController.h"
 #import "ShopActivities.h"
 #import "OtherActivityCell.h"
+#import "ActivityLinks.h"
 #import "ActivityDetailCellItem.h"
 #import "ActivityShopPreviewCellItem.h"
 #import "ShopMapCellItem.h"
@@ -26,6 +27,7 @@
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
+#import "ActivityWebviewController.h"
 
 @interface ActivityDetailViewController ()
 
@@ -40,7 +42,7 @@
 @property (nonatomic, strong) ActivityShopPreviewCellItem *shopPreviewItem;
 @property (nonatomic, strong) ShopMapCellItem *shopMapItem;
 
-@property (nonatomic, strong) NSArray *otherActivities;
+@property (nonatomic, strong) NSArray *activityLinks;
 
 @property (nonatomic) NSInteger imageIndex;
 
@@ -126,10 +128,9 @@
     self.shopMapItem.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
         [weakSelf gotoShop:YES];
     };
+    
+    [self loadActivityLinks];
 
-    self.updateBlock = ^{
-        [weakSelf loadData];
-    };
     
 //    [self.view addSubview:self.bottomView];
 //    
@@ -214,55 +215,34 @@
 #pragma mark -
 #pragma mark methods
 
-- (void)loadData
+- (void)loadActivityLinks
 {
-    AVQuery *query = [ShopActivities query];
-    [query whereKey:@"shop" equalTo:self.activities.shop];
+    AVQuery *query = [ActivityLinks query];
+    [query whereKey:@"activity" equalTo:self.activities];
     [query orderByDescending:@"createdAt"];
     
-    [query includeKey:@"shop"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *activities,NSError *error) {
+    [query includeKey:@"linkType"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *activityLinks,NSError *error) {
         if (!error) {
-            NSMutableArray *result = [NSMutableArray arrayWithArray:activities];
-            [result removeObject:self.activities];
+            NSMutableArray *result = [NSMutableArray arrayWithArray:activityLinks];
+
+            self.activityLinks = result;
             
-            //过滤掉已经接受的活动
-            NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:0];
-            [result enumerateObjectsUsingBlock:^(ShopActivities *obj, NSUInteger idx, BOOL *stop) {
-                if (obj.style != OtherActivityStyleAccepted) {
-                    [tmp addObject:obj];
-                }
-            }];
-            self.otherActivities = tmp;
-            
-            for (ShopActivities *activity in self.otherActivities) {
-                activity.style = OtherActivityStyleFavorite;
+            for (ActivityLinks *links in self.activityLinks) {
                 
-                [activity applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
-                    ShopActivities *activities = self.otherActivities[indexPath.row];
-                    ActivityDetailViewController *activitiesViewController = [[ActivityDetailViewController alloc] initWithActivities:activities];
-                    [self.navigationController pushViewController:activitiesViewController animated:YES];
+                @weakify(links);
+                [links applyActionBlock:^(UITableView *tableView, NSIndexPath *indexPath) {
+                    @strongify(links);
+                    ActivityWebviewController *webVC = [[ActivityWebviewController alloc] init];
+                    webVC.activity = self.activities;
+                    webVC.urlID = links.url;
+                    [self.navigationController pushViewController:webVC animated:YES];
                 }];
-                
-                activity.handleBlock = ^(NSDictionary *info){
-                    UIView *sender = info[@"sender"];
-                    CGRect rect = [self.view convertRect:sender.frame fromView:sender.superview];
-                    rect.origin.y += self.view.top;
-                    
-                    Shop *shop = info[@"shop"];
-                    ShopViewController *shopViewController =[[ShopViewController alloc] initWithShop:shop];
-                    shopViewController.presentedRect = rect;
-                    
-                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
-                    nav.transitioningDelegate = shopViewController;
-                    nav.modalPresentationStyle = UIModalPresentationCustom;
-                    [self presentViewController:nav animated:YES completion:nil];
-                };
             }
             
-            if ([self.otherActivities count] > 0) {
+            if ([self.activityLinks count] > 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self updateActivities:self.otherActivities];
+                    [self updateActivities:self.activityLinks];
                 });
             }
         }
@@ -273,12 +253,10 @@
 {
     NSMutableArray *mutableItems = [NSMutableArray array];
     
-    [mutableItems addObject:@[self.activityDetailItem, self.shopPreviewItem, self.shopMapItem]];
-    [mutableItems addObject:activities];
-    [self _setItems:mutableItems];
-    [self.tableView beginUpdates];
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationTop];
-    [self.tableView endUpdates];
+    [mutableItems addObject:self.activityDetailItem];
+    [mutableItems addObjectsFromArray:activities];
+    [mutableItems addObjectsFromArray:@[self.shopPreviewItem, self.shopMapItem]];
+    [self setItems:@[mutableItems]];
     
     [self.tableView.header endRefreshing];
 }

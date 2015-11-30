@@ -133,6 +133,8 @@
 		5281B5621BB1C17000EA382F /* MessageCellItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5281B5611BB1C17000EA382F /* MessageCellItem.m */; };
 		5281B5651BB1C8F900EA382F /* NSDate+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 5281B5641BB1C8F900EA382F /* NSDate+Compare.m */; };
 		5281B5681BB1CC7800EA382F /* NoDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5281B5671BB1CC7800EA382F /* NoDataViewController.m */; };
+		52AC1F341C0C9F7700BD29B6 /* ActivityLinks.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AC1F331C0C9F7700BD29B6 /* ActivityLinks.m */; };
+		52AC1F371C0CA82B00BD29B6 /* ActivityLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AC1F361C0CA82B00BD29B6 /* ActivityLinkCell.m */; };
 		52C334DC1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334DB1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m */; };
 		52C334DF1BAF260D007C833A /* MyAcceptedActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334DE1BAF260D007C833A /* MyAcceptedActivityViewController.m */; };
 		52C334E21BDFD65000D1873A /* ActivityWebviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C334E11BDFD65000D1873A /* ActivityWebviewController.m */; };
@@ -414,6 +416,10 @@
 		5281B5641BB1C8F900EA382F /* NSDate+Compare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Compare.m"; sourceTree = "<group>"; };
 		5281B5661BB1CC7800EA382F /* NoDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoDataViewController.h; sourceTree = "<group>"; };
 		5281B5671BB1CC7800EA382F /* NoDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoDataViewController.m; sourceTree = "<group>"; };
+		52AC1F321C0C9F7700BD29B6 /* ActivityLinks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityLinks.h; sourceTree = "<group>"; };
+		52AC1F331C0C9F7700BD29B6 /* ActivityLinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityLinks.m; sourceTree = "<group>"; };
+		52AC1F351C0CA82B00BD29B6 /* ActivityLinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityLinkCell.h; sourceTree = "<group>"; };
+		52AC1F361C0CA82B00BD29B6 /* ActivityLinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityLinkCell.m; sourceTree = "<group>"; };
 		52C334DA1BAF1E05007C833A /* ActivityOfFollowedShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityOfFollowedShopViewController.h; sourceTree = "<group>"; };
 		52C334DB1BAF1E05007C833A /* ActivityOfFollowedShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityOfFollowedShopViewController.m; sourceTree = "<group>"; };
 		52C334DD1BAF260D007C833A /* MyAcceptedActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAcceptedActivityViewController.h; sourceTree = "<group>"; };
@@ -676,6 +682,8 @@
 				52044C881BDD245E0082664E /* ActivityAcceptedMoreDetailCellItem.m */,
 				52F71EC01BED1C2000A61982 /* ActivityShopPreviewCellItem.h */,
 				52F71EC11BED1C2000A61982 /* ActivityShopPreviewCellItem.m */,
+				52AC1F321C0C9F7700BD29B6 /* ActivityLinks.h */,
+				52AC1F331C0C9F7700BD29B6 /* ActivityLinks.m */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -986,6 +994,8 @@
 				52635B951BA8728200703DBE /* UserLikeAndSettingCell.m */,
 				52635B961BA8728200703DBE /* UserProfileInfoCell.h */,
 				52635B971BA8728200703DBE /* UserProfileInfoCell.m */,
+				52AC1F351C0CA82B00BD29B6 /* ActivityLinkCell.h */,
+				52AC1F361C0CA82B00BD29B6 /* ActivityLinkCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1323,6 +1333,7 @@
 				5239786B1BAB23A800CB9B9E /* SignUpMoreViewController.m in Sources */,
 				52635C161BA8728200703DBE /* FavoriteShopCell.m in Sources */,
 				523978501BA9A2A200CB9B9E /* ShopDescriptionCell.m in Sources */,
+				52AC1F371C0CA82B00BD29B6 /* ActivityLinkCell.m in Sources */,
 				52635BB91BA8728200703DBE /* CTAssetItemViewController.m in Sources */,
 				523978511BA9A2A200CB9B9E /* ActivityUserRelation.m in Sources */,
 				5239783E1BA9A25A00CB9B9E /* ActivityDetailCellItem.m in Sources */,
@@ -1335,6 +1346,7 @@
 				52635BBF1BA8728200703DBE /* CTAssetsPickerController.m in Sources */,
 				523977D71BA997D600CB9B9E /* LineDashView.m in Sources */,
 				523978741BADA61400CB9B9E /* UserInfoEditViewController.m in Sources */,
+				52AC1F341C0C9F7700BD29B6 /* ActivityLinks.m in Sources */,
 				5239782C1BA99B8900CB9B9E /* NewNotificationsViewController.m in Sources */,
 				523978051BA99B2F00CB9B9E /* ShopViewController.m in Sources */,
 				523978521BA9A2A200CB9B9E /* ShopInfoDescription.m in Sources */,

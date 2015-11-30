@@ -15,6 +15,7 @@
 #import "ShopActivities.h"
 #import "Shop.h"
 #import "ShopInfoDescription.h"
+#import "ActivityLinks.h"
 
 #import "ActivityViewController.h"
 #import "HFCreateAvtivityViewController.h"
@@ -181,6 +182,8 @@
     [ShopInfoDescription registerSubclass];
     [LYUser registerSubclass];
     [ActivityUserRelation registerSubclass];
+    [ActivityLinkTypes registerSubclass];
+    [ActivityLinks registerSubclass];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
