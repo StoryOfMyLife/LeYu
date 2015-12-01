@@ -15,3 +15,9 @@
 @property (nonatomic, strong) UILabel *fromLabel;
 
 @end
+
+@interface ActivityLinksHeader : LTableViewCell
+
+@property (nonatomic, strong) UILabel *titleLabel;
+
+@end

@@ -40,7 +40,7 @@
         [self.contentView addSubview:self.fromLabel];
         
         UIView *seperator = [[UIView alloc] init];
-        seperator.backgroundColor = [UIColor lightGrayColor];
+        seperator.backgroundColor = RGBCOLOR(205, 205, 205);
         [self.contentView addSubview:seperator];
         
         CGFloat inset = 15;
@@ -72,7 +72,7 @@
         [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imageIconView);
             make.height.mas_equalTo(0.5);
-            make.right.equalTo(self.contentView);
+            make.right.equalTo(self.contentView).offset(-inset);
             make.bottom.equalTo(self.contentView);
         }];
     }
@@ -85,6 +85,58 @@
     self.titleLabel.text = cellItem.title;
     self.fromLabel.text = cellItem.linkType.desc;
     [self.imageIconView sd_setImageWithURL:[NSURL URLWithString:cellItem.image_url]];
+}
+
+@end
+
+@implementation ActivityLinksHeader
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIView *leftLine = [[UIView alloc] init];
+        leftLine.backgroundColor = RGBCOLOR_HEX(0xd7d7d7);
+        [self.contentView addSubview:leftLine];
+        
+        UIView *rightLine = [[UIView alloc] init];
+        rightLine.backgroundColor = leftLine.backgroundColor;
+        [self.contentView addSubview:rightLine];
+        
+        self.titleLabel = [[UILabel alloc] init];
+        self.titleLabel.text = @"乐鱼优选";
+        self.titleLabel.font = SystemFontWithSize(16);
+        self.titleLabel.textColor = DefaultYellowColor;
+        [self.contentView addSubview:self.titleLabel];
+        
+        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.contentView);
+        }];
+        
+        [leftLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.titleLabel);
+            make.width.mas_equalTo(55);
+            make.height.mas_equalTo(0.5);
+            make.right.mas_equalTo(self.titleLabel.mas_left).offset(-20);
+        }];
+        
+        [rightLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(leftLine);
+            make.width.height.equalTo(leftLine);
+            make.left.equalTo(self.titleLabel.mas_right).offset(20);
+        }];
+    }
+    return self;
+}
+
+- (void)setCellItem:(ActivityLinksHeaderItem *)cellItem
+{
+    [super setCellItem:cellItem];
+    if (cellItem.title.length > 0) {
+        self.titleLabel.text = cellItem.title;
+    }
 }
 
 @end

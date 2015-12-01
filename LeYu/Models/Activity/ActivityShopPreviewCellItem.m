@@ -17,7 +17,7 @@
 
 - (CGFloat)heightForTableView:(UITableView *)tableView
 {
-    return 40;
+    return 80;
 }
 
 @end

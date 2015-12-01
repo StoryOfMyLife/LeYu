@@ -27,4 +27,10 @@
 
 @end
 
+@interface ActivityLinksHeaderItem : LTableViewCellItem
+
+@property (nonatomic, strong) NSString *title;
+
+@end
+
 

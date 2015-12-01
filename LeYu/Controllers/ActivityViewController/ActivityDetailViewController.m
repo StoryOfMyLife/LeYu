@@ -254,6 +254,7 @@
     NSMutableArray *mutableItems = [NSMutableArray array];
     
     [mutableItems addObject:self.activityDetailItem];
+    [mutableItems addObject:[[ActivityLinksHeaderItem alloc] init]];
     [mutableItems addObjectsFromArray:activities];
     [mutableItems addObjectsFromArray:@[self.shopPreviewItem, self.shopMapItem]];
     [self setItems:@[mutableItems]];

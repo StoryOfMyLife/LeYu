@@ -42,3 +42,18 @@
 }
 
 @end
+
+
+@implementation ActivityLinksHeaderItem
+
+- (Class)cellClass
+{
+    return [ActivityLinksHeader class];
+}
+
+- (CGFloat)heightForTableView:(UITableView *)tableView
+{
+    return 50;
+}
+
+@end
