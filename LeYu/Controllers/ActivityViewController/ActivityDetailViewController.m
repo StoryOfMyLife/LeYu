@@ -191,7 +191,6 @@
 
 - (void)setTitleView
 {
-    self.navigationItem.titleView = self.shopIcon;
     UIView *superview = [[UIView alloc] init];
     superview.backgroundColor = [UIColor clearColor];
     superview.size = CGSizeMake(50, 50);

@@ -14,12 +14,17 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
 #import "ShopViewController.h"
 
 @interface ActivityWebviewController () <UIWebViewDelegate>
+{
+    BOOL loadFinished;
+}
 
 @property (nonatomic, strong) UIWebView *webview;
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicator;
 
 @property (nonatomic, strong) NSURL *url;
+
+@property (nonatomic, strong) UIImageView *shopIcon;
 
 @end
 
@@ -36,6 +41,7 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     [shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = shareItem;
+    [self setTitleView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,6 +68,24 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
     return _indicator;
 }
 
+- (UIImageView *)shopIcon
+{
+    if (!_shopIcon) {
+        _shopIcon = [[UIImageView alloc] init];
+        _shopIcon.contentMode = UIViewContentModeScaleAspectFill;
+        _shopIcon.clipsToBounds = YES;
+        _shopIcon.userInteractionEnabled = YES;
+        _shopIcon.layer.cornerRadius = 20;
+        _shopIcon.layer.borderWidth = 0;
+        _shopIcon.layer.borderColor = RGBCOLOR(238, 238, 238).CGColor;
+        _shopIcon.image = [UIImage imageNamed:@"DefaultAvatar"];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animateToShopView)];
+        [_shopIcon addGestureRecognizer:tap];
+    }
+    return _shopIcon;
+}
+
 - (UIWebView *)webview
 {
     if (!_webview) {
@@ -78,31 +102,80 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
         [self.indicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.view);
         }];
-        self.title = @"正在加载...";
         [self.indicator startAnimating];
     }
     return _webview;
 }
 
+- (void)setTitleView
+{
+    UIView *superview = [[UIView alloc] init];
+    superview.backgroundColor = [UIColor clearColor];
+    superview.size = CGSizeMake(50, 50);
+    [superview addSubview:self.shopIcon];
+    self.navigationItem.titleView = superview;
+    
+    [self.shopIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.width.equalTo(@(40));
+        make.centerX.equalTo(superview);
+        make.centerY.equalTo(superview).offset(-3);
+    }];
+    
+    weakSelf();
+    [self.activity.shop loadShopIcon:^(UIImage *image, NSError *error) {
+        [UIView transitionWithView:weakSelf.shopIcon duration:0.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            weakSelf.shopIcon.image = image;
+        } completion:nil];
+    }];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    loadFinished = NO;
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [self.indicator stopAnimating];
-    self.title = @"";
+    loadFinished = YES;
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *urlString = request.URL.absoluteString;
     if ([urlString containsString:@"shop/jump"]) {
-        [self jumpToShop];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (loadFinished) {
+                [self animateToShopView];
+            }
+        });
+        return NO;
     }
     return YES;
 }
 
-- (void)jumpToShop
+- (void)animateToShopView
 {
-    ShopViewController *shopVC = [[ShopViewController alloc] initWithShop:self.activity.shop];
-    [self.navigationController pushViewController:shopVC animated:YES];
+    [self gotoShop:YES];
+}
+
+- (void)gotoShop:(BOOL)animated
+{
+    CGRect rect = [self.view convertRect:self.shopIcon.frame fromView:self.shopIcon.superview];
+    rect.origin.y += self.view.top;
+    
+    ShopViewController *shopViewController =[[ShopViewController alloc] initWithShop:self.activity.shop];
+    shopViewController.presentedRect = rect;
+    
+    if (animated) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shopViewController];
+        nav.transitioningDelegate = shopViewController;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:nav animated:YES completion:^{
+        }];
+    } else {
+        [self.navigationController pushViewController:shopViewController animated:YES];
+    }
 }
 
 - (void)share

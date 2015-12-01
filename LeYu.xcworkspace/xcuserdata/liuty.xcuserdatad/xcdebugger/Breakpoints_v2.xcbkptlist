@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "470669574.131469"
+            timestampString = "470670368.691509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "390"
-            endingLineNumber = "390"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "-playBack"
             landmarkType = "5">
          </BreakpointContent>
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "470669574.131469"
+            timestampString = "470670368.691509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "565"
-            endingLineNumber = "565"
+            startingLineNumber = "564"
+            endingLineNumber = "564"
             landmarkName = "-voiceView"
             landmarkType = "5">
          </BreakpointContent>
@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "470669574.131469"
+            timestampString = "470670368.691509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "676"
-            endingLineNumber = "676"
+            startingLineNumber = "675"
+            endingLineNumber = "675"
             landmarkName = "-voiceView"
             landmarkType = "5">
          </BreakpointContent>
@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "470669574.131469"
+            timestampString = "470670368.691509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "398"
+            endingLineNumber = "398"
             landmarkName = "-soundItem"
             landmarkType = "5">
          </BreakpointContent>
@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "470669574.131469"
+            timestampString = "470670368.691509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "913"
-            endingLineNumber = "913"
+            startingLineNumber = "912"
+            endingLineNumber = "912"
             landmarkName = "-share"
             landmarkType = "5">
          </BreakpointContent>
@@ -196,11 +196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "470593358.06883"
+            timestampString = "470670368.691509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "-loadActivityLinks"
             landmarkType = "5">
          </BreakpointContent>
@@ -212,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-            timestampString = "470593358.06883"
+            timestampString = "470670368.691509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "-loadActivityLinks"
             landmarkType = "5">
             <Locations>
@@ -228,12 +228,12 @@
                   moduleName = "LeYu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/liuty/Documents/LeYu/LeYu/LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-                  timestampString = "470593182.807869"
+                  timestampString = "470673207.265792"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "232"
-                  endingLineNumber = "232"
-                  offsetFromSymbolStart = "456">
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
+                  offsetFromSymbolStart = "460">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -243,12 +243,12 @@
                   moduleName = "LeYu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/liuty/Documents/LeYu/LeYu/LeYu/Controllers/ActivityViewController/ActivityDetailViewController.m"
-                  timestampString = "470593182.808267"
+                  timestampString = "470673207.266009"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "232"
-                  endingLineNumber = "232"
-                  offsetFromSymbolStart = "80">
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
+                  offsetFromSymbolStart = "72">
                </Location>
             </Locations>
          </BreakpointContent>
