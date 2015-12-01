@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSString *image_url;
 @property (nonatomic, strong) ActivityLinkTypes *linkType;
 @property (nonatomic, strong) ShopActivities *activity;
+@property (nonatomic, assign) BOOL hideBottomLine;
 
 @end
 

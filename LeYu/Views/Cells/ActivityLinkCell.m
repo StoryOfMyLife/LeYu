@@ -10,6 +10,12 @@
 #import "ActivityLinks.h"
 #import <UIImageView+WebCache.h>
 
+@interface ActivityLinkCell ()
+
+@property (nonatomic, strong) UIView *seperator;
+
+@end
+
 @implementation ActivityLinkCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -39,9 +45,10 @@
         self.fromLabel.font = from.font;
         [self.contentView addSubview:self.fromLabel];
         
-        UIView *seperator = [[UIView alloc] init];
-        seperator.backgroundColor = RGBCOLOR(205, 205, 205);
-        [self.contentView addSubview:seperator];
+        self.seperator = [[UIView alloc] init];
+        self.seperator.hidden = YES;
+        self.seperator.backgroundColor = RGBCOLOR(205, 205, 205);
+        [self.contentView addSubview:self.seperator];
         
         CGFloat inset = 15;
         
@@ -69,7 +76,7 @@
             make.left.equalTo(from.mas_right).offset(5);
         }];
         
-        [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.seperator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imageIconView);
             make.height.mas_equalTo(0.5);
             make.right.equalTo(self.contentView).offset(-inset);
@@ -85,6 +92,7 @@
     self.titleLabel.text = cellItem.title;
     self.fromLabel.text = cellItem.linkType.desc;
     [self.imageIconView sd_setImageWithURL:[NSURL URLWithString:cellItem.image_url]];
+    self.seperator.hidden = cellItem.hideBottomLine;
 }
 
 @end

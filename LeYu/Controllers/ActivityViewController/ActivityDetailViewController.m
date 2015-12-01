@@ -253,6 +253,13 @@
 {
     NSMutableArray *mutableItems = [NSMutableArray array];
     
+    for (ActivityLinks *link in activities) {
+        if (link == [activities lastObject]) {
+            link.hideBottomLine = NO;
+        } else {
+            link.hideBottomLine = YES;
+        }
+    }
     [mutableItems addObject:self.activityDetailItem];
     [mutableItems addObject:[[ActivityLinksHeaderItem alloc] init]];
     [mutableItems addObjectsFromArray:activities];
