@@ -93,14 +93,7 @@
     
     activitiesViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"发现" image:[ImageFactory activityTabBarIcon] selectedImage:[ImageFactory activityTabBarIconSelected]];
     
-    NewNotificationsViewController *newsVC = [[NewNotificationsViewController alloc] init];
-    [newsVC view];
-    UINavigationController *notificationViewController = [[UINavigationController alloc] initWithRootViewController:
-                                                          newsVC];
-    
-    notificationViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息" image:[ImageFactory messageTabbarIcon] selectedImage:[ImageFactory messageTabbarIconSelected]];
-    
-    NSArray *tabbars = [NSArray arrayWithObjects:homeNavigationController,activitiesViewController,notificationViewController,userProfileNavigationController, nil];
+    NSArray *tabbars = [NSArray arrayWithObjects:homeNavigationController,activitiesViewController,userProfileNavigationController, nil];
     
     [tabBarController setViewControllers:tabbars];
     
@@ -113,31 +106,7 @@
     
     [self customUI];
     
-    [self checkAddButton];
-    
     return YES;
-}
-
-- (void)checkAddButton
-{
-    LYUser *currentUser = [LYUser currentUser];
-    if (currentUser) {
-        if (currentUser.shop) {
-            AVQuery *query = [Shop query];
-            [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
-            Shop *shop = (Shop *)[query getFirstObject];
-            currentUser.shop = shop;
-        } else {
-            currentUser.level = UserLevelNormal;
-        }
-        [currentUser saveInBackground];
-    }
-    
-    if (currentUser.level == UserLevelShop) {
-        [tabBarController showAddButton];
-    } else {
-        [tabBarController hideAddButton];
-    }
 }
 
 - (void)registerNotification:(UIApplication *)application {

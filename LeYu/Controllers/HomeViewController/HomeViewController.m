@@ -9,6 +9,9 @@
 #import "HomeViewController.h"
 #import "ShopActivityViewController.h"
 #import "IntroViewController.h"
+#import "HFCreateAvtivityViewController.h"
+#import "LoginViewController.h"
+#import "SettingViewController.h"
 
 @interface HomeViewController () <LTableViewScrollDelegate>
 
@@ -28,6 +31,8 @@
     [self addChildViewController:self.activityVC];
     [self.view addSubview:self.activityVC.view];
     
+    [self checkAddButton];
+    
     [self.activityVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -39,6 +44,9 @@
         [rootVC.view addSubview:introVC.view];
         [rootVC addChildViewController:introVC];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkAddButton) name:kUserDidLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkAddButton) name: kUserDidLogoutNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,6 +60,40 @@
     [super viewWillDisappear:animated];
 }
 
+- (void)checkAddButton
+{
+    LYUser *currentUser = [LYUser currentUser];
+    if (currentUser) {
+        if (currentUser.shop) {
+            AVQuery *query = [Shop query];
+            [query whereKey:@"objectId" equalTo:currentUser.shop.objectId];
+            Shop *shop = (Shop *)[query getFirstObject];
+            currentUser.shop = shop;
+        } else {
+            currentUser.level = UserLevelNormal;
+        }
+        [currentUser saveInBackground];
+        
+        if (currentUser.level == UserLevelShop) {
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            rightButton.tintColor = [UIColor whiteColor];
+            [rightButton addTarget:self action:@selector(createActivity) forControlEvents:UIControlEventTouchUpInside];
+            [rightButton setTitle:@"发布" forState:UIControlStateNormal];
+            [rightButton sizeToFit];
+            UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+            self.navigationItem.rightBarButtonItem = rightBarItem;
+        }
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
+- (void)createActivity
+{
+    HFCreateAvtivityViewController *picker = [[HFCreateAvtivityViewController alloc] init];
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
 - (void)LTableViewDidScroll:(UIScrollView *)tableView
 {
     CGFloat offsetY = tableView.contentOffset.y;
@@ -59,13 +101,13 @@
         CGRect frame = self.topImageView.frame;
         frame.origin.y = -offsetY + 5;
         self.topImageView.frame = frame;
-        self.topImageView.alpha = 1 + offsetY / 20;
+        self.topImageView.alpha = 1 + offsetY / 50;
     } else {
         offsetY = 0;
         CGRect frame = self.topImageView.frame;
         frame.origin.y = -offsetY + 5;
         self.topImageView.frame = frame;
-        self.topImageView.alpha = 1 + offsetY / 20;
+        self.topImageView.alpha = 1;
     }
 }
 

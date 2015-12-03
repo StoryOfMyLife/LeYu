@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UserViewController.h"
 
+#define kUserDidLogoutNotification @"kUserDidLogoutNotification" 
+
 @interface SettingViewController : UITableViewController
 
 @property (nonatomic, weak) UserViewController *userVC;

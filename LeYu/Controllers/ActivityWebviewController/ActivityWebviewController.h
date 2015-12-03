@@ -12,6 +12,7 @@
 @interface ActivityWebviewController : LViewController
 
 @property (nonatomic, strong) NSString *urlID;
+@property (nonatomic, strong) NSString *urlString;
 
 @property (nonatomic, strong) ShopActivities *activity;
 

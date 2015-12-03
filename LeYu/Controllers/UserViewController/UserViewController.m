@@ -69,7 +69,7 @@
             if (indexPath.row == 0) {
             
                 ActivityManageViewController *vc = [[ActivityManageViewController alloc] init];
-                vc.title = @"活动管理";
+                vc.title = @"我的分享";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
 //            } else if (indexPath.row == 1) {

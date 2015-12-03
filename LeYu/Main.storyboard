@@ -666,7 +666,7 @@
                                                         <constraint firstAttribute="width" constant="25" id="A5g-br-wgW"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活动管理" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEL-ri-sdS">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的分享" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEL-ri-sdS">
                                                     <rect key="frame" x="55" y="15" width="68" height="21"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2193,6 +2193,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QSJ-aw-600"/>
-        <segue reference="yJb-NT-Cmx"/>
+        <segue reference="dd0-bl-yEK"/>
     </inferredMetricsTieBreakers>
 </document>

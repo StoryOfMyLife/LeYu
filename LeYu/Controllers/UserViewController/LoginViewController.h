@@ -8,6 +8,8 @@
 
 #import "LViewController.h"
 
+#define kUserDidLoginNotification @"kUserDidLoginNotification"
+
 @interface LoginViewController : LViewController
 
 @end

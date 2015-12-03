@@ -42,7 +42,7 @@ static const CGFloat titleVerticalGap = 10;
     [super setHighlighted:highlighted animated:animated];
     [UIView transitionWithView:self.backView duration:.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (highlighted) {
-            self.backView.backgroundColor = RGBCOLOR(212, 212, 212);
+            self.backView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.5];
         } else {
             self.backView.backgroundColor = [UIColor whiteColor];
         }

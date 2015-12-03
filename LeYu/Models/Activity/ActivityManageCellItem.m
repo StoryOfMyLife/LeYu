@@ -40,10 +40,10 @@
         self.dateLabel.font = SystemFontWithSize(13);
         [self.contentView addSubview:self.dateLabel];
         
-        self.acceptedCount = [[UILabel alloc] init];
-        self.acceptedCount.textColor = DefaultYellowColor;
-        self.acceptedCount.font = SystemBoldFontWithSize(11);
-        [self.contentView addSubview:self.acceptedCount];
+//        self.acceptedCount = [[UILabel alloc] init];
+//        self.acceptedCount.textColor = DefaultYellowColor;
+//        self.acceptedCount.font = SystemBoldFontWithSize(11);
+//        [self.contentView addSubview:self.acceptedCount];
         
         UIView *seperator = [[UIView alloc] init];
         seperator.backgroundColor = [UIColor lightGrayColor];
@@ -70,10 +70,10 @@
             make.top.equalTo(self.contentView.mas_centerY).offset(inset);
         }];
         
-        [self.acceptedCount mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.dateLabel);
-            make.right.equalTo(self.contentView).offset(-inset);
-        }];
+//        [self.acceptedCount mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.dateLabel);
+//            make.right.equalTo(self.contentView).offset(-inset);
+//        }];
         
         [seperator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imageIconView);
@@ -97,12 +97,12 @@
     NSString *date = [formatter stringFromDate:activity.beginDate];
     self.dateLabel.text = date;
 
-    AVQuery *relationQuery = [ActivityUserRelation query];
-    [relationQuery whereKey:@"activity" equalTo:activity];
+//    AVQuery *relationQuery = [ActivityUserRelation query];
+//    [relationQuery whereKey:@"activity" equalTo:activity];
     
-    [relationQuery countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
-        self.acceptedCount.text = [NSString stringWithFormat:@"%ld人参与", (long)number];
-    }];
+//    [relationQuery countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+//        self.acceptedCount.text = [NSString stringWithFormat:@"%ld人参与", (long)number];
+//    }];
     
     [AVFile getFileWithObjectId:activity.pics[0] withBlock:^(AVFile *file, NSError *error) {
         [file getThumbnail:YES width:140 height:(140.0 * 16.0 / 9.0) withBlock:^(UIImage *image, NSError *error) {

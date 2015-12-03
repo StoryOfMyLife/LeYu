@@ -53,8 +53,6 @@
         }
         LYUser *currentUser = [LYUser currentUser];
         if (currentUser) {
-            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            [appdelegate checkAddButton];
             
             if (currentUser.shop.objectId) {
                 AVQuery *query = [Shop query];
@@ -63,7 +61,9 @@
                 currentUser.shop = shop;
             }
             
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidLoginNotification object:nil];
+            }];
         }
     }];
 }

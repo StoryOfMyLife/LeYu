@@ -49,6 +49,7 @@
 {
     [LYUser logOut];
     [self.userVC updateAvatar];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidLogoutNotification object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -56,7 +56,22 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
         _urlID = urlID;
         NSString *urlString = [NSString stringWithFormat:@"%@%@?from=app", baseURL, urlID];
         self.url = [NSURL URLWithString:urlString];
-        [self.webview loadRequest:[NSURLRequest requestWithURL:self.url]];
+    }
+}
+
+- (void)setUrlString:(NSString *)urlString
+{
+    if (_urlString != urlString) {
+        _urlString = urlString;
+        self.url = [NSURL URLWithString:urlString];
+    }
+}
+
+- (void)setUrl:(NSURL *)url
+{
+    if (_url != url) {
+        _url = url;
+        [self.webview loadRequest:[NSURLRequest requestWithURL:_url]];
     }
 }
 
@@ -109,6 +124,9 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
 
 - (void)setTitleView
 {
+    if (!self.activity.shop) {
+        return;
+    }
     UIView *superview = [[UIView alloc] init];
     superview.backgroundColor = [UIColor clearColor];
     superview.size = CGSizeMake(50, 50);

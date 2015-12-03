@@ -22,7 +22,10 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         self.imageIconView = [[UIImageView alloc] init];
+        self.imageIconView.backgroundColor = DefaultBackgroundColor;
         self.imageIconView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageIconView.clipsToBounds = YES;
         [self.contentView addSubview:self.imageIconView];
@@ -84,6 +87,18 @@
         }];
     }
     return self;
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (highlighted) {
+            self.contentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.5];
+        } else {
+            self.contentView.backgroundColor = [UIColor whiteColor];
+        }
+    } completion:nil];
 }
 
 - (void)setCellItem:(ActivityLinks *)cellItem

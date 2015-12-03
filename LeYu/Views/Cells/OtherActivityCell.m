@@ -18,6 +18,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
 //        self.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
 //        self.layer.shadowOffset = CGSizeMake(0, 0);
 //        self.layer.shadowOpacity = 1;
@@ -102,6 +103,18 @@
         }];
     }
     return self;
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (highlighted) {
+            self.contentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.5];
+        } else {
+            self.contentView.backgroundColor = [UIColor whiteColor];
+        }
+    } completion:nil];
 }
 
 - (void)setCellItem:(ShopActivities *)cellItem

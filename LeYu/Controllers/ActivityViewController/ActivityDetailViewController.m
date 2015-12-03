@@ -65,6 +65,12 @@
 
 @implementation ActivityDetailViewController
 
+- (void)dealloc
+{
+    self.playBack = nil;
+    self.soundItem = nil;
+}
+
 - (instancetype)initWithActivities:(ShopActivities *)activities {
     if (self = [self init]) {
         self.activities = activities;
@@ -234,7 +240,7 @@
                     @strongify(links);
                     ActivityWebviewController *webVC = [[ActivityWebviewController alloc] init];
                     webVC.activity = self.activities;
-                    webVC.urlID = links.url;
+                    webVC.urlString = links.url;
                     [self.navigationController pushViewController:webVC animated:YES];
                 }];
             }
