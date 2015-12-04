@@ -166,12 +166,19 @@
 
 - (void)configureCellWithActivity:(ShopActivities *)activity
 {
-    BOOL cached = activity.cached;
-    [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
-        [UIView transitionWithView:self duration:cached ? 0 : .3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-            self.imageIconView.image = image;
-        } completion:nil];
-    }];
+    if (activity.cached) {
+        self.imageIconView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageIconView.image = activity.thumbnail;
+    } else {
+        self.imageIconView.contentMode = UIViewContentModeCenter;
+        self.imageIconView.image = [UIImage imageNamed:@"placeholder"];
+        
+        [activity getActivityThumbNail:^(UIImage *image, NSError *error) {
+            [UIView transitionWithView:self duration:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.imageIconView.image = image;
+            } completion:nil];
+        }];
+    }
     
     NSString *imageName = nil;
     if ([activity.activityType integerValue] == ActivityTypeNormal) {

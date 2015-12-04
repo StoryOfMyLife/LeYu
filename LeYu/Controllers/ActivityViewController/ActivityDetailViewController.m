@@ -69,6 +69,7 @@
 {
     self.playBack = nil;
     self.soundItem = nil;
+    [[AVAudioSession sharedInstance] setActive:NO error:nil];
 }
 
 - (instancetype)initWithActivities:(ShopActivities *)activities {
@@ -202,6 +203,7 @@
     superview.size = CGSizeMake(50, 50);
     [superview addSubview:self.shopIcon];
     self.navigationItem.titleView = superview;
+    self.title = @"";
     
     [self.shopIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.width.equalTo(@(40));

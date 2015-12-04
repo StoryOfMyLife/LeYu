@@ -1539,7 +1539,7 @@
             </objects>
             <point key="canvasLocation" x="1829" y="252"/>
         </scene>
-        <!--Setting View Controller-->
+        <!--设置-->
         <scene sceneID="hCv-hc-NYg">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="gYV-PK-LLJ" customClass="SettingViewController" sceneMemberID="viewController">
@@ -1552,7 +1552,7 @@
                             <tableViewSection id="IWa-dB-7fh">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="rpn-r8-6sh" style="IBUITableViewCellStyleDefault" id="9TH-bY-dRm">
-                                        <rect key="frame" x="0.0" y="35" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9TH-bY-dRm" id="385-oq-Xcv">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -1575,7 +1575,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="oXA-Sx-YMT" style="IBUITableViewCellStyleDefault" id="4Md-Fy-ZC8">
-                                        <rect key="frame" x="0.0" y="79" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Md-Fy-ZC8" id="eyo-bo-IaV">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -1599,7 +1599,7 @@
                             <tableViewSection id="Gbv-cI-TvV">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="N9m-DO-40Y">
-                                        <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="207" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N9m-DO-40Y" id="fbK-Fa-Pbp">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1634,7 +1634,8 @@
                             <outlet property="delegate" destination="gYV-PK-LLJ" id="fue-xW-iug"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="76m-dx-TPS"/>
+                    <navigationItem key="navigationItem" title="设置" id="76m-dx-TPS"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Toh-0p-5Zv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1643,7 +1644,7 @@
         <!--关于我们-->
         <scene sceneID="EpZ-Fn-yfx">
             <objects>
-                <viewController id="lD6-pl-4Oa" userLabel="关于我们" sceneMemberID="viewController">
+                <viewController title="关于我们" id="lD6-pl-4Oa" userLabel="关于我们" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5DH-dj-RN2"/>
                         <viewControllerLayoutGuide type="bottom" id="oFd-ew-dZR"/>
@@ -1666,7 +1667,7 @@
                             <constraint firstAttribute="trailing" secondItem="WcN-Jq-B8j" secondAttribute="trailing" id="zAw-lZ-HQ9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5TN-6b-jCE"/>
+                    <navigationItem key="navigationItem" title="关于我们" id="5TN-6b-jCE"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s0R-fE-CGO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

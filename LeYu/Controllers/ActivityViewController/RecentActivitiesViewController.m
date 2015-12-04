@@ -67,7 +67,7 @@
     [self.tableView.header endRefreshing];
     [self.indicator stopAnimating];
     if (activities.count == 0) {
-        [self showNoData:@"附近没有活动"];
+        [self showNoData:@"没有新活动"];
         return;
     }
     [self hideNoData];
@@ -77,6 +77,7 @@
 - (void)loadActivities
 {
     AVQuery *activityQuery = [ShopActivities query];
+    [activityQuery includeKey:@"shop"];
     [activityQuery orderByDescending:@"createdAt"];
     [activityQuery whereKey:@"isApproved" equalTo:@(1)];
     

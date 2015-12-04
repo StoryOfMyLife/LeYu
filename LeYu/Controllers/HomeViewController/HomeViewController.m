@@ -28,6 +28,10 @@
     self.topImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top_leyu"]];
     self.navigationItem.titleView = self.topImageView;
     
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = @"";
+    self.navigationItem.backBarButtonItem = backItem;
+    
     [self addChildViewController:self.activityVC];
     [self.view addSubview:self.activityVC.view];
     

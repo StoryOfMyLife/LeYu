@@ -75,6 +75,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"";
 
     [self.view addSubview:self.topInfoView];
     [self.view addSubview:self.tabHeader];

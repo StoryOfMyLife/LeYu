@@ -154,7 +154,7 @@
         [bottomSeperator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.contentView);
             make.height.equalTo(@0.5);
-            make.width.equalTo(self.contentView).offset(-30);
+            make.width.equalTo(self).offset(-30);
             make.bottom.equalTo(self.contentView).offset(-20);
         }];
         

@@ -69,9 +69,10 @@
             if (indexPath.row == 0) {
             
                 ActivityManageViewController *vc = [[ActivityManageViewController alloc] init];
-                vc.title = @"我的分享";
                 vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+                [self.navigationController pushViewController:vc animated:YES]
+                ;
+                vc.title = @"我的分享";
 //            } else if (indexPath.row == 1) {
 //                MyAcceptedActivityViewController *vc = [[MyAcceptedActivityViewController alloc] init];
 //                vc.title = @"我的活动";
@@ -79,9 +80,10 @@
 //                [self.navigationController pushViewController:vc animated:YES];
             } else if (indexPath.row == 1) {
                 FollowedShopViewController *vc = [[FollowedShopViewController alloc] init];
-                vc.title = @"收藏的店铺";
                 vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+                [self.navigationController pushViewController:vc animated:YES]
+                ;
+                vc.title = @"收藏的店铺";
             } else if (indexPath.row == 2) {
                 [self showFeedbackViewController];
             }
@@ -93,9 +95,9 @@
 //                [self.navigationController pushViewController:vc animated:YES];
 //            } else if (indexPath.row == 1) {
                 FollowedShopViewController *vc = [[FollowedShopViewController alloc] init];
-                vc.title = @"收藏的店铺";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
+                vc.title = @"收藏的店铺";
             } else if (indexPath.row == 1) {
                 [self showFeedbackViewController];
             }
