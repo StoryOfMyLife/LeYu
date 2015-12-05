@@ -20,8 +20,6 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
 
 @property (nonatomic, strong) UIWebView *webview;
 
-@property (nonatomic, strong) UIActivityIndicatorView *indicator;
-
 @property (nonatomic, strong) NSURL *url;
 
 @property (nonatomic, strong) UIImageView *shopIcon;
@@ -41,6 +39,7 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     [shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = shareItem;
+    self.title = @"";
     [self setTitleView];
 }
 
@@ -75,14 +74,6 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
     }
 }
 
-- (UIActivityIndicatorView *)indicator
-{
-    if (!_indicator) {
-        _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    }
-    return _indicator;
-}
-
 - (UIImageView *)shopIcon
 {
     if (!_shopIcon) {
@@ -110,14 +101,9 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
         _webview.backgroundColor = [UIColor whiteColor];//DefaultBackgroundColor;
         
         [self.view addSubview:_webview];
-        [self.view addSubview:self.indicator];
         [_webview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-        [self.indicator mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self.view);
-        }];
-        [self.indicator startAnimating];
     }
     return _webview;
 }
@@ -150,24 +136,36 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     loadFinished = NO;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [self.indicator stopAnimating];
     loadFinished = YES;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *urlString = request.URL.absoluteString;
-    if ([urlString containsString:@"shop/jump"]) {
+    if ([urlString hasPrefix:@"js-call://shop/jump?"]) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (loadFinished) {
                 [self animateToShopView];
             }
         });
         return NO;
+    } else if ([urlString hasPrefix:@"js-call://link/jump?"]) {
+        NSString *params = [urlString stringByReplacingOccurrencesOfString:@"js-call://link/jump?" withString:@""];
+        if ([params hasPrefix:@"url="]) {
+            NSString *jumpURL = [params stringByReplacingOccurrencesOfString:@"url=" withString:@""];
+            jumpURL =  [NSString stringWithString:[jumpURL stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            ActivityWebviewController *webVC = [[ActivityWebviewController alloc] init];
+            webVC.activity = self.activity;
+            webVC.urlString = jumpURL;
+            [self.navigationController pushViewController:webVC animated:YES];
+            return NO;
+        }
     }
     return YES;
 }
@@ -203,6 +201,9 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         
         NSString *url = [NSString stringWithFormat:@"%@%@", baseURL, self.urlID];
+        if (self.urlString.length > 0) {
+            url = self.urlString;
+        }
         
         NSString *desc = self.activity.activitiesDescription;
         if (desc.length > 140) {
@@ -215,8 +216,9 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
                                             url:[NSURL URLWithString:url]
                                           title:self.activity.title
                                            type:SSDKContentTypeAuto];
+        
         //2、分享（可以弹出我们的分享菜单和编辑界面）
-        SSUIShareActionSheetController *sheet = [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+        SSUIShareActionSheetController *sheet = [ShareSDK showShareActionSheet:nil
                                  items:nil
                            shareParams:shareParams
                    onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {

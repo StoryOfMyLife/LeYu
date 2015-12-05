@@ -132,9 +132,9 @@
         [weakSelf gotoShop:YES];
     };
     
-    self.shopMapItem.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
-        [weakSelf gotoShop:YES];
-    };
+//    self.shopMapItem.actionBlock = ^(UITableView *tableView, NSIndexPath *indexPath){
+//        [weakSelf gotoShop:YES];
+//    };
     
     [self loadActivityLinks];
 
@@ -921,11 +921,11 @@ static const NSString *baseURL = @"http://www.iangus.cn/leyu-wap/activity/detail
         
         NSString *desc = self.activities.activitiesDescription;
         if (desc.length > 140) {
-            desc = [desc substringToIndex:135];
+            desc = [desc substringToIndex:100];
             desc = [desc stringByAppendingString:@"..."];
         }
         
-        [shareParams SSDKSetupShareParamsByText:desc
+        [shareParams SSDKSetupShareParamsByText:@"123"
                                          images:file.url
                                             url:[NSURL URLWithString:url]
                                           title:self.activities.title

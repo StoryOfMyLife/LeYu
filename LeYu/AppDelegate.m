@@ -182,17 +182,13 @@
      
           activePlatforms:@[
                             @(SSDKPlatformTypeSinaWeibo),
-                            @(SSDKPlatformTypeWechat),
-                            @(SSDKPlatformTypeQQ)]
+                            @(SSDKPlatformTypeWechat)]
                  onImport:^(SSDKPlatformType platformType)
      {
          switch (platformType)
          {
              case SSDKPlatformTypeWechat:
                  [ShareSDKConnector connectWeChat:[WXApi class]];
-                 break;
-             case SSDKPlatformTypeQQ:
-                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
                  break;
              case SSDKPlatformTypeSinaWeibo:
                  [ShareSDKConnector connectWeibo:[WeiboSDK class]];
@@ -217,12 +213,6 @@
                  [appInfo SSDKSetupWeChatByAppId:@"wxe1c771211c369252"
                                        appSecret:@"d4624c36b6795d1d99dcf0547af5443d"];
                  break;
-             case SSDKPlatformTypeQQ:
-                 [appInfo SSDKSetupQQByAppId:@"100371282"
-                                      appKey:@"aed9b0303e3ed1e27bae87c33761161d"
-                                    authType:SSDKAuthTypeBoth];
-                 break;
-             
              default:
                  break;
          }

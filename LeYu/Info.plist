@@ -35,19 +35,9 @@
 				<string>wxe1c771211c369252</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>qq</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>QQ05FB8B52</string>
-			</array>
-		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.1.1</string>
+	<string>1.1.2</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
